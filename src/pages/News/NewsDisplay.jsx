@@ -14,7 +14,6 @@ export default function NewsDisplay() {
   const navigate = useNavigate();
   const [selectedTab, setSelectedTab] = useState("All");
   const [selectedRows, setSelectedRows] = useState([]);
-  const [filterOpen, setFilterOpen] = useState(false);
   const [isChange, setIsChange] = useState(false);
   const [view, setView] = useState(false);
   const { deleteNews, fetchNewsById, singleNews } = useNewsStore();
@@ -23,13 +22,6 @@ export default function NewsDisplay() {
   const [row, setRow] = useState(10);
   const [search, setSearch] = useState("");
   const [previewOpen, setPreviewOpen] = useState(false);
-  const handleOpenFilter = () => {
-    setFilterOpen(true);
-  };
-
-  const handleCloseFilter = () => {
-    setFilterOpen(false);
-  };
 
   const handleTabChange = (tab) => {
     setSelectedTab(tab);

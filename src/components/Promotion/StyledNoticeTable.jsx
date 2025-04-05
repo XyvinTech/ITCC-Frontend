@@ -1,6 +1,5 @@
 import { Box, Stack } from "@mui/material";
 import React, { useEffect, useState } from "react";
-import StyledSearchbar from "../../ui/StyledSearchbar";
 import StyledTable from "../../ui/StyledTable";
 import { useNavigate } from "react-router-dom";
 import { usePromotionStore } from "../../store/promotionstore";
@@ -9,7 +8,6 @@ import { useListStore } from "../../store/listStore";
 
 const StyledNoticeTable = () => {
   const navigate = useNavigate();
-  const [filterOpen, setFilterOpen] = useState(false);
   const [isChange, setIsChange] = useState(false);
   const [selectedRows, setSelectedRows] = useState([]);
   const { deletePromotions } = usePromotionStore();
@@ -23,13 +21,7 @@ const StyledNoticeTable = () => {
     fetchPromotion(filter);
 
   }, [isChange, pageNo, row]);
-  const handleOpenFilter = () => {
-    setFilterOpen(true);
-  };
 
-  const handleCloseFilter = () => {
-    setFilterOpen(false);
-  };
   const handleSelectionChange = (newSelectedIds) => {
     setSelectedRows(newSelectedIds);
   };

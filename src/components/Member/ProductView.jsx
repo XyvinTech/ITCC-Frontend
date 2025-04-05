@@ -11,7 +11,6 @@ import {
 import { useForm } from "react-hook-form";
 import { ReactComponent as CloseIcon } from "../../assets/icons/CloseIcon.svg";
 import { StyledButton } from "../../ui/StyledButton";
-import { useNewsStore } from "../../store/newsStore";
 import { toast } from "react-toastify";
 import { useProductStore } from "../../store/productStore";
 import { useNavigate } from "react-router-dom";

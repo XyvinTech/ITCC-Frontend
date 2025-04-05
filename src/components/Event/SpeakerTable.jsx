@@ -1,6 +1,4 @@
 import { Box, Stack } from "@mui/material";
-import React, { useState } from "react";
-import StyledSearchbar from "../../ui/StyledSearchbar";
 import EventTable from "../../ui/EventTable";
 const SpeakerTable = ({ data }) => {
   const userColumns = [

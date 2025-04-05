@@ -35,7 +35,6 @@ const MemberList = () => {
   const [selectedRows, setSelectedRows] = useState([]);
   const { deleteMembers } = useMemberStore();
   const [confirmDeleteOpen, setConfirmDeleteOpen] = useState(false);
-  const [selectedTab, setSelectedTab] = useState("All");
   const [row, setRow] = useState(10);
   const [loading, setLoading] = useState(false);
   const [filters, setFilters] = useState({
@@ -137,9 +136,7 @@ const MemberList = () => {
   const handleChange = () => {
     setIschange(!isChange);
   };
-  const handleTabChange = (tab) => {
-    setSelectedTab(tab);
-  };
+
   return (
     <>
       <Box padding={"15px"}>

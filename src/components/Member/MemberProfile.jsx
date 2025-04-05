@@ -2,7 +2,6 @@ import { Box, Grid, Skeleton, Typography } from "@mui/material";
 import React, { useState } from "react";
 import UserCard from "../../ui/UserCard";
 import FileCopyIcon from "@mui/icons-material/FileCopy";
-import { ReactComponent as WebsiteIcon } from "../../assets/icons/AppWebsiteIcon.svg";
 import CertificateBox from "../../ui/CerficateBox";
 import AwardBox from "../../ui/AwardBox";
 import VideoCard from "../../ui/VideoCard";

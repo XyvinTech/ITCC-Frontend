@@ -13,20 +13,13 @@ import { ReactComponent as AddIcon } from "../../assets/icons/AddIcon.svg";
 export default function RoleManagement() {
   const navigate = useNavigate();
   const [selectedRows, setSelectedRows] = useState([]);
-  const [filterOpen, setFilterOpen] = useState(false);
   const [isChange, setIsChange] = useState(false);
   const { deleteRoles } = useRoleStore();
   const { getRoles } = useListStore();
   const [pageNo, setPageNo] = useState(1);
   const [row, setRow] = useState(10);
   const [search, setSearch] = useState("");
-  const handleOpenFilter = () => {
-    setFilterOpen(true);
-  };
 
-  const handleCloseFilter = () => {
-    setFilterOpen(false);
-  };
   const handleSelectionChange = (newSelectedIds) => {
     setSelectedRows(newSelectedIds);
   };

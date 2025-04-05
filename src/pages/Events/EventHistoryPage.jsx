@@ -1,21 +1,16 @@
 import { Box, Grid, Stack, Typography } from "@mui/material";
 import React, { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
 
 import StyledTable from "../../ui/StyledTable.jsx";
-import { eventHistoryColumns, eventList, userData } from "../../assets/json/TableData";
-import { StyledButton } from "../../ui/StyledButton";
+import { eventList, userData } from "../../assets/json/TableData";
 import StyledSearchbar from "../../ui/StyledSearchbar.jsx";
 import { useListStore } from "../../store/listStore.js";
 export default function EventHistorypage() {
-  const [filterOpen, setFilterOpen] = useState(false);
   const [pageNo, setPageNo] = useState(1);
   const [search, setSearch] = useState("");
   const { fetchEvent } = useListStore();
   const [row, setRow] = useState(10);
-  const handleOpenFilter = () => {
-    setFilterOpen(true);
-  };
+
   useEffect(() => {
     let filter = {};
     if (search) {
@@ -27,9 +22,7 @@ export default function EventHistorypage() {
     filter.limit = row;
     fetchEvent(filter);
   }, [pageNo, search, row]);
-  const handleCloseFilter = () => {
-    setFilterOpen(false);
-  };
+
 
   return (
     <>

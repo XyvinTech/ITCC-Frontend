@@ -9,7 +9,6 @@ import {
   Grid,
   Avatar,
   Chip,
-  Divider,
 } from "@mui/material";
 import CloseIcon from "@mui/icons-material/Close";
 import moment from "moment";

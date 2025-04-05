@@ -10,7 +10,7 @@ import {
 import React, { useEffect, useState } from "react";
 import StyledSearchbar from "../../ui/StyledSearchbar";
 import StyledTable from "../../ui/StyledTable";
-import { approvalColumns, feedColumns } from "../../assets/json/TableData";
+import {  feedColumns } from "../../assets/json/TableData";
 import { useFeedStore } from "../../store/feedStore";
 import FeedApproval from "../../components/Approve/FeedApproval";
 import FeedReject from "../../components/Approve/FeedReject";

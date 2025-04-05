@@ -1,6 +1,5 @@
 import { Box, Stack } from "@mui/material";
 import React, { useEffect, useState } from "react";
-import StyledSearchbar from "../../ui/StyledSearchbar";
 import StyledTable from "../../ui/StyledTable";
 import { useNavigate } from "react-router-dom";
 import { usePromotionStore } from "../../store/promotionstore";
@@ -9,7 +8,6 @@ import { useListStore } from "../../store/listStore";
 
 const StyledPosterTable = () => {
   const navigate = useNavigate();
-  const [filterOpen, setFilterOpen] = useState(false);
   const [isChange, setIsChange] = useState(false);
   const [selectedRows, setSelectedRows] = useState([]);
   const { deletePromotions } = usePromotionStore();
@@ -21,14 +19,8 @@ const StyledPosterTable = () => {
     filter.pageNo = pageNo;
     filter.limit = row;
     fetchPromotion(filter);
-  }, [isChange, pageNo,row]);
-  const handleOpenFilter = () => {
-    setFilterOpen(true);
-  };
+  }, [isChange, pageNo, row]);
 
-  const handleCloseFilter = () => {
-    setFilterOpen(false);
-  };
   const handleSelectionChange = (newSelectedIds) => {
     setSelectedRows(newSelectedIds);
   };
@@ -70,9 +62,7 @@ const StyledPosterTable = () => {
         justifyContent={"end"}
         paddingBottom={"15px"}
         alignItems={"center"}
-      >
-       
-      </Stack>{" "}
+      ></Stack>{" "}
       <Box
         borderRadius={"16px"}
         bgcolor={"white"}

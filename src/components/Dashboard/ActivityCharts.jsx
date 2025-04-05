@@ -9,19 +9,12 @@ import {
   CartesianGrid,
   ResponsiveContainer,
 } from "recharts";
-import DashboardSelect from "../../ui/DashboardSelect";
 
 const ActivityCharts = ({data}) => {
   const [value, setValue] = useState("Monthly");
   const handleSelectChange = (event) => {
     setValue(event.target.value);
   };
-  const options = [
-    { value: "Daily", label: "Daily" },
-    { value: "Weekly", label: "Weekly" },
-    { value: "Monthly", label: "Monthly" },
-    { value: "Yearly", label: "Yearly" },
-  ];
 
 
   return (

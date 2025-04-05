@@ -8,7 +8,6 @@ import {
   DialogContent,
   DialogActions,
   IconButton,
-  LinearProgress,
 } from "@mui/material";
 import { StyledButton } from "../../ui/StyledButton.jsx";
 import { Controller, useForm } from "react-hook-form";
@@ -18,9 +17,7 @@ import { useLocation, useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import useHierarchyStore from "../../store/hierarchyStore.js";
 import { getAllLevel, getLevels } from "../../api/hierarchyapi.js";
-
 import { Delete } from "@mui/icons-material";
-import { set } from "date-fns";
 
 export default function LevelAdd() {
   const {
@@ -37,8 +34,7 @@ export default function LevelAdd() {
   const { levelId, category, isUpdate } = location.state || {};
   const [type, setType] = useState();
   const [submitting, setSubmitting] = useState(false);
-  const { addLevel, fetchLevelById, level, updateLevel } =
-    useHierarchyStore();
+  const { addLevel, fetchLevelById, level, updateLevel } = useHierarchyStore();
   const [open, setOpen] = useState(false);
   const [stateOptions, setStateOptions] = useState([]);
   const [adminStateOptions, setAdminStateOptions] = useState([]);

@@ -93,7 +93,7 @@ const SimpleDialog = ({ open, onClose }) => {
   const navigate = useNavigate();
   const { singleAdmin, fetchAdminById } = useAdminStore();
   const handleLogout = () => {
-    localStorage.removeItem("4ZbQwXtY8uVrN5mP7kL3JhF6");
+    localStorage.removeItem("4ZbFyHHg8uVrN5mP9kL3JhH7");
     localStorage.removeItem("memberactivityTab");
     localStorage.removeItem("businessTab");
     localStorage.removeItem("approvalTab");
@@ -190,7 +190,7 @@ const Layout = (props) => {
     setDialogOpen(false);
   };
   const handleLogout = () => {
-    localStorage.removeItem("4ZbQwXtY8uVrN5mP7kL3JhF6");
+    localStorage.removeItem("4ZbFyHHg8uVrN5mP9kL3JhH7");
     navigate("/");
   };
   const drawer = (

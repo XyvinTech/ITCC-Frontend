@@ -38,7 +38,7 @@ function LoginPage() {
         password: data.otp,
       };
       const user = await getLogin(formData);
-      localStorage.setItem("4ZbQwXtY8uVrN5mP7kL3JhF6", user.data);
+      localStorage.setItem("4ZbFyHHg8uVrN5mP9kL3JhH7", user.data);
       navigate("/dashboard");
     } catch (error) {
       setLoginError(true);
@@ -48,7 +48,7 @@ function LoginPage() {
     }
   };
   useEffect(() => {
-    if (localStorage.getItem("4ZbQwXtY8uVrN5mP7kL3JhF6")) {
+    if (localStorage.getItem("4ZbFyHHg8uVrN5mP9kL3JhH7")) {
       navigate("/dashboard");
     }
   }, []);

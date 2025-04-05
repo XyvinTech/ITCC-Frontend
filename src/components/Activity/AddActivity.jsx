@@ -3,9 +3,6 @@ import {
   Grid,
   Typography,
   Stack,
-  LinearProgress,
-  FormControlLabel,
-  Checkbox,
 } from "@mui/material";
 import React, { useEffect, useState } from "react";
 import { Controller, useForm } from "react-hook-form";
@@ -14,7 +11,7 @@ import StyledSelectField from "../../ui/StyledSelectField";
 import { StyledMultilineTextField } from "../../ui/StyledMultilineTextField";
 import { StyledButton } from "../../ui/StyledButton";
 import { toast } from "react-toastify";
-import { useLocation, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { getLevels, getAllLevel } from "../../api/hierarchyapi";
 import useActivityStore from "../../store/activityStore";
 import { StyledCalender } from "../../ui/StyledCalender";
@@ -25,7 +22,6 @@ const AddActivity = () => {
     control,
     handleSubmit,
     reset,
-    setValue,
     watch,
     formState: { errors },
   } = useForm();
