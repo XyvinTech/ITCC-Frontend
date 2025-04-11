@@ -38,6 +38,7 @@ const useMemberStore = create((set) => ({
   updateMember: async (id, data) => {
     await editMember(id, data);
   },
+  
   blockUser: async (id) => {
     await userBlock(id);
   },
