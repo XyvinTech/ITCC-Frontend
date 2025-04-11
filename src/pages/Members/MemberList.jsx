@@ -175,7 +175,7 @@ const MemberList = () => {
                   width: "12px",
                   height: "12px",
                   borderRadius: "50%",
-                  backgroundColor: "#F58220",
+                  backgroundColor: "#2D9CDB",
                   right: 8,
                   top: 8,
                 },
@@ -219,7 +219,7 @@ const MemberList = () => {
                     filters.chapter ||
                     (filters.installed !== undefined &&
                       filters.installed !== "")
-                      ? "#F58220"
+                      ? "#2D9CDB"
                       : "rgba(0, 0, 0, 0.12)",
                 }}
               >

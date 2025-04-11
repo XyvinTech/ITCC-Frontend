@@ -13,7 +13,7 @@ const CircleButton = styled.span`
   display: inline-block;
   width: 20px;
   height: 20px;
-  border: 2px solid #f58220;
+  border: 2px solid #2d9cdb;
   border-radius: 50%;
   cursor: pointer;
   margin-right: 10px;
@@ -26,7 +26,7 @@ const CircleButton = styled.span`
     left: 50%;
     width: ${(props) => (props.selected ? "10px" : "0px")};
     height: ${(props) => (props.selected ? "10px" : "0px")};
-    background-color: #f58220;
+    background-color: #2d9cdb;
     border-radius: 50%;
     transform: translate(-50%, -50%);
     transition: width 0.2s ease, height 0.2s ease;
@@ -105,7 +105,9 @@ const AddRole = () => {
       setValue("roleName", singleRole.roleName);
       setPermissions(singleRole.permissions);
       setValue("description", singleRole.description);
-      const selectedStatus = singleRole.status ? { value: true, label: "Active" } : { value: false, label: "Inactive" };
+      const selectedStatus = singleRole.status
+        ? { value: true, label: "Active" }
+        : { value: false, label: "Inactive" };
       setValue("status", selectedStatus);
     }
   }, [singleRole, isUpdate, setValue]);

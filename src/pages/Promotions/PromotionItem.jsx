@@ -47,7 +47,7 @@ const PromotionItem = () => {
         aria-label="tabs"
         TabIndicatorProps={{
           style: {
-            backgroundColor: "#F58220",
+            backgroundColor: "#2D9CDB",
             height: 4,
             borderRadius: "4px",
           },
@@ -55,7 +55,7 @@ const PromotionItem = () => {
         sx={{
           paddingTop: "0px",
           "& .MuiTabs-indicator": {
-            backgroundColor: "#F58220",
+            backgroundColor: "#2D9CDB",
           },
           "& .MuiTab-root": {
             textTransform: "none",
@@ -64,7 +64,7 @@ const PromotionItem = () => {
             color: "#686465",
           },
           "& .MuiTab-root.Mui-selected": {
-            color: "#F58220",
+            color: "#2D9CDB",
           },
         }}
       >

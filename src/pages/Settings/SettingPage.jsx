@@ -23,7 +23,7 @@ const SettingsPage = () => {
         aria-label="tabs"
         TabIndicatorProps={{
           style: {
-            backgroundColor: "#F58220",
+            backgroundColor: "#2D9CDB",
             height: 4,
             borderRadius: "4px",
           },
@@ -32,7 +32,7 @@ const SettingsPage = () => {
           bgcolor: "white",
           paddingTop: "24px",
           "& .MuiTabs-indicator": {
-            backgroundColor: "#F58220",
+            backgroundColor: "#2D9CDB",
           },
           "& .MuiTab-root": {
             textTransform: "none",
@@ -41,7 +41,7 @@ const SettingsPage = () => {
             color: "#686465",
           },
           "& .MuiTab-root.Mui-selected": {
-            color: "#F58220",
+            color: "#2D9CDB",
           },
         }}
       >

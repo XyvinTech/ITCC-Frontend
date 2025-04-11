@@ -5,6 +5,7 @@ import {
   editMember,
   getMember,
   getMemberById,
+  memberApproval,
   userBlock,
   userUnBlock,
 } from "../api/memberapi";
@@ -42,6 +43,9 @@ const useMemberStore = create((set) => ({
   },
   unBlockUser: async (id) => {
     await userUnBlock(id);
+  },
+  updateMemberApproval: async (id, data) => {
+    await memberApproval(id, data);
   },
   setRefreshMember: () =>
     set((state) => ({ refreshMember: !state.refreshMember })),

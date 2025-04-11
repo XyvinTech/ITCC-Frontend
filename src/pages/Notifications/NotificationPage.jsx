@@ -6,7 +6,9 @@ import NotificationLog from "./NotificationLog";
 
 const Notificationpage = () => {
   const storedTab = localStorage.getItem("notificationTab");
-  const [selectedTab, setSelectedTab] = useState(storedTab ? Number(storedTab) : 0);
+  const [selectedTab, setSelectedTab] = useState(
+    storedTab ? Number(storedTab) : 0
+  );
 
   const handleChange = (event, newValue) => {
     localStorage.setItem("notificationTab", newValue);
@@ -21,7 +23,7 @@ const Notificationpage = () => {
         aria-label="tabs"
         TabIndicatorProps={{
           style: {
-            backgroundColor: "#F58220",
+            backgroundColor: "#2D9CDB",
             height: 4,
             borderRadius: "4px",
           },
@@ -30,7 +32,7 @@ const Notificationpage = () => {
           bgcolor: "white",
           paddingTop: "24px",
           "& .MuiTabs-indicator": {
-            backgroundColor: "#F58220",
+            backgroundColor: "#2D9CDB",
           },
           "& .MuiTab-root": {
             textTransform: "none",
@@ -39,7 +41,7 @@ const Notificationpage = () => {
             color: "#686465",
           },
           "& .MuiTab-root.Mui-selected": {
-            color: "#F58220",
+            color: "#2D9CDB",
           },
         }}
       >

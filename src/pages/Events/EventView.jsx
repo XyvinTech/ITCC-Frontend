@@ -116,7 +116,7 @@ const EventView = () => {
           marginBottom={2}
         >
           {dayHeaders?.map((day) => (
-            <Box key={day} padding={1} bgcolor={"#F58220"} width={"130px"}>
+            <Box key={day} padding={1} bgcolor={"#2D9CDB"} width={"130px"}>
               <Typography
                 align="center"
                 fontSize={"16px"}
@@ -143,14 +143,14 @@ const EventView = () => {
             return (
               <Stack
                 key={date}
-                border="1px solid #F58220"
+                border="1px solid #2D9CDB"
                 padding={"10px"}
                 width={"130px"}
                 minHeight={"108px"}
                 borderRadius="10px"
                 justifyContent={"space-between"}
                 style={{
-                  backgroundColor: dayEvents?.length ? "#FFDEC2" : "#FFF",
+                  backgroundColor: dayEvents?.length ? "#EEF1FF" : "#FFF",
                 }}
               >
                 <Stack direction={"row"} justifyContent={"space-between"}>
@@ -371,7 +371,7 @@ const EventView = () => {
                         }}
                       />
                       <Typography variant="h7" color="textSecondary">
-                        {speaker?.name} 
+                        {speaker?.name}
                       </Typography>
                     </li>
                   ))}

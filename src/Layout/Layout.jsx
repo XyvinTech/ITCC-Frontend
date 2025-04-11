@@ -31,7 +31,7 @@ import NotificationsNoneOutlinedIcon from "@mui/icons-material/NotificationsNone
 import NewspaperOutlinedIcon from "@mui/icons-material/NewspaperOutlined";
 import CalendarMonthIcon from "@mui/icons-material/CalendarMonth";
 import EventNoteOutlinedIcon from "@mui/icons-material/EventNoteOutlined";
-import logo from "../assets/images/logo.png";
+import logo from "../assets/images/logo.jpg";
 import ApprovalIcon from "@mui/icons-material/Approval";
 import AccountBalanceWalletIcon from "@mui/icons-material/AccountBalanceWallet";
 import {
@@ -202,7 +202,7 @@ const Layout = (props) => {
         }}
       >
         <Stack justifyContent={"center"} spacing={2}>
-          <img src={logo} alt="Logo" width={"60px"} height="57px" />
+          <img src={logo} alt="Logo" width={"140px"} height="57px" />
         </Stack>
       </Toolbar>
       <List
@@ -246,9 +246,9 @@ const Layout = (props) => {
                   ? "#000000"
                   : "#6F7782",
                 backgroundColor: location.pathname.startsWith(item.to)
-                  ? "#FFDEC2"
+                  ? "#EEF1FF"
                   : "transparent",
-                "&:hover": { color: "#000000", backgroundColor: "#FFDEC2" },
+                "&:hover": { color: "#000000", backgroundColor: "#EEF1FF" },
                 "&:hover .MuiListItemIcon-root": { color: "#000000" },
               }}
             >

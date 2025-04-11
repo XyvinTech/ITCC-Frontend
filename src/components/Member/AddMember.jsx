@@ -35,7 +35,6 @@ const AddMember = () => {
   const navigate = useNavigate();
   const location = useLocation();
   const { memberId, isUpdate } = location.state || {};
-
   const { addMembers, fetchMemberById, member, updateMember, loading } =
     useMemberStore();
   const [loadings, setLoadings] = useState(false);

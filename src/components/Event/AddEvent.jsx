@@ -89,8 +89,6 @@ export default function AddEvent({ isUpdate }) {
       setValue("eventDate", event.eventDate);
       setValue("eventEndDate", event.eventEndDate);
       setValue("endDate", event.endDate);
-      setValue("startTime", event.startTime);
-      setValue("endTime", event.endTime);
       setValue("description", event.description);
       setValue("organiserName", event.organiserName);
       setValue("limit", event.limit);
@@ -214,11 +212,9 @@ export default function AddEvent({ isUpdate }) {
         eventName: data?.eventName,
         ...(imageUrl && { image: imageUrl }),
         startDate: data?.startDate,
-        startTime: data?.startTime,
         endDate: data?.endDate,
         eventDate: data?.eventDate,
         ...(data?.eventEndDate && { eventEndDate: data?.eventEndDate }),
-        endTime: data?.endTime,
         speakers: speakersData,
         description: data?.description,
         organiserName: data?.organiserName,
@@ -675,56 +671,7 @@ export default function AddEvent({ isUpdate }) {
                   )}
                 />
               </Grid>
-              <Grid item xs={6}>
-                <Typography
-                  sx={{ marginBottom: 1 }}
-                  variant="h6"
-                  color="textSecondary"
-                >
-                  Start Time
-                </Typography>
-                <Controller
-                  name="startTime"
-                  control={control}
-                  defaultValue={null}
-                  rules={{ required: "Start Time is required" }}
-                  render={({ field }) => (
-                    <>
-                      <StyledTime {...field} />
-                      {errors.startTime && (
-                        <span style={{ color: "red" }}>
-                          {errors.startTime.message}
-                        </span>
-                      )}
-                    </>
-                  )}
-                />
-              </Grid>
-              <Grid item xs={6}>
-                <Typography
-                  sx={{ marginBottom: 1 }}
-                  variant="h6"
-                  color="textSecondary"
-                >
-                  End Time
-                </Typography>
-                <Controller
-                  name="endTime"
-                  control={control}
-                  defaultValue={null}
-                  rules={{ required: "End Time is required" }}
-                  render={({ field }) => (
-                    <>
-                      <StyledTime {...field} />
-                      {errors.endTime && (
-                        <span style={{ color: "red" }}>
-                          {errors.endTime.message}
-                        </span>
-                      )}
-                    </>
-                  )}
-                />
-              </Grid>
+       
               <Grid item xs={12}>
                 <Typography
                   sx={{ marginBottom: 1 }}

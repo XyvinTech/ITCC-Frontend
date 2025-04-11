@@ -27,8 +27,10 @@ import { getBusinessDwld } from "../../api/activityapi";
 
 const BusinessPage = () => {
   const navigate = useNavigate();
-  const storedTab= localStorage.getItem("businessTab")
-  const [selectedTab, setSelectedTab] = useState(storedTab? Number(storedTab) : 0);
+  const storedTab = localStorage.getItem("businessTab");
+  const [selectedTab, setSelectedTab] = useState(
+    storedTab ? Number(storedTab) : 0
+  );
   const [pageNo, setPageNo] = useState(1);
   const [filterOpen, setFilterOpen] = useState(false);
   const [selectedRows, setSelectedRows] = useState([]);
@@ -147,7 +149,6 @@ const BusinessPage = () => {
           </Typography>
         </Stack>
         <Stack direction={"row"} spacing={2} justifyContent={"flex-end"}>
-         
           <StyledButton
             variant={"primary"}
             name={
@@ -168,7 +169,7 @@ const BusinessPage = () => {
         aria-label="tabs"
         TabIndicatorProps={{
           style: {
-            backgroundColor: "#F58220",
+            backgroundColor: "#2D9CDB",
             height: 4,
             borderRadius: "4px",
           },
@@ -178,7 +179,7 @@ const BusinessPage = () => {
           margin: 2,
           backgroundColor: "white",
           "& .MuiTabs-indicator": {
-            backgroundColor: "#F58220",
+            backgroundColor: "#2D9CDB",
           },
           "& .MuiTab-root": {
             textTransform: "none",
@@ -187,7 +188,7 @@ const BusinessPage = () => {
             color: "#686465",
           },
           "& .MuiTab-root.Mui-selected": {
-            color: "#F58220",
+            color: "#2D9CDB",
           },
         }}
       >
@@ -204,11 +205,11 @@ const BusinessPage = () => {
           alignItems={"center"}
         >
           <Stack direction={"row"} spacing={2} mt={2}>
-          <StyledButton
-            variant={"primary"}
-            name={"Download"}
-            onClick={handleDownload}
-          />
+            <StyledButton
+              variant={"primary"}
+              name={"Download"}
+              onClick={handleDownload}
+            />
             <Tooltip title={hasActiveFilters ? "Active filters" : "Filter"}>
               <Badge
                 color="error"
@@ -219,7 +220,7 @@ const BusinessPage = () => {
                     width: "12px",
                     height: "12px",
                     borderRadius: "50%",
-                    backgroundColor: "#F58220",
+                    backgroundColor: "#2D9CDB",
                     right: 8,
                     top: 8,
                   },
@@ -247,7 +248,7 @@ const BusinessPage = () => {
                       ? "0 0 5px rgba(245, 130, 32, 0.5)"
                       : "none",
                     borderColor: hasActiveFilters
-                      ? "#F58220"
+                      ? "#2D9CDB"
                       : "rgba(0, 0, 0, 0.12)",
                   }}
                   className={hasActiveFilters ? "filter-active" : ""}

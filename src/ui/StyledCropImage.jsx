@@ -38,7 +38,7 @@ const CustomTextField = styled(TextField)(({ theme }) => ({
 
 const SaveButton = styled(Button)(({ theme }) => ({
   marginTop: "10px",
-  backgroundColor: "#f58220",
+  backgroundColor: "#2D9CDB",
   color: "#fff",
   fontWeight: "400",
   padding: "8px 16px",
@@ -150,7 +150,10 @@ export const StyledCropImage = ({ label, value, onChange, ratio }) => {
   const handleCropSave = async () => {
     if (imageForCrop && croppedAreaPixels) {
       try {
-        const croppedImage = await getCroppedImg(imageForCrop, croppedAreaPixels);
+        const croppedImage = await getCroppedImg(
+          imageForCrop,
+          croppedAreaPixels
+        );
         setSelectedImage(croppedImage);
         setCropModalOpen(false);
         const response = await fetch(croppedImage);
@@ -229,7 +232,7 @@ export const StyledCropImage = ({ label, value, onChange, ratio }) => {
                   display: "flex",
                   flexDirection: "column",
                   alignItems: "center",
-                  color: "#f58220",
+                  color: "#2D9CDB",
                 }}
               >
                 <PictureAsPdfOutlined style={{ fontSize: "40px" }} />
@@ -238,14 +241,18 @@ export const StyledCropImage = ({ label, value, onChange, ratio }) => {
                 </span>
               </IconButton>
               <DeleteButton onClick={handleDelete}>
-                <DeleteOutlineIcon style={{ fontSize: "20px", color: "#f44336" }} />
+                <DeleteOutlineIcon
+                  style={{ fontSize: "20px", color: "#f44336" }}
+                />
               </DeleteButton>
             </PdfPreview>
           ) : (
             <>
               <ImagePreview src={selectedImage} alt="Preview" />
               <DeleteButton onClick={handleDelete}>
-                <DeleteOutlineIcon style={{ fontSize: "20px", color: "#f44336" }} />
+                <DeleteOutlineIcon
+                  style={{ fontSize: "20px", color: "#f44336" }}
+                />
               </DeleteButton>
             </>
           )}
@@ -281,7 +288,7 @@ export const StyledCropImage = ({ label, value, onChange, ratio }) => {
             max={3}
             step={0.1}
             onChange={(e, newZoom) => setZoom(newZoom)}
-            style={{ marginTop: "10px", color: "#f58220" }}
+            style={{ marginTop: "10px", color: "#2D9CDB" }}
           />
           <div
             style={{

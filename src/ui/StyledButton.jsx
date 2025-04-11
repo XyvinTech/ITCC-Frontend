@@ -9,7 +9,7 @@ const buttonVariants = css`
       font-size: 16px;
       font-weight: 400;
       color: #ffffff;
-      background-color: #f58220;
+      background-color: #2d9cdb;
       radius: 5px;
     `}
 
@@ -30,10 +30,10 @@ ${(props) =>
     props.variant === "third" &&
     css`
       font-family: Inter;
-      border: 1px solid #AEAAAB;
+      border: 1px solid #aeaaab;
       font-size: 16px;
       font-weight: 600;
-      color: #AEAAAB;
+      color: #aeaaab;
       background-color: #fff;
       radius: 5px;
     `}

@@ -30,7 +30,9 @@ const MemberPage = () => {
   const [search, setSearch] = useState("");
   const [selectedRows, setSelectedRows] = useState([]);
   const [row, setRow] = useState(10);
-  const [selectedTab, setSelectedTab] = useState(storedTab ? Number(storedTab) : 0);
+  const [selectedTab, setSelectedTab] = useState(
+    storedTab ? Number(storedTab) : 0
+  );
   const [open, setOpen] = useState(false);
   const [isChange, setIsChange] = useState(false);
   const [confirmOpen, setConfirmOpen] = useState(false);
@@ -86,27 +88,26 @@ const MemberPage = () => {
     }
   };
   useEffect(() => {
-    if (selectedTab === 3) return; 
-  
+    if (selectedTab === 3) return;
+
     let filter = {
       pageNo,
       limit: row,
     };
-  
+
     if (search) {
       filter.search = search;
       setPageNo(1);
     }
-  
+
     if (selectedTab === 1) {
       filter.status = "active";
     } else if (selectedTab === 2) {
       filter.status = "pending";
     }
-  
+
     fetchPayment(filter);
-  }, [pageNo, search, row, selectedTab !== 3 ? selectedTab : null, isChange]); 
-  
+  }, [pageNo, search, row, selectedTab !== 3 ? selectedTab : null, isChange]);
 
   return (
     <>
@@ -135,7 +136,7 @@ const MemberPage = () => {
         aria-label="tabs"
         TabIndicatorProps={{
           style: {
-            backgroundColor: "#F58220",
+            backgroundColor: "#2D9CDB",
             height: 4,
             borderRadius: "4px",
           },
@@ -143,7 +144,7 @@ const MemberPage = () => {
         sx={{
           paddingTop: "0px",
           "& .MuiTabs-indicator": {
-            backgroundColor: "#F58220",
+            backgroundColor: "#2D9CDB",
           },
           "& .MuiTab-root": {
             textTransform: "none",
@@ -152,7 +153,7 @@ const MemberPage = () => {
             color: "#686465",
           },
           "& .MuiTab-root.Mui-selected": {
-            color: "#F58220",
+            color: "#2D9CDB",
           },
         }}
       >

@@ -90,7 +90,7 @@ export const postColumns = [
 ];
 export const approvalColumns = [
   { title: "Date", field: "createdAt", padding: "none" },
-  { title: "Seller", field: "sellerName" },
+  { title: "Chapter", field: "chapterName" },
   { title: "Name", field: "name" },
   { title: "Image", field: "image" },
   { title: "Status", field: "status" },

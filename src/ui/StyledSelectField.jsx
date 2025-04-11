@@ -37,11 +37,11 @@ const StyledSelectField = ({
     }),
     option: (provided, state) => ({
       ...provided,
-      backgroundColor: state.isFocused ? "#F58220" : "transparent",
+      backgroundColor: state.isFocused ? "#2D9CDB" : "transparent",
       color: state.isFocused ? "#ffffff" : "#000000",
       cursor: "pointer",
       ":active": {
-        backgroundColor: "#F58220",
+        backgroundColor: "#2D9CDB",
       },
     }),
     menu: (provided) => ({
@@ -65,7 +65,6 @@ const StyledSelectField = ({
       color: "#79747E",
     }),
   };
-  
 
   return (
     <SelectContainer>
@@ -77,7 +76,6 @@ const StyledSelectField = ({
         isMulti={isMulti}
         isDisabled={isDisabled}
         styles={customStyles}
-      
       />
     </SelectContainer>
   );

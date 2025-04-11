@@ -9,7 +9,8 @@ const SuspendProfile = ({ open, onClose, onChange, id }) => {
   const { updateMember, fetchMemberById, member } = useMemberStore();
   const [loading, setLoading] = useState(false);
   useEffect(() => {
-    fetchMemberById(id);
+    if (id!==null){
+    fetchMemberById(id);}
   }, [id]);
   const onSubmit = async () => {
     setLoading(true);

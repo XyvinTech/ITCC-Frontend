@@ -106,13 +106,13 @@ const QRPage = () => {
   const renderSocialIcon = (platform) => {
     switch (platform) {
       case "Instagram":
-        return <Instagram sx={{ color: "#f58220" }} />;
+        return <Instagram sx={{ color: "#2D9CDB" }} />;
       case "Twitter":
-        return <Twitter sx={{ color: "#f58220" }} />;
+        return <Twitter sx={{ color: "#2D9CDB" }} />;
       case "Linkedin":
-        return <LinkedIn sx={{ color: "#f58220" }} />;
+        return <LinkedIn sx={{ color: "#2D9CDB" }} />;
       case "Facebook":
-        return <Facebook sx={{ color: "#f58220" }} />;
+        return <Facebook sx={{ color: "#2D9CDB" }} />;
       default:
         return null;
     }
@@ -168,8 +168,8 @@ const QRPage = () => {
                         left: -5,
                         width: "40px",
                         height: "40px",
-                        borderTop: "3px solid #f58220",
-                        borderLeft: "3px solid #f58220",
+                        borderTop: "3px solid #2D9CDB",
+                        borderLeft: "3px solid #2D9CDB",
                       }}
                     />
 
@@ -199,8 +199,8 @@ const QRPage = () => {
                         right: -5,
                         width: "40px",
                         height: "40px",
-                        borderBottom: "3px solid #f58220",
-                        borderRight: "3px solid #f58220",
+                        borderBottom: "3px solid #2D9CDB",
+                        borderRight: "3px solid #2D9CDB",
                       }}
                     />
                   </Box>
@@ -215,7 +215,7 @@ const QRPage = () => {
                       sx={{
                         height: "1px",
                         width: "40px",
-                        backgroundColor: "#f58220",
+                        backgroundColor: "#2D9CDB",
                         mb: 1,
                       }}
                     />
@@ -231,7 +231,7 @@ const QRPage = () => {
                             sx={{
                               fontSize: "0.9rem",
                               mr: 0.5,
-                              color: "#f58220",
+                              color: "#2D9CDB",
                             }}
                           />
                           ID: {userData?.memberId}
@@ -248,7 +248,7 @@ const QRPage = () => {
                             sx={{
                               fontSize: "0.9rem",
                               mr: 0.5,
-                              color: "#f58220",
+                              color: "#2D9CDB",
                             }}
                           />
                           {userData?.chapter?.name}
@@ -284,13 +284,13 @@ const QRPage = () => {
                 <Stack direction="row" alignItems="center" spacing={1}>
                   <Stack>
                     {" "}
-                    <Phone sx={{ color: "#f58220" }} />{" "}
+                    <Phone sx={{ color: "#2D9CDB" }} />{" "}
                   </Stack>
                   <Typography variant="h7">{userData?.phone}</Typography>
                 </Stack>
                 <Stack direction="row" alignItems="center" spacing={1}>
                   <Stack>
-                    <Email sx={{ color: "#f58220" }} />{" "}
+                    <Email sx={{ color: "#2D9CDB" }} />{" "}
                   </Stack>
                   <Typography variant="h7">{userData?.email}</Typography>
                 </Stack>
@@ -298,7 +298,7 @@ const QRPage = () => {
                   <Stack direction="row" alignItems="center" spacing={1}>
                     <Stack>
                       {" "}
-                      <Place sx={{ color: "#f58220" }} />{" "}
+                      <Place sx={{ color: "#2D9CDB" }} />{" "}
                     </Stack>
                     <Typography variant="h7">{userData?.address}</Typography>
                   </Stack>
@@ -352,7 +352,7 @@ const QRPage = () => {
                               spacing={1}
                             >
                               <Stack>
-                                <Phone sx={{ color: "#f58220" }} />
+                                <Phone sx={{ color: "#2D9CDB" }} />
                               </Stack>
                               <Typography variant="body2">
                                 {company.phone}
@@ -367,7 +367,7 @@ const QRPage = () => {
                               spacing={1}
                             >
                               <Stack>
-                                <Email sx={{ color: "#f58220" }} />
+                                <Email sx={{ color: "#2D9CDB" }} />
                               </Stack>
                               <Typography variant="body2">
                                 {company.email}
@@ -382,7 +382,7 @@ const QRPage = () => {
                               spacing={1}
                             >
                               <Stack>
-                                <Place sx={{ color: "#f58220" }} />
+                                <Place sx={{ color: "#2D9CDB" }} />
                               </Stack>
                               <Typography variant="body2">
                                 {company.address}
@@ -397,7 +397,7 @@ const QRPage = () => {
                               spacing={1}
                             >
                               <Stack>
-                                <Language sx={{ color: "#f58220" }} />
+                                <Language sx={{ color: "#2D9CDB" }} />
                               </Stack>
                               <Typography variant="body2">
                                 {company.websites}
@@ -527,7 +527,7 @@ const QRPage = () => {
                           borderRadius={"12px"}
                           p={2}
                         >
-                          <Language sx={{ color: "#f58220" }} />{" "}
+                          <Language sx={{ color: "#2D9CDB" }} />{" "}
                           <Typography
                             variant="h5"
                             color="#6D6D6D"

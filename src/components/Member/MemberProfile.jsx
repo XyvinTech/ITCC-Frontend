@@ -5,19 +5,25 @@ import FileCopyIcon from "@mui/icons-material/FileCopy";
 import CertificateBox from "../../ui/CerficateBox";
 import AwardBox from "../../ui/AwardBox";
 import VideoCard from "../../ui/VideoCard";
-import { Facebook, Instagram, Language, LinkedIn, Twitter } from "@mui/icons-material";
+import {
+  Facebook,
+  Instagram,
+  Language,
+  LinkedIn,
+  Twitter,
+} from "@mui/icons-material";
 
 const MemberProfile = ({ data, loading }) => {
   const renderSocialIcon = (platform) => {
     switch (platform) {
       case "Instagram":
-        return <Instagram sx={{ color: "#f58220" }}/>;
+        return <Instagram sx={{ color: "#2D9CDB" }} />;
       case "Twitter":
-        return <Twitter sx={{ color: "#f58220" }} />;
+        return <Twitter sx={{ color: "#2D9CDB" }} />;
       case "Linkedin":
-        return <LinkedIn sx={{ color: "#f58220" }}/>;
+        return <LinkedIn sx={{ color: "#2D9CDB" }} />;
       case "Facebook":
-        return <Facebook sx={{ color: "#f58220" }}/>;
+        return <Facebook sx={{ color: "#2D9CDB" }} />;
       default:
         return null;
     }
@@ -74,7 +80,6 @@ const MemberProfile = ({ data, loading }) => {
              <CompanyCard companies={data?.company} />
            </Grid>
           )} */}
-         
           {data?.social && data?.social?.length > 0 && (
             <>
               <Grid item md={12}>
@@ -135,7 +140,7 @@ const MemberProfile = ({ data, loading }) => {
                     borderRadius={"12px"}
                     p={2}
                   >
-                    <Language sx={{ color: "#f58220" }} />
+                    <Language sx={{ color: "#2D9CDB" }} />
                     <Typography
                       variant="h5"
                       color="#6D6D6D"

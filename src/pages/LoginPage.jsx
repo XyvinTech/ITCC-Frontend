@@ -16,7 +16,7 @@ import Phone from "@mui/icons-material/Phone";
 import Lock from "@mui/icons-material/Lock";
 import { useNavigate } from "react-router-dom";
 import { getLogin } from "../api/adminapi";
-import Logo from "../assets/images/logo.png";
+import Logo from "../assets/images/logo.jpg";
 import { StyledButton } from "../ui/StyledButton";
 
 function LoginPage() {
@@ -57,13 +57,13 @@ function LoginPage() {
       <Grid item xs={12} sm={8} md={6} lg={4}>
         <Box sx={{ p: 4, bgcolor: "#FFFFFF", borderRadius: 5, boxShadow: 2 }}>
           <Stack spacing={3} justifyContent="center" alignItems={"center"}>
-            <img src={Logo} alt="Logo" width={"60px"} height="57px" />
+            <img src={Logo} alt="Logo" width={"240px"} height="100px" />
           </Stack>
 
           <Stack
             direction={"column"}
             spacing={2}
-            sx={{ marginTop: 8, marginBottom: 5 }}
+            sx={{ marginTop: 4, marginBottom: 5 }}
           >
             <Typography variant="h5" align="left">
               Sign In

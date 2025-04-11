@@ -140,43 +140,44 @@ const StyledTable = ({
 
   const getStatusVariant = (status) => {
     if (typeof status === "boolean") {
-      return status ? "green" : "red";
+      return status ? "#2D9CDB" : "#F44336"; // Primary for true, red for false
     }
     switch (status) {
       case "pending":
-        return "#FF9F00";
+        return "#F2C94C"; // Yellow tone
       case "rejected":
-        return "#C62828";
+        return "#EB5757"; // Soft red
       case "active":
-        return "#4CAF50";
+        return "#27AE60"; // Green tone
       case "deleted":
-        return "#F44336";
+        return "#B00020"; // Deep red
       case "cancelled":
-        return "#FF5722";
+        return "#F2994A"; // Orange
       case "blocked":
-        return "red";
+        return "#D32F2F"; // Bright red
       case "published":
-        return "#3F51B5";
+        return "#2D9CDB"; // Primary
       case "unpublished":
-        return "#9C27B0";
+        return "#9B51E0"; // Purple
       case "created":
-        return "#FFC107";
+        return "#56CCF2"; // Light blue
       case "success":
-        return "#4CAF50";
+        return "#219653"; // Green
       case "failure":
-        return "red";
+        return "#EB5757"; // Same as rejected
       case "live":
-        return "#03A9F4";
+        return "#2F80ED"; // Strong blue
       case "accepted":
-        return "#8BC34A";
+        return "#6FCF97"; // Light green
       case "meeting_scheduled":
-        return "#00BCD4";
+        return "#00BCD4"; // Cyan
       case "completed":
-        return "#673AB7";
+        return "#BB6BD9"; // Violet
       default:
-        return "#607D8B";
+        return "#BDBDBD"; // Neutral grey
     }
   };
+  
   const formatIndianDate = (date) => {
     if (!date) return "";
 

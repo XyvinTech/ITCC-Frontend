@@ -45,7 +45,7 @@ const LevelPage = () => {
   useEffect(() => {
     if (type && tabMapping.hasOwnProperty(type)) {
       setSelectedTab(tabMapping[type]);
-      localStorage.setItem("levelTab", tabMapping[type]); 
+      localStorage.setItem("levelTab", tabMapping[type]);
     }
   }, [type]);
   useEffect(() => {
@@ -179,7 +179,7 @@ const LevelPage = () => {
         aria-label="tabs"
         TabIndicatorProps={{
           style: {
-            backgroundColor: "#F58220",
+            backgroundColor: "#2D9CDB",
             height: 4,
             borderRadius: "4px",
           },
@@ -187,7 +187,7 @@ const LevelPage = () => {
         sx={{
           paddingTop: "0px",
           "& .MuiTabs-indicator": {
-            backgroundColor: "#F58220",
+            backgroundColor: "#2D9CDB",
           },
           "& .MuiTab-root": {
             textTransform: "none",
@@ -196,7 +196,7 @@ const LevelPage = () => {
             color: "#686465",
           },
           "& .MuiTab-root.Mui-selected": {
-            color: "#F58220",
+            color: "#2D9CDB",
           },
         }}
       >

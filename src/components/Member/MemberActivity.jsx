@@ -9,18 +9,20 @@ import { useListStore } from "../../store/listStore";
 const MemberActivity = () => {
   const storeTab = localStorage.getItem("memberactivityTab");
   const navigate = useNavigate();
-  const [selectedTab, setSelectedTab] = useState(storeTab? Number(storeTab) : 0);
+  const [selectedTab, setSelectedTab] = useState(
+    storeTab ? Number(storeTab) : 0
+  );
   const [pageNo, setPageNo] = useState(1);
   const [search, setSearch] = useState();
   const [row, setRow] = useState(10);
   const { fetchActivity } = useListStore();
-  const {id}=useParams();
+  const { id } = useParams();
   const handleChange = (event, newValue) => {
     localStorage.setItem("memberactivityTab", newValue);
     setSelectedTab(newValue);
   };
   useEffect(() => {
-    let filter = {user:id};
+    let filter = { user: id };
     if (search) {
       filter.search = search;
       setPageNo(1);
@@ -35,7 +37,7 @@ const MemberActivity = () => {
     filter.pageNo = pageNo;
     filter.limit = row;
     fetchActivity(filter);
-  }, [pageNo, search, row, id,selectedTab]);
+  }, [pageNo, search, row, id, selectedTab]);
   const activityColumns = [
     { title: "Date", field: "createdAt", padding: "none" },
     { title: "Business giver", field: "senderName" },
@@ -55,7 +57,7 @@ const MemberActivity = () => {
         aria-label="tabs"
         TabIndicatorProps={{
           style: {
-            backgroundColor: "#F58220",
+            backgroundColor: "#2D9CDB",
             height: 4,
             borderRadius: "4px",
           },
@@ -65,7 +67,7 @@ const MemberActivity = () => {
 
           backgroundColor: "white",
           "& .MuiTabs-indicator": {
-            backgroundColor: "#F58220",
+            backgroundColor: "#2D9CDB",
           },
           "& .MuiTab-root": {
             textTransform: "none",
@@ -74,7 +76,7 @@ const MemberActivity = () => {
             color: "#686465",
           },
           "& .MuiTab-root.Mui-selected": {
-            color: "#F58220",
+            color: "#2D9CDB",
           },
         }}
       >

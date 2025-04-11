@@ -10,10 +10,13 @@ import {
 } from "@mui/material";
 import FeedList from "./FeedList";
 import MembershipApproval from "./MembershipApproval";
+import BusinessPosts from "./BusinessPosts";
 
 const ApprovalPage = () => {
   const storedTab = localStorage.getItem("approvalTab");
-  const [selectedTab, setSelectedTab] = useState(storedTab ? Number(storedTab) : 0);
+  const [selectedTab, setSelectedTab] = useState(
+    storedTab ? Number(storedTab) : 0
+  );
 
   const handleChange = (event, newValue) => {
     localStorage.setItem("approvalTab", newValue);
@@ -30,7 +33,7 @@ const ApprovalPage = () => {
         alignItems={"center"}
       >
         <Typography variant="h4" color={"textSecondary"}>
-          Requirements
+          Approvals
         </Typography>
       </Box>
       <Tabs
@@ -39,7 +42,7 @@ const ApprovalPage = () => {
         aria-label="tabs"
         TabIndicatorProps={{
           style: {
-            backgroundColor: "#F58220",
+            backgroundColor: "#2D9CDB",
             height: 4,
             borderRadius: "4px",
           },
@@ -47,7 +50,7 @@ const ApprovalPage = () => {
         sx={{
           paddingTop: "0px",
           "& .MuiTabs-indicator": {
-            backgroundColor: "#F58220",
+            backgroundColor: "#2D9CDB",
           },
           "& .MuiTab-root": {
             textTransform: "none",
@@ -56,23 +59,29 @@ const ApprovalPage = () => {
             color: "#686465",
           },
           "& .MuiTab-root.Mui-selected": {
-            color: "#F58220",
+            color: "#2D9CDB",
           },
         }}
       >
+        <Tab label="Members List" />
         <Tab label="Requirements" />
         <Tab label="Business Posts" />
       </Tabs>
       <Divider />{" "}
       <Box padding={"15px"}>
-        {selectedTab === 0 && (
+      {selectedTab === 0 && (
           <Grid>
-            <FeedList />
+            <MembershipApproval />
           </Grid>
         )}
         {selectedTab === 1 && (
           <Grid>
-            <MembershipApproval />
+            <FeedList />
+          </Grid>
+        )}
+        {selectedTab === 2 && (
+          <Grid>
+            <BusinessPosts />
           </Grid>
         )}
       </Box>

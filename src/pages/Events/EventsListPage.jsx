@@ -39,7 +39,7 @@ const EventListpage = () => {
       <Box padding="15px">
         <Stack spacing={2} direction="row" justifyContent="flex-end">
           <Box
-            bgcolor={selectedTab === 0 ? "#FFF0E2" : "#FFFFFF"}
+            bgcolor={selectedTab === 0 ? "#EEF1FF" : "#FFFFFF"}
             borderRadius="50%"
             width="48px"
             height="48px"
@@ -53,12 +53,12 @@ const EventListpage = () => {
           >
             <MenuIcon
               style={{
-                color: selectedTab === 1 ? "#292D32" : "#F58220",
+                color: selectedTab === 1 ? "#292D32" : "#2D9CDB",
               }}
             />
           </Box>
           <Box
-            bgcolor={selectedTab === 1 ? "#FFF0E2" : "#FFFFFF"}
+            bgcolor={selectedTab === 1 ? "#EEF1FF" : "#FFFFFF"}
             borderRadius="50%"
             width="48px"
             height="48px"
@@ -72,7 +72,7 @@ const EventListpage = () => {
           >
             <CalendarMonthIcon
               style={{
-                color: selectedTab === 0 ? "#292D32" : "#F58220",
+                color: selectedTab === 0 ? "#292D32" : "#2D9CDB",
               }}
             />
           </Box>

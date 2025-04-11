@@ -19,7 +19,9 @@ import MemberActivity from "../../components/Member/MemberActivity";
 
 const MemberView = () => {
   const storedTab = localStorage.getItem("memberViewTab");
-  const [selectedTab, setSelectedTab] = useState(storedTab ? Number(storedTab) : 0);
+  const [selectedTab, setSelectedTab] = useState(
+    storedTab ? Number(storedTab) : 0
+  );
   const [isChange, setIsChange] = useState(false);
   const { id } = useParams();
   const { fetchMemberById, member, loading, refreshMember } = useMemberStore();
@@ -56,7 +58,7 @@ const MemberView = () => {
         aria-label="tabs"
         TabIndicatorProps={{
           style: {
-            backgroundColor: "#F58220",
+            backgroundColor: "#2D9CDB",
             height: 4,
             borderRadius: "4px",
           },
@@ -65,7 +67,7 @@ const MemberView = () => {
           bgcolor: "white",
           paddingTop: "24px",
           "& .MuiTabs-indicator": {
-            backgroundColor: "#F58220",
+            backgroundColor: "#2D9CDB",
           },
           "& .MuiTab-root": {
             textTransform: "none",
@@ -74,7 +76,7 @@ const MemberView = () => {
             color: "#686465",
           },
           "& .MuiTab-root.Mui-selected": {
-            color: "#F58220",
+            color: "#2D9CDB",
           },
         }}
       >

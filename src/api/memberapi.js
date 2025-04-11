@@ -93,3 +93,23 @@ export const getTags= async (filter) => {
     return null;
   }
 };
+export const getMembershipApprovals = async (filter) => {
+  try {
+    const response = await axiosInstance.get("/user/approvals",{
+      params: filter,
+    });
+    return response.data;
+  } catch (error) {
+    return null;
+  }
+};
+
+export const memberApproval = async (id, data) => {
+  try {
+    const response = await axiosInstance.put(`/user/approval/${id}`, data);
+    toast.success(response.data.message);
+    return response.data;
+  } catch (error) {
+    throw error.response.data;
+  }
+};

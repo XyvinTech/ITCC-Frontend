@@ -6,7 +6,7 @@ import { getApproval, getFeedByUser } from "../api/productapi";
 import { fetchRole } from "../api/roleManagementapi";
 import { getAdmin, getAdminActivity } from "../api/adminapi";
 import { getNews } from "../api/newsapi";
-import { getMember } from "../api/memberapi";
+import { getMember, getMembershipApprovals } from "../api/memberapi";
 import { getReport } from "../api/reportapi";
 import { getAllLevel } from "../api/hierarchyapi";
 import { getActivities } from "../api/activityapi";
@@ -94,6 +94,13 @@ const useListStore = create((set, get) => ({
   fetchApproval: async (filter) => {
     set({ loading: true });
     const allData = await getApproval(filter);
+    set({ lists: allData?.data || [] });
+    set({ totalCount: allData?.totalCount || 0 });
+    set({ loading: false });
+  },
+  fetchMemberApprovals: async (filter) => {
+    set({ loading: true });
+    const allData = await getMembershipApprovals(filter);
     set({ lists: allData?.data || [] });
     set({ totalCount: allData?.totalCount || 0 });
     set({ loading: false });

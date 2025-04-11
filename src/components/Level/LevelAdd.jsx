@@ -32,6 +32,9 @@ export default function LevelAdd() {
 
   const location = useLocation();
   const { levelId, category, isUpdate } = location.state || {};
+  console.log('====================================');
+  console.log(category);
+  console.log('====================================');
   const [type, setType] = useState();
   const [submitting, setSubmitting] = useState(false);
   const { addLevel, fetchLevelById, level, updateLevel } = useHierarchyStore();
@@ -70,10 +73,9 @@ export default function LevelAdd() {
     if (
       level &&
       isUpdate &&
-      stateOptions.length &&
-      zoneOptions.length &&
-      districtOptions.length
-    ) {
+      (stateOptions?.length || zoneOptions?.length || districtOptions?.length)
+    )
+    {
       setValue("name", level.name);
       setValue("type", { value: category, label: category });
       setType(category);

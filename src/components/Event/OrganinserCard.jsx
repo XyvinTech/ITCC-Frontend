@@ -45,7 +45,7 @@ const OrganinserCard = ({ data }) => {
             </Stack>
             <Typography
               variant="h7"
-              color="#F58220"
+              color="#2D9CDB"
               sx={{
                 textDecoration: "underline",
                 cursor: "pointer",
