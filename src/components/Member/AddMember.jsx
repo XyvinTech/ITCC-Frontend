@@ -791,7 +791,7 @@ const AddMember = () => {
               </Grid>
               <Grid item xs={12}>
                 <Typography variant="h6" color="textSecondary">
-                  HEF Designation
+                  Designation
                 </Typography>
               </Grid>
               <Grid item xs={6}>
