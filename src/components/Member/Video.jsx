@@ -15,7 +15,7 @@ const Video = ({ url }) => {
 
   const opts = {
     height:isMobile? '200' : '150',
-    width: isMobile? '100%' : '268',
+    width: isMobile? '100%' : '100%',
     playerVars: {
       autoplay: 1,
     },

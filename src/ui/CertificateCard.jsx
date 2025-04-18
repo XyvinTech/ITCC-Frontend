@@ -2,20 +2,15 @@ import React from "react";
 import { Box, Typography, useMediaQuery, useTheme } from "@mui/material";
 
 const CertificateCard = ({ certificate }) => {
-  const theme = useTheme();
-  const isMobile = useMediaQuery(theme.breakpoints.down("sm"));
-  
   return (
     <Box
       borderRadius="8px"
       bgcolor="white"
-      width={isMobile ? "100%" : "268px"}
+      width="100%"
       border="1px solid rgba(0, 0, 0, 0.12)"
       boxShadow="0px 4px 12px rgba(0, 0, 0, 0.08)"
       sx={{
-        
         overflow: "hidden", // This prevents image from overflowing
-      
       }}
     >
       <Box
@@ -23,7 +18,7 @@ const CertificateCard = ({ certificate }) => {
           position: "relative",
           width: "100%",
           height: "160px",
-          overflow: "hidden"
+          overflow: "hidden",
         }}
       >
         <Box
@@ -35,26 +30,25 @@ const CertificateCard = ({ certificate }) => {
             objectFit: "cover",
             borderTopLeftRadius: "8px",
             borderTopRightRadius: "8px",
-           
           }}
           alt={certificate?.name}
         />
       </Box>
-      
+
       <Box padding="16px">
         <Typography
           variant="h5"
           color="#333333"
           textAlign="center"
-          sx={{ 
+          sx={{
             fontSize: "1.1rem",
             fontWeight: 600,
-            marginBottom: "8px"
+            marginBottom: "8px",
           }}
         >
           {certificate?.name}
         </Typography>
-        
+
         {certificate?.issuer && (
           <Typography
             variant="body2"

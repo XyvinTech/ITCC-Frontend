@@ -32,6 +32,7 @@ import AddProductPage from "../pages/Members/AddProductPage";
 import AddActivityPage from "../pages/Activity/AddActivityPage";
 import GroupPage from "../pages/Group/GroupPage";
 import AddGroupPage from "../pages/Group/AddGroupPage";
+import HtmlPage from "../pages/HtmlPage";
 const router = createBrowserRouter([
   {
     path: "/",
@@ -39,7 +40,7 @@ const router = createBrowserRouter([
   },
   {
     path: "/user/:id",
-    element: <QRPage />,
+    element: <HtmlPage />,
   },
   {
     path: "/dashboard",
