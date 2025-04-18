@@ -635,7 +635,7 @@ const MemberProfileCard = () => {
                         mb={2}
                         pt={2}
                       >
-                        Videos
+                        Reviews
                       </Typography>
                       <Grid container spacing={2} mt={2} mb={10}>
                         {userData?.reviews?.map((r, index) => (
