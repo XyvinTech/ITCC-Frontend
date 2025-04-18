@@ -65,6 +65,7 @@ const ReviewCard = ({ review }) => {
           {review?.comment}
         </Typography>
       </CardContent>
+      
     </Box>
   );
 };

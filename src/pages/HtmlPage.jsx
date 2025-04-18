@@ -29,11 +29,13 @@ import {
   Twitter,
   WhatsApp,
 } from "@mui/icons-material";
+import { ReactComponent as WhatsappIcon } from "../assets/icons/WhatsappIcon.svg";
 import AwardCard from "../ui/AwardCard";
 import CertificateCard from "../ui/CertificateCard";
 import ProductCard from "../ui/ProductCard";
 import Video from "../components/Member/Video";
 import ReviewCard from "../ui/ReviewCard";
+import { StyledButton } from "../ui/StyledButton";
 const MemberProfileCard = () => {
   const [userData, setUserData] = useState(null);
   const [loading, setLoading] = useState(true);
@@ -81,7 +83,38 @@ const MemberProfileCard = () => {
       </Box>
     );
   }
+  const handleSaveContact = async () => {
+    try {
+      if (!userData || !userData.name || !userData.phone || !userData.email) {
+        throw new Error(
+          "Incomplete user data. Please provide name, phone, and email."
+        );
+      }
 
+      const vCardContent = `BEGIN:VCARD\r\nVERSION:3.0\r\nN:${userData.name
+        .split(" ")
+        .reverse()
+        .join(";")}\r\nFN:${userData.name}\r\nTEL;TYPE=CELL:${
+        userData.phone
+      }\r\nEMAIL:${userData.email}\r\nEND:VCARD`;
+
+      const blob = new Blob([vCardContent], {
+        type: "text/vcard;charset=utf-8",
+      });
+
+      const url = URL.createObjectURL(blob);
+      const link = document.createElement("a");
+      link.href = url;
+      link.download = `${userData.name.replace(/ /g, "_")}.vcf`;
+
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+      URL.revokeObjectURL(url);
+    } catch (error) {
+      console.error("Error creating vCard:", error);
+    }
+  };
   const getSocialIcon = (platform) => {
     switch (platform.toLowerCase()) {
       case "instagram":
@@ -592,6 +625,27 @@ const MemberProfileCard = () => {
                       </Grid>{" "}
                     </>
                   )}
+                  {userData?.reviews && userData?.reviews?.length > 0 && (
+                    <>
+                      {" "}
+                      <Typography
+                        variant="h5"
+                        color="textTertiary"
+                        mt={2}
+                        mb={2}
+                        pt={2}
+                      >
+                        Videos
+                      </Typography>
+                      <Grid container spacing={2} mt={2} mb={10}>
+                        {userData?.reviews?.map((r, index) => (
+                          <Grid item xs={12} lg={12} key={index}>
+                            <ReviewCard review={r} />
+                          </Grid>
+                        ))}
+                      </Grid>
+                    </>
+                  )}
                 </Box>
 
                 <Box
@@ -647,7 +701,6 @@ const MemberProfileCard = () => {
                     <>
                       {userData?.videos && userData?.videos?.length > 0 && (
                         <>
-                        
                           <Grid container spacing={2}>
                             {userData?.videos?.map(
                               (videoItem, index) =>
@@ -667,11 +720,11 @@ const MemberProfileCard = () => {
                       {userData?.reviews && userData?.reviews?.length > 0 && (
                         <Grid container spacing={2} mt={2} mb={10}>
                           {userData?.reviews?.map((r, index) => (
-                            <Grid item xs={12} lg={12} key={index}> 
+                            <Grid item xs={12} lg={12} key={index}>
                               <ReviewCard review={r} />
                             </Grid>
                           ))}
-                        </Grid> 
+                        </Grid>
                       )}
                     </>
                   )}
@@ -679,6 +732,43 @@ const MemberProfileCard = () => {
               </Box>
             </Grid>
           </Grid>
+        </Box>
+        <Box
+          display="flex"
+          justifyContent="center"
+          alignItems="center"
+          gap={2}
+          sx={{
+            position: "fixed",
+            bottom: 0,
+            left: 0,
+            right: 0,
+            zIndex: 1000,
+            backgroundColor: "white",
+            padding: 2,
+            boxShadow: "0 -2px 10px rgba(0, 0, 0, 0.1)",
+          }}
+        >
+          <a
+            href={`https://wa.me/${userData?.phone}`}
+            target="_blank"
+            style={{ textDecoration: "none" }}
+            rel="noopener noreferrer"
+          >
+            <StyledButton
+              variant={"primary"}
+              name={
+                <>
+                  <WhatsappIcon style={{ marginRight: "8px" }} /> SAY HAI
+                </>
+              }
+            />
+          </a>
+          <StyledButton
+            variant={"secondary"}
+            name={"SAVE CONTACT"}
+            onClick={handleSaveContact}
+          />
         </Box>
       </Grid>
     </Grid>
