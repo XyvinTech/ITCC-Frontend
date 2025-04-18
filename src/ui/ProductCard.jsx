@@ -24,9 +24,11 @@ const ProductCard = ({ product }) => {
         height: "100%",
         display: "flex",
         flexDirection: "column",
-        borderRadius: "12px",
+        borderRadius: "8px",
         overflow: "visible",
         position: "relative",
+        border: "1px solid rgba(0, 0, 0, 0.12)",
+        boxShadow:"none"
       }}
     >
       {discountPercentage > 0 && (
@@ -57,8 +59,8 @@ const ProductCard = ({ product }) => {
           sx={{
             height: 140, 
             objectFit: "cover",
-            borderTopLeftRadius: "12px",
-            borderTopRightRadius: "12px",
+            borderTopLeftRadius: "8px",
+            borderTopRightRadius: "8px",
           }}
         />
 
