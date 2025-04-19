@@ -37,6 +37,16 @@ ${(props) =>
       background-color: #fff;
       radius: 5px;
     `}
+    ${(props) =>
+    props.variant === "preview" &&
+    css`
+      border: none;
+      font-size: 16px;
+      font-weight: 400;
+      color: #ffffff;
+      background-color: #0c1e8a;
+      radius: 5px;
+    `}
 `;
 
 const disabledStyles = css`

@@ -756,7 +756,7 @@ const MemberProfileCard = () => {
             rel="noopener noreferrer"
           >
             <StyledButton
-              variant={"primary"}
+              variant={"preview"}
               name={
                 <>
                   <WhatsappIcon style={{ marginRight: "8px" }} /> SAY HAI
