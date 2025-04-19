@@ -468,7 +468,7 @@ const MemberProfileCard = () => {
                               height: 40,
                             }}
                           >
-                            <Language />
+                            <Language sx={{ color: "#0C1E8A" }} />
                           </Box>
                           <Typography variant="body1" color="text.primary">
                             {web?.name}
@@ -550,7 +550,7 @@ const MemberProfileCard = () => {
                   {userData?.products && userData?.products?.length > 0 && (
                     <>
                       <Typography
-                        variant="h6"
+                        variant="h5"
                         sx={{ mt: 3, mb: 2, fontWeight: 600 }}
                       >
                         Products
@@ -568,7 +568,7 @@ const MemberProfileCard = () => {
                   {userData?.awards && userData?.awards?.length > 0 && (
                     <>
                       <Typography
-                        variant="h6"
+                        variant="h5"
                         sx={{ mt: 3, mb: 2, fontWeight: 600 }}
                       >
                         Awards
@@ -587,7 +587,7 @@ const MemberProfileCard = () => {
                     userData?.certificates?.length > 0 && (
                       <>
                         <Typography
-                          variant="h6"
+                          variant="h5"
                           sx={{ mt: 3, mb: 2, fontWeight: 600 }}
                         >
                           Certificates

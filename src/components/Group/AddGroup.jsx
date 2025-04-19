@@ -83,8 +83,6 @@ const AddGroup = () => {
   };
   const handleChapterChange = async (chapterId) => {
     const members = await fetchData("user", chapterId);
-
-    // Apply the same filtering logic as in EmailNotification
     const memberOptionsList =
       members && Array.isArray(members)
         ? selectedMemberOptions.some((opt) => opt?.value === "*")

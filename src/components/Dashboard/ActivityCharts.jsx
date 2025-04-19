@@ -48,7 +48,7 @@ const ActivityCharts = ({data}) => {
           <CartesianGrid strokeDasharray="3 3" />
           <XAxis
             dataKey="name"
-            tick={{ fontSize: "12px", fill: "#637381", fontWeight: "500" }}
+            tick={{ fontSize: "12px", fill: "#2d9cdb", fontWeight: "500" }}
           />
 
           <YAxis
@@ -56,7 +56,7 @@ const ActivityCharts = ({data}) => {
             ticks={[0, 100, 200, 300, 400, 500, 600, 700]}
           />
           <Tooltip />
-          <Bar dataKey="value" fill="#FB923C" radius={[5, 5, 0, 0]} />
+          <Bar dataKey="value" fill="#2d9cdb" radius={[5, 5, 0, 0]} />
         </BarChart>
       </ResponsiveContainer>
     </Box>
