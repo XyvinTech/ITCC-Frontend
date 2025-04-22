@@ -35,6 +35,8 @@ const AddProduct = () => {
   const units = [
     { value: "Kg", label: "Kg" },
     { value: "Ltr", label: "Ltr" },
+    { value: "Gram", label: "Gram" },
+    { value: "Piece", label: "Piece" },
   ];
   const tagOptions = [
     { value: "latest", label: "Latest" },

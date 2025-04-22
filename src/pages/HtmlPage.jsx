@@ -20,6 +20,7 @@ import logo from "../assets/images/image_0.png";
 import {
   Chat,
   Email,
+  Facebook,
   Instagram,
   Language,
   LinkedIn,
@@ -85,7 +86,7 @@ const MemberProfileCard = () => {
   }
   const handleSaveContact = async () => {
     try {
-      if (!userData || !userData.name || !userData.phone || !userData.email) {
+      if (!userData || !userData.name || !userData.phone || !userData.email ) {
         throw new Error(
           "Incomplete user data. Please provide name, phone, and email."
         );
@@ -123,6 +124,8 @@ const MemberProfileCard = () => {
         return <LinkedIn sx={{ color: "#0C1E8A" }} />;
       case "twitter":
         return <Twitter sx={{ color: "#0C1E8A" }} />;
+      case "facebook":
+        return <Facebook sx={{ color: "#0C1E8A" }} />;
       default:
         return <Avatar sx={{ bgcolor: "#ccc", width: 24, height: 24 }} />;
     }
@@ -750,7 +753,7 @@ const MemberProfileCard = () => {
           }}
         >
           <a
-            href={`https://wa.me/${userData?.phone}`}
+            href={`https://wa.me/${userData?.phone}/?text=Hi`}
             target="_blank"
             style={{ textDecoration: "none" }}
             rel="noopener noreferrer"
