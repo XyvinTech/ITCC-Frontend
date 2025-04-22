@@ -60,11 +60,12 @@ const AddProduct = () => {
           label: sellerUnit.label,
         });
       }
-      const selectedTags = product?.tags?.map((Id) =>
-        tagOptions.find((option) => option?.value === Id)
-      );
 
-      setValue("tags", selectedTags || []);
+      // const selectedTags = product?.tags?.map((Id) =>
+      //   tagOptions.find((option) => option?.value === Id)
+      // );
+
+      // setValue("tags", selectedTags || []);
     }
   }, [product, isUpdate, setValue]);
   const onSubmit = async (data) => {
@@ -94,13 +95,13 @@ const AddProduct = () => {
         description: data?.description,
         offerPrice: data?.offer_price,
         moq: data?.moq,
-        tags: data?.tags.map((i) => i.value),
+        // tags: data?.tags.map((i) => i.value),
         units: data?.units?.value,
       };
       if (isUpdate) {
-        formData.seller = product?.seller;
+        formData.seller = product?.seller?._id;
         await updateProduct(productId, formData);
-        navigate(`/members/${product.seller}`);
+        navigate(`/members/${product.seller?._id}`);
       } else {
         formData.seller = id;
         await addProduct(formData);
@@ -280,7 +281,7 @@ const AddProduct = () => {
               )}
             />
           </Grid>
-          <Grid item xs={12}>
+          {/* <Grid item xs={12}>
             <Typography
               sx={{ marginBottom: 1 }}
               variant="h6"
@@ -305,7 +306,7 @@ const AddProduct = () => {
                 </>
               )}
             />
-          </Grid>
+          </Grid> */}
           <Grid item xs={12}>
             <Typography
               sx={{ marginBottom: 1 }}
