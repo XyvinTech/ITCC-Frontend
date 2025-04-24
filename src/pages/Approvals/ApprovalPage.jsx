@@ -63,23 +63,23 @@ const ApprovalPage = () => {
           },
         }}
       >
-        <Tab label="Members List" />
+        {/* <Tab label="Members List" /> */}
         <Tab label="Requirements" />
         <Tab label="Business Posts" />
       </Tabs>
       <Divider />{" "}
       <Box padding={"15px"}>
-      {selectedTab === 0 && (
+      {/* {selectedTab === 0 && (
           <Grid>
             <MembershipApproval />
           </Grid>
-        )}
-        {selectedTab === 1 && (
+        )} */}
+        {selectedTab === 0 && (
           <Grid>
             <FeedList />
           </Grid>
         )}
-        {selectedTab === 2 && (
+        {selectedTab === 1 && (
           <Grid>
             <BusinessPosts />
           </Grid>
