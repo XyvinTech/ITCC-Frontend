@@ -81,7 +81,7 @@ const MemberView = () => {
         }}
       >
         <Tab label="Profile" />
-        <Tab label="Subscriptions" />
+        {/* <Tab label="Subscriptions" /> */}
         <Tab label="Business Posts" />
         <Tab label="Activity" />
         {/* <Tab label="Analytics" /> */}
@@ -92,23 +92,23 @@ const MemberView = () => {
             <MemberProfile data={member} loading={loading} />
           </Grid>
         )}
-        {selectedTab === 1 && (
+        {/* {selectedTab === 1 && (
           <Grid spacing={2}>
             <Subscription id={id} loading={loading} />
           </Grid>
-        )}
-        {selectedTab === 2 && (
+        )} */}
+        {selectedTab === 1 && (
           <Grid>
             <MemberProducts id={id} />
           </Grid>
         )}
-        {selectedTab === 3 && (
+        {selectedTab === 2 && (
           <Grid>
             <MemberActivity id={id} />
           </Grid>
         )}
 
-        {selectedTab === 4 && (
+        {selectedTab === 3 && (
           <Grid container item xs={12}>
             {" "}
             <MemberAnalytics />

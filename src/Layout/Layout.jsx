@@ -54,12 +54,12 @@ const subNavigation = [
     to: "/approvals",
     icon: <ApprovalIcon />,
   },
-  {
-    name: "Subscriptions",
-    to: "/subscriptions",
-    icon: <AccountBalanceWalletIcon />,
-  },
-  { name: "Groups", to: "/groups", icon: <GroupsOutlined /> },
+  // {
+  //   name: "Subscriptions",
+  //   to: "/subscriptions",
+  //   icon: <AccountBalanceWalletIcon />,
+  // },
+  // { name: "Groups", to: "/groups", icon: <GroupsOutlined /> },
 
   {
     name: "Events",
