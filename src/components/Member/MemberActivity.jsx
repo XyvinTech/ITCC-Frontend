@@ -25,7 +25,6 @@ const MemberActivity = () => {
     let filter = { user: id };
     if (search) {
       filter.search = search;
-      setPageNo(1);
     }
     if (selectedTab === 1) {
       filter.type = "Business";

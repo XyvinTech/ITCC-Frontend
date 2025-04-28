@@ -19,7 +19,7 @@ import MemberView from "../../components/Member/MemberView";
 
 const MembershipApproval = () => {
   const [dialogOpen, setDialogOpen] = useState(false);
-  const [dialogType, setDialogType] = useState(""); 
+  const [dialogType, setDialogType] = useState("");
   const [approvalId, setApprovalId] = useState(null);
   const [view, setView] = useState(false);
   const [isChange, setIsChange] = useState(false);
@@ -41,7 +41,6 @@ const MembershipApproval = () => {
     };
     if (search) {
       filter.search = search;
-      setPageNo(1);
     }
     fetchMemberApprovals(filter);
   }, [isChange, pageNo, search, row]);
@@ -91,7 +90,10 @@ const MembershipApproval = () => {
         <Stack direction={"row"} spacing={2}>
           <StyledSearchbar
             placeholder={"Search"}
-            onchange={(e) => setSearch(e.target.value)}
+            onchange={(e) => {
+              setSearch(e.target.value);
+              setPageNo(1);
+            }}
           />
         </Stack>
       </Stack>

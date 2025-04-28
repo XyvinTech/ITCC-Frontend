@@ -10,7 +10,7 @@ import {
 import React, { useEffect, useState } from "react";
 import StyledSearchbar from "../../ui/StyledSearchbar";
 import StyledTable from "../../ui/StyledTable";
-import {  feedColumns } from "../../assets/json/TableData";
+import { feedColumns } from "../../assets/json/TableData";
 import { useFeedStore } from "../../store/feedStore";
 import FeedApproval from "../../components/Approve/FeedApproval";
 import FeedReject from "../../components/Approve/FeedReject";
@@ -39,7 +39,6 @@ const FeedList = () => {
     filter.limit = row;
     if (search) {
       filter.search = search;
-      setPageNo(1);
     }
     fetchFeed(filter);
   }, [isChange, pageNo, search, row]);
@@ -92,7 +91,10 @@ const FeedList = () => {
         <Stack direction={"row"} spacing={2}>
           <StyledSearchbar
             placeholder={"Search"}
-            onchange={(e) => setSearch(e.target.value)}
+            onchange={(e) => {
+              setSearch(e.target.value);
+              setPageNo(1);
+            }}
           />
         </Stack>
       </Stack>

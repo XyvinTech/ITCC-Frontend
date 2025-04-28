@@ -55,7 +55,6 @@ export default function AdminManagement() {
     filter.limit = row;
     if (search) {
       filter.search = search;
-      setPageNo(1);
     }
     getAdmins(filter);
   }, [isChange, pageNo, search, row]);
@@ -77,7 +76,10 @@ export default function AdminManagement() {
             <Grid item>
               <StyledSearchbar
                 placeholder={"Search"}
-                onchange={(e) => setSearch(e.target.value)}
+                onchange={(e) => {
+                  setSearch(e.target.value);
+                  setPageNo(1);
+                }}
               />
             </Grid>
             <Grid item></Grid>
