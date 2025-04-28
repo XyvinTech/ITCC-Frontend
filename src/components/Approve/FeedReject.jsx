@@ -110,6 +110,7 @@ const FeedReject = ({ open, onClose, id, setIsChange }) => {
               name="Cancel"
               onClick={(event) => handleClear(event)}
               disabled={loading}
+              type={"button"}
             />
             <StyledButton
               variant="primary"

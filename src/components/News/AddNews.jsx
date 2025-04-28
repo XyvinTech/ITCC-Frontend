@@ -309,6 +309,7 @@ export default function AddNews({ isUpdate, setSelectedTab }) {
                   event.preventDefault();
                   handlePreviewOpen();
                 }}
+                type={"button"}
               />
               <StyledButton
                 name={loading ? "Publishing" : "Publish"}

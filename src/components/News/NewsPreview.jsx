@@ -98,6 +98,7 @@ const NewsPreview = ({ open, onClose, onChange, data, onEdit }) => {
             name="Edit"
             onClick={(event) => handleEdit(event)}
             disabled={loading}
+            type={"button"}
           />
           <StyledButton
             variant="primary"

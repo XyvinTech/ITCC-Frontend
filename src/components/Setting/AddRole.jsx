@@ -290,6 +290,7 @@ const AddRole = () => {
                 variant="secondary"
                 onClick={(e) => handleClear(e)}
                 disabled={loading}
+                type="button"
               />
               <StyledButton
                 name={loading ? "Saving..." : "Save"}

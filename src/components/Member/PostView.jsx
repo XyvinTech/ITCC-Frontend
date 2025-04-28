@@ -79,6 +79,7 @@ import {
               variant="secondary"
               name="Deny"
               onClick={(event) => handleClear(event)}
+              type="button"
             />
             <StyledButton variant="primary" name="Approve" type="submit" />
           </Stack>

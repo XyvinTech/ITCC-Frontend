@@ -74,6 +74,7 @@ const ApproveApproval = ({ open, onClose, setIsChange, id }) => {
             variant="secondary"
             name="Cancel"
             onClick={(event) => handleClear(event)}
+            type="button"
           />
           <StyledButton
             variant="primary"

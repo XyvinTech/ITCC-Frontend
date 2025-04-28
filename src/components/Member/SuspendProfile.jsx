@@ -70,6 +70,7 @@ const SuspendProfile = ({ open, onClose, onChange, id }) => {
             name="Cancel"
             onClick={(event) => handleClear(event)}
             disabled={loading}
+            type={"button"}
           />
           <StyledButton
             variant="primary"

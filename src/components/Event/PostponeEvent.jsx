@@ -191,6 +191,7 @@ const PostponeEvent = ({ open, onClose, onChange, data }) => {
               name="Cancel"
               onClick={(event) => handleClear(event)}
               disabled={loading}
+              type={"button"}
             />
             <StyledButton variant="primary" name={loading ? "Postponing" : "Postpone"} type="submit" disabled={loading} />
           </Stack>

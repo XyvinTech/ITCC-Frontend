@@ -134,6 +134,7 @@ const AddSubscription = ({ open, onClose, payment, category, isUpdate }) => {
             name="Cancel"
             onClick={(event) => handleClear(event)}
             disabled={loading}
+            type="button"
           />
           <StyledButton
             variant="primary"

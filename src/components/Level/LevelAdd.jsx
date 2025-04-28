@@ -32,9 +32,6 @@ export default function LevelAdd() {
 
   const location = useLocation();
   const { levelId, category, isUpdate } = location.state || {};
-  console.log('====================================');
-  console.log(category);
-  console.log('====================================');
   const [type, setType] = useState();
   const [submitting, setSubmitting] = useState(false);
   const { addLevel, fetchLevelById, level, updateLevel } = useHierarchyStore();
@@ -470,6 +467,7 @@ export default function LevelAdd() {
                 variant="secondary"
                 disabled={submitting}
                 onClick={(event) => handleClear(event)}
+                type="button"
               />
               <StyledButton
                 name={submitting ? "Submitting" : "Submit"}

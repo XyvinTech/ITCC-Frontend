@@ -61,6 +61,7 @@ const DeleteProfile = ({ open, onClose, onChange }) => {
             variant="secondary"
             name="Cancel"
             onClick={(event) => handleClear(event)}
+            type={"button"}
           />
           <StyledButton variant="primary" name="Confirm" type="submit" />
         </Stack>

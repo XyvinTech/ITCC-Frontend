@@ -31,19 +31,17 @@ const AddProduct = () => {
       fetchProductById(productId);
     }
   }, [productId, isUpdate]);
-
+  const handleClear = (event) => {
+    event.preventDefault();
+    reset();
+    setImageFile(null);
+    navigate(-1);
+  };
   const units = [
     { value: "Kg", label: "Kg" },
     { value: "Ltr", label: "Ltr" },
     { value: "Gram", label: "Gram" },
     { value: "Piece", label: "Piece" },
-  ];
-  const tagOptions = [
-    { value: "latest", label: "Latest" },
-    { value: "currentAffairs", label: "Current Affairs" },
-    { value: "trending", label: "Trending" },
-    { value: "entertainment", label: "Entertainment" },
-    { value: "history", label: "History" },
   ];
   useEffect(() => {
     if (product && isUpdate) {
@@ -60,12 +58,6 @@ const AddProduct = () => {
           label: sellerUnit.label,
         });
       }
-
-      // const selectedTags = product?.tags?.map((Id) =>
-      //   tagOptions.find((option) => option?.value === Id)
-      // );
-
-      // setValue("tags", selectedTags || []);
     }
   }, [product, isUpdate, setValue]);
   const onSubmit = async (data) => {
@@ -95,7 +87,6 @@ const AddProduct = () => {
         description: data?.description,
         offerPrice: data?.offer_price,
         moq: data?.moq,
-        // tags: data?.tags.map((i) => i.value),
         units: data?.units?.value,
       };
       if (isUpdate) {
@@ -281,32 +272,6 @@ const AddProduct = () => {
               )}
             />
           </Grid>
-          {/* <Grid item xs={12}>
-            <Typography
-              sx={{ marginBottom: 1 }}
-              variant="h6"
-              fontWeight={500}
-              color={"#333333"}
-            >
-              Add Tags
-            </Typography>
-
-            <Controller
-              name="tags"
-              control={control}
-              defaultValue={[]}
-              render={({ field }) => (
-                <>
-                  <StyledSelectField
-                    placeholder="Select Tag"
-                    options={tagOptions}
-                    isMulti
-                    {...field}
-                  />
-                </>
-              )}
-            />
-          </Grid> */}
           <Grid item xs={12}>
             <Typography
               sx={{ marginBottom: 1 }}
@@ -346,17 +311,14 @@ const AddProduct = () => {
                 onClick={(event) => handleClear(event)}
                 style={{ width: "auto" }}
                 disabled={loading}
-              >
-                Cancel
-              </StyledButton>
+                type={"button"}
+              />
               <StyledButton
                 name={loading ? "Saving..." : "Save"}
                 variant="primary"
                 type="submit"
                 disabled={loading}
-              >
-                Save
-              </StyledButton>
+              />
             </Stack>
           </Grid>
         </Grid>

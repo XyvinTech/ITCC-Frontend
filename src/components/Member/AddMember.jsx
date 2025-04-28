@@ -932,6 +932,7 @@ const AddMember = () => {
                     variant="secondary"
                     onClick={(event) => handleClear(event)}
                     disabled={loadings}
+                    type={"button"}
                   />
                   <StyledButton
                     name={loadings ? "Saving..." : "Save"}

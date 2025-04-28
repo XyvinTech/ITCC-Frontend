@@ -417,6 +417,7 @@ export default function Promotionform({ isUpdate }) {
                 variant="secondary"
                 disabled={submitting}
                 onClick={(event) => handleClear(event)}
+                type={"button"}
               >
                 Preview
               </StyledButton>

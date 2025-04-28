@@ -402,6 +402,7 @@ const AddGroup = () => {
                 name="Cancel"
                 variant="secondary"
                 onClick={(e) => handleClear(e)}
+                type={"button"}
               />
               <StyledButton
                 name={loading ? "Saving..." : "Save"}

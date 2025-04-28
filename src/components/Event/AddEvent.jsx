@@ -767,6 +767,7 @@ export default function AddEvent({ isUpdate }) {
                     variant={"secondary"}
                     name={"Clear"}
                     disabled={loadings}
+                
                   />
 
                   <StyledButton

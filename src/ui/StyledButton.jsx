@@ -72,14 +72,14 @@ const ButtonContainer = styled.button`
   ${disabledStyles}
 `;
 
-export const StyledButton = ({ name, variant, color, onClick, disabled }) => {
+export const StyledButton = ({ name, variant, color, onClick, disabled, type }) => {
   return (
     <ButtonContainer
       variant={variant}
       color={color}
       disabled={disabled}
       onClick={onClick}
-    >
+      type={type}    >
       {name}
     </ButtonContainer>
   );

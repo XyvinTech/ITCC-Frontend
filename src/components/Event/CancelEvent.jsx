@@ -72,6 +72,7 @@ const CancelEvent = ({ open, onClose, onChange, data }) => {
             name="Cancel"
             onClick={(event) => handleClear(event)}
             disabled={loading}
+            type="button"
           />
           <StyledButton
             variant="primary"
