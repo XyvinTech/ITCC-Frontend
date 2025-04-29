@@ -58,7 +58,10 @@ const NewsPreview = ({ open, onClose, onChange, data, onEdit }) => {
       onClose={onClose}
       maxWidth="md"
       PaperProps={{
-        sx: { borderRadius: "12px" },
+        sx: { 
+          borderRadius: "12px",
+          maxHeight: "90vh", // Limit height to 90% of viewport height
+        },
       }}
     >
       {" "}
@@ -75,10 +78,27 @@ const NewsPreview = ({ open, onClose, onChange, data, onEdit }) => {
           </Box>
         </DialogTitle>
         <Divider />
-        <DialogContent sx={{ height: "auto", padding: 0 }}>
+        <DialogContent 
+          sx={{ 
+            height: "auto", 
+            padding: 0,
+            overflowY: "auto", // Enable vertical scrolling
+            maxHeight: "calc(90vh - 150px)" // Adjust height to leave space for header and buttons
+          }}
+        >
           <Stack spacing={2} padding={2} justifyContent={"center"}>
             <Box display="flex" justifyContent="center">
-              <img src={data?.media} width={"461px"} height={"262px"} />
+              <img 
+                src={data?.media} 
+                style={{ 
+                  maxWidth: "100%", 
+                  maxHeight: "262px", 
+                  width: "auto", 
+                  height: "auto", 
+                  objectFit: "contain" 
+                }} 
+                alt="News media"
+              />
             </Box>
 
             <Typography variant="h5" color={"textTertiary"}>
@@ -92,7 +112,16 @@ const NewsPreview = ({ open, onClose, onChange, data, onEdit }) => {
             </Typography>
           </Stack>{" "}
         </DialogContent>
-        <Stack direction={"row"} spacing={2} padding={2} justifyContent={"end"}>
+        <Divider />
+        <Stack 
+          direction={"row"} 
+          spacing={2} 
+          padding={2} 
+          justifyContent={"end"}
+          sx={{ 
+            backgroundColor: "background.paper" // Ensures button area has background
+          }}
+        >
           <StyledButton
             variant="secondary"
             name="Edit"
