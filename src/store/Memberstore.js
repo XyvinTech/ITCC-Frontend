@@ -1,6 +1,7 @@
 import { create } from "zustand";
 import {
   addMember,
+  bulkVerify,
   deleteMember,
   editMember,
   getMember,
@@ -26,6 +27,9 @@ const useMemberStore = create((set) => ({
   },
   addMembers: async (data) => {
     await addMember(data);
+  },
+  bulkUpdate: async (data) => {
+    await bulkVerify(data);
   },
   deleteMembers: async (id) => {
     await deleteMember(id);

@@ -30,11 +30,11 @@ ${(props) =>
     props.variant === "third" &&
     css`
       font-family: Inter;
-      border: 1px solid #aeaaab;
+      border: 1px solid red;
       font-size: 16px;
       font-weight: 600;
-      color: #aeaaab;
-      background-color: #fff;
+      color: #fff;
+      background-color: red;
       radius: 5px;
     `}
     ${(props) =>

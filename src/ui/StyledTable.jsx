@@ -17,6 +17,7 @@ import {
   MenuItem,
   Typography,
   Skeleton,
+  Chip,
 } from "@mui/material";
 import { ReactComponent as ViewIcon } from "../assets/icons/ViewIcon.svg";
 import { ReactComponent as LeftIcon } from "../assets/icons/LeftIcon.svg";
@@ -60,6 +61,16 @@ const StyledTableRow = styled(TableRow)`
   }
 `;
 
+const SelectedItemsContainer = styled(Box)`
+  padding: 12px 16px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  background-color: #f5f5f5;
+  border-radius: 4px;
+  margin-bottom: 16px;
+`;
+
 const StyledTable = ({
   columns,
   onSelectionChange,
@@ -78,18 +89,64 @@ const StyledTable = ({
   approve,
   college,
   rowPerSize,
+  user,
+  onVerify,
   setRowPerSize,
 }) => {
   const [selectedIds, setSelectedIds] = useState([]);
   const [anchorEl, setAnchorEl] = useState(null);
   const [rowId, setRowId] = useState(null);
   const { lists, totalCount, rowChange, loading } = useListStore();
+
+  const [selectedItemsData, setSelectedItemsData] = useState({});
+
+  // This effect updates the selectedItemsData when an item is selected
+  useEffect(() => {
+    if (!lists.length) return;
+    
+    // For each new selected ID, store its name if we find it in the lists
+    const newSelectedData = {...selectedItemsData};
+    
+    selectedIds.forEach(id => {
+      // Only look up and store new names for IDs we haven't seen before
+      if (!newSelectedData[id]) {
+        const item = lists.find(row => row._id === id);
+        if (item) {
+          newSelectedData[id] = item.name;
+        }
+      }
+    });
+    
+    setSelectedItemsData(newSelectedData);
+  }, [selectedIds, lists]);
+  
+  const getSelectedItemsInfo = () => {
+    if (!selectedIds.length) return [];
+    
+    return selectedIds.map(id => {
+      // First check our stored data
+      if (selectedItemsData[id]) {
+        return { id, name: selectedItemsData[id] };
+      }
+      
+      // If not in stored data, try to find in current lists
+      const item = lists.find(row => row._id === id);
+      if (item) {
+        return { id, name: item.name };
+      }
+      
+      // Fallback for items that can't be found
+      return { id, name: "Unknown" };
+    });
+  };
+
   const handleSelectAllClick = (event) => {
     const isChecked = event.target.checked;
     const newSelectedIds = isChecked ? lists.map((row) => row._id) : [];
     setSelectedIds(newSelectedIds);
     onSelectionChange(newSelectedIds);
   };
+
   const handleRowCheckboxChange = (event, id) => {
     const isChecked = event.target.checked;
     const newSelectedIds = isChecked
@@ -98,10 +155,12 @@ const StyledTable = ({
     setSelectedIds(newSelectedIds);
     onSelectionChange(newSelectedIds);
   };
+
   const handleRowDelete = (id) => {
     onDeleteRow(id);
     handleMenuClose();
   };
+
   const handleMenuOpen = (event, id) => {
     setAnchorEl(event.currentTarget);
     setRowId(id);
@@ -119,6 +178,11 @@ const StyledTable = ({
 
   const handleDelete = () => {
     onDelete();
+    setSelectedIds([]);
+    handleMenuClose();
+  };
+  const handleVerify = () => {
+    onVerify();
     setSelectedIds([]);
     handleMenuClose();
   };
@@ -177,7 +241,7 @@ const StyledTable = ({
         return "#BDBDBD"; // Neutral grey
     }
   };
-  
+
   const formatIndianDate = (date) => {
     if (!date) return "";
 
@@ -191,13 +255,18 @@ const StyledTable = ({
   const pageInc = () => {
     setPageNo((prev) => prev + 1);
   };
+
   const pageDec = () => {
     setPageNo((prev) => prev - 1);
   };
+
   const handleChangeRowsPerPage = (event) => {
     setRowPerSize(parseInt(event.target.value, 10));
     setPageNo(1);
   };
+
+  const selectedItems = getSelectedItemsInfo();
+
   return (
     <Box bgcolor={"white"} borderRadius={"16px"}>
       <TableContainer sx={{ border: "none" }}>
@@ -426,7 +495,9 @@ const StyledTable = ({
                                       Delete
                                     </MenuItem>
                                     <MenuItem onClick={handleAction}>
-                                    {row.status === "suspended" ? "Unsuspend" : "Suspend"}
+                                      {row.status === "suspended"
+                                        ? "Unsuspend"
+                                        : "Suspend"}
                                     </MenuItem>
                                   </>
                                 )}
@@ -531,25 +602,56 @@ const StyledTable = ({
           </TableBody>
         </Table>
         <Divider />
+
+        {selectedIds.length > 0 && user && (
+          <Box padding={2}>
+            <SelectedItemsContainer>
+              {selectedItems.map((item) => (
+                <Chip
+                  key={item.id}
+                  label={item.name}
+                  variant="outlined"
+                  color="primary"
+                  onDelete={() =>
+                    handleRowCheckboxChange(
+                      { target: { checked: false } },
+                      item.id
+                    )
+                  }
+                />
+              ))}
+            </SelectedItemsContainer>
+          </Box>
+        )}
+
         <Stack
-          // padding={2}
           component="div"
           direction={"row"}
           justifyContent={selectedIds.length > 0 ? "space-between" : "flex-end"}
           alignItems="center"
+          padding={2}
         >
           {selectedIds.length > 0 && (
-            <Stack direction="row" alignItems="center">
+            <Stack direction="row" alignItems="center"spacing={2}>
               <Typography paddingRight={3}>
                 {`${selectedIds.length} item${
                   selectedIds.length > 1 ? "s" : ""
                 } selected`}
               </Typography>
               <StyledButton
-                variant="primary"
+                variant="third"
                 name="Delete"
                 onClick={() => handleDelete(selectedIds)}
               />
+              {user && (
+                <>
+                  <StyledButton
+                    variant="primary"
+                    name="verify"
+                    onClick={() => handleVerify(selectedIds)}
+                  />
+                </>
+              )}
             </Stack>
           )}
           <Stack

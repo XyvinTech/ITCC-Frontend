@@ -33,7 +33,7 @@ const MemberList = () => {
   const [memberId, setMemberId] = useState(null);
   const [pageNo, setPageNo] = useState(1);
   const [selectedRows, setSelectedRows] = useState([]);
-  const { deleteMembers } = useMemberStore();
+  const { deleteMembers, bulkUpdate } = useMemberStore();
   const [confirmDeleteOpen, setConfirmDeleteOpen] = useState(false);
   const [row, setRow] = useState(10);
   const [loading, setLoading] = useState(false);
@@ -135,7 +135,19 @@ const MemberList = () => {
   const handleChange = () => {
     setIschange(!isChange);
   };
-
+  const handleVerify = async () => {
+    if (selectedRows.length > 0) {
+      try {
+        await bulkUpdate({ ids: selectedRows });
+        setIschange(!isChange);
+        setSelectedRows([]);
+      } catch (error) {
+        toast.error(error.message);
+      } finally {
+        setLoading(false);
+      }
+    }
+  };
   return (
     <>
       <Box padding={"15px"}>
@@ -255,6 +267,8 @@ const MemberList = () => {
             onSelectionChange={handleSelectionChange}
             onAction={handleSuspend}
             rowPerSize={row}
+            user
+            onVerify={handleVerify}
             setRowPerSize={setRow}
           />
           <DeleteProfile
