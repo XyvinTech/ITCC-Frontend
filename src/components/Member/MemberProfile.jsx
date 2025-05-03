@@ -45,7 +45,6 @@ const MemberProfile = ({ data, loading }) => {
               </Grid>
             ))}
 
-            {/* Certificates Section */}
             <Grid item md={12}>
               <Typography variant="h5" color="textTertiary" mt={1}>
                 Certificates

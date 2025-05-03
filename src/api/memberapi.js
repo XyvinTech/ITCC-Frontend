@@ -64,6 +64,15 @@ export const userBlock = async (id) => {
     toast.error(error.response.data.message);
   }
 };
+export const userVerify = async (id,data) => {
+  try {
+    const response = await axiosInstance.patch(`/user/admin/verify-user/${id}`,data);
+    toast.success(response.data.message);
+    return response.data;
+  } catch (error) {
+    toast.error(error.response.data.message);
+  }
+};
 export const userUnBlock = async (id) => {
   try {
     const response = await axiosInstance.patch(`/user/admin/unblock-user/${id}`);

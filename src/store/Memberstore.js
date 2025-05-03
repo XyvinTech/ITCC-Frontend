@@ -8,6 +8,7 @@ import {
   memberApproval,
   userBlock,
   userUnBlock,
+  userVerify,
 } from "../api/memberapi";
 
 const useMemberStore = create((set) => ({
@@ -44,6 +45,9 @@ const useMemberStore = create((set) => ({
   },
   unBlockUser: async (id) => {
     await userUnBlock(id);
+  },
+  verifyUser: async (id, data) => {
+    await userVerify(id, data);
   },
   updateMemberApproval: async (id, data) => {
     await memberApproval(id, data);
