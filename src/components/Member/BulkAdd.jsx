@@ -45,7 +45,11 @@ const BulkAdd = () => {
         });
 
       const formatPhoneNumber = (phone) => {
-        return phone.replace(/[^\d+]/g, "");
+        phone = phone.replace(/[^\d+]/g, "");
+        if (!phone.startsWith("+")) {
+          phone = "+" + phone;
+        }
+        return phone;
       };
 
       const formatBusinessTags = (tags) => {
