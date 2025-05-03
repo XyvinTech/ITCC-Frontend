@@ -18,10 +18,9 @@ const RsvpTable = ({ data, event }) => {
   const handleDelete = async () => {
     if (selectedRows.length > 0) {
       try {
-        const updatedRsvp = event?.rsvp?.filter(
-          (r) => !selectedRows?.includes(r?._id)
-        );
-
+        const updatedRsvp = event?.rsvp
+        ?.filter((r) => !selectedRows?.includes(r?._id))
+        ?.map((r) => r._id);
         await updateEvent(event?._id, {
           rsvp: updatedRsvp,
         });
