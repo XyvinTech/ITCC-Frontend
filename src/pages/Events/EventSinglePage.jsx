@@ -18,7 +18,7 @@ const EventSinglePage = () => {
   const { loading } = useEventStore();
   const { id } = useParams();
 
-  const { fetchEventById, event } = useEventStore();
+  const { fetchEventById, event,refresh } = useEventStore();
   const handleChange = (event, newValue) => {
     setSelectedTab(newValue);
   };
@@ -40,7 +40,7 @@ const EventSinglePage = () => {
   };
   useEffect(() => {
     fetchEventById(id);
-  }, [id, isChange]);
+  }, [id, isChange,refresh]);
   return (
     <>
       {" "}
@@ -138,7 +138,7 @@ const EventSinglePage = () => {
         )}{" "}
         {selectedTab === 1 && (
           <Grid>
-            <RsvpTable data={event?.rsvp} />
+            <RsvpTable data={event?.rsvp} event={event} />
           </Grid>
         )}
       </Box>{" "}

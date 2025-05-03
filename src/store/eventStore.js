@@ -1,10 +1,17 @@
 import { create } from "zustand";
-import { createEvent, deleteEventById, getEventById, updateEventById } from "../api/eventapi";
+import {
+  createEvent,
+  deleteEventById,
+  getEventById,
+  updateEventById,
+} from "../api/eventapi";
+import { setRef } from "@mui/material";
 
 const useEventStore = create((set) => ({
   events: [],
   event: [],
   loading: false,
+  refresh: false,
 
   fetchEventById: async (id) => {
     set({ loading: true });
@@ -21,6 +28,9 @@ const useEventStore = create((set) => ({
   },
   updateEvent: async (id, data) => {
     await updateEventById(id, data);
+  },
+  setRefresh: () => {
+    set((state) => ({ refresh: !state.refresh }));
   },
 }));
 
