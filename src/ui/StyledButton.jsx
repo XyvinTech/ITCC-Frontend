@@ -12,6 +12,21 @@ const buttonVariants = css`
       background-color: #2d9cdb;
       radius: 5px;
     `}
+  ${(props) =>
+    props.variant === "tab" &&
+    css`
+      border: 1px solid #d1d1d1;
+      font-size: 16px;
+      font-weight: 400;
+      color: #4a4647;
+      background-color: transparent;
+      radius: 5px;
+      transition: all 0.2s ease-in-out;
+
+      &:hover {
+        background-color: #f5f5f5;
+      }
+    `}
 
   ${(props) =>
     props.variant === "secondary" &&
@@ -72,14 +87,22 @@ const ButtonContainer = styled.button`
   ${disabledStyles}
 `;
 
-export const StyledButton = ({ name, variant, color, onClick, disabled, type }) => {
+export const StyledButton = ({
+  name,
+  variant,
+  color,
+  onClick,
+  disabled,
+  type,
+}) => {
   return (
     <ButtonContainer
       variant={variant}
       color={color}
       disabled={disabled}
       onClick={onClick}
-      type={type}    >
+      type={type}
+    >
       {name}
     </ButtonContainer>
   );

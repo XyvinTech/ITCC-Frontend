@@ -110,42 +110,42 @@ export default function NewsDisplay() {
         <Stack direction={"row"} spacing={1}>
           <StyledButton
             name="All"
-            variant={selectedTab === "All" ? "primary" : "third"}
+            variant={selectedTab === "All" ? "primary" : "tab"}
             onClick={() => handleTabChange("All")}
           />
           <StyledButton
             name="Latest"
-            variant={selectedTab === "Latest" ? "primary" : "third"}
+            variant={selectedTab === "Latest" ? "primary" : "tab"}
             onClick={() => handleTabChange("Latest")}
           />
           <StyledButton
             name="Current Affairs"
-            variant={selectedTab === "Current Affairs" ? "primary" : "third"}
+            variant={selectedTab === "Current Affairs" ? "primary" : "tab"}
             onClick={() => handleTabChange("Current Affairs")}
           />
           <StyledButton
             name="Trending"
-            variant={selectedTab === "Trending" ? "primary" : "third"}
+            variant={selectedTab === "Trending" ? "primary" : "tab"}
             onClick={() => handleTabChange("Trending")}
           />
           <StyledButton
             name="Entertainment"
-            variant={selectedTab === "Entertainment" ? "primary" : "third"}
+            variant={selectedTab === "Entertainment" ? "primary" : "tab"}
             onClick={() => handleTabChange("Entertainment")}
           />
           <StyledButton
             name="History"
-            variant={selectedTab === "History" ? "primary" : "third"}
+            variant={selectedTab === "History" ? "primary" : "tab"}
             onClick={() => handleTabChange("History")}
           />
           <StyledButton
             name="Volunteering"
-            variant={selectedTab === "Volunteering" ? "primary" : "third"}
+            variant={selectedTab === "Volunteering" ? "primary" : "tab"}
             onClick={() => handleTabChange("Volunteering")}
           />
           <StyledButton
             name="Events/ Programmes"
-            variant={selectedTab === "Events/ Programmes" ? "primary" : "third"}
+            variant={selectedTab === "Events/ Programmes" ? "primary" : "tab"}
             onClick={() => handleTabChange("Events/ Programmes")}
           />
         </Stack>

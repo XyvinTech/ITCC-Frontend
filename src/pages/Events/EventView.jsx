@@ -14,6 +14,8 @@ import {
   DialogActions,
   Button,
   IconButton,
+  DialogTitle,
+  DialogContent,
 } from "@mui/material";
 import AddCircleOutlineIcon from "@mui/icons-material/AddCircleOutline";
 import { StyledButton } from "../../ui/StyledButton";
@@ -170,7 +172,9 @@ const EventView = () => {
                       }}
                       onClick={() => handleEventClick(event)}
                     >
-                      {event?.eventName}
+                      {event?.eventName?.length > 20
+                        ? `${event?.eventName?.slice(0, 20)}...`
+                        : event?.eventName}
                     </Typography>
                   ))
                 ) : (
@@ -202,182 +206,199 @@ const EventView = () => {
             onClose={closeDialog}
             fullWidth
             maxWidth="md"
+            scroll="paper"
           >
-            <Box padding={3}>
+            <DialogTitle sx={{ padding: 6, paddingBottom: 2 }}>
               <Typography variant="h5" color="#EB5860" fontWeight={700}>
                 {selectedEvent?.eventName}
               </Typography>
-              <Stack padding={3} direction="row" spacing={2}>
-                <img
-                  src={selectedEvent.image}
-                  alt={selectedEvent.title}
-                  style={{ width: "348px", height: "252px", objectFit: "fill" }}
-                />
-                <Stack spacing={2} width={"100%"}>
-                  <Stack direction={"row"} justifyContent={"space-between"}>
-                    <Typography
-                      variant="h7"
-                      color="#2E7D32"
-                      sx={{
-                        padding: "0px 6px",
-                        borderRadius: "12px",
-                        border: "1px solid",
-                        borderColor: getStatusColor(selectedEvent?.status),
-                        color: getStatusColor(selectedEvent?.status),
-                        width: "fit-content",
-                      }}
-                    >
-                      {selectedEvent?.status}
-                    </Typography>
-                    <ZoomOutMap
-                      style={{ cursor: "pointer" }}
-                      onClick={(e) => handleView(e, selectedEvent?._id)}
-                    />
-                  </Stack>
-                  <Stack direction="row" alignItems="center" spacing={1}>
-                    <CalendarIcon />
-                    <Typography variant="h7" color={"textTertiary"}>
-                      {formatDate(selectedEvent?.startDate)}
-                    </Typography>
-                  </Stack>
-                  {selectedEvent?.venue && (
-                    <Stack direction="row" alignItems="flex-start" spacing={1}>
-                      <LocationIcon />
+            </DialogTitle>
+
+            <DialogContent dividers>
+              <Box>
+                <Stack padding={2} direction="row" spacing={2}>
+                  <img
+                    src={selectedEvent.image}
+                    alt={selectedEvent.title}
+                    style={{
+                      width: "348px",
+                      height: "252px",
+                      objectFit: "fill",
+                      flexShrink: 0,
+                    }}
+                  />
+                  <Stack spacing={2} width={"100%"}>
+                    <Stack direction={"row"} justifyContent={"space-between"}>
+                      <Typography
+                        variant="h7"
+                        color="#2E7D32"
+                        sx={{
+                          padding: "0px 6px",
+                          borderRadius: "12px",
+                          border: "1px solid",
+                          borderColor: getStatusColor(selectedEvent?.status),
+                          color: getStatusColor(selectedEvent?.status),
+                          width: "fit-content",
+                        }}
+                      >
+                        {selectedEvent?.status}
+                      </Typography>
+                      <ZoomOutMap
+                        style={{ cursor: "pointer" }}
+                        onClick={(e) => handleView(e, selectedEvent?._id)}
+                      />
+                    </Stack>
+                    <Stack direction="row" alignItems="center" spacing={1}>
+                      <CalendarIcon />
                       <Typography variant="h7" color={"textTertiary"}>
-                        {selectedEvent?.venue}
+                        {formatDate(selectedEvent?.startDate)}
                       </Typography>
                     </Stack>
-                  )}
-                  {selectedEvent?.type === "Online" && (
-                    <Stack direction="row" spacing={6}>
-                      <Stack spacing={1}>
-                        {" "}
-                        <Typography
-                          variant="h6"
-                          fontWeight={700}
-                          color={"#000"}
-                        >
-                          Event platform
+                    {selectedEvent?.venue && (
+                      <Stack
+                        direction="row"
+                        alignItems="flex-start"
+                        spacing={1}
+                      >
+                        <LocationIcon />
+                        <Typography variant="h7" color={"textTertiary"}>
+                          {selectedEvent?.venue}
                         </Typography>
-                        <Stack direction={"row"} spacing={1}>
-                          <RecordIcon />
-                          <Typography variant="h7" color={"textTertiary"}>
-                            {selectedEvent?.platform}
-                          </Typography>
-                        </Stack>
                       </Stack>
-                      <Stack spacing={1}>
-                        {" "}
-                        <Typography
-                          variant="h6"
-                          fontWeight={700}
-                          color={"#000"}
-                        >
-                          Link
-                        </Typography>
-                        <Stack direction={"row"} spacing={1}>
-                          {" "}
-                          <InsertLinkIcon />
-                          <Link
-                            to={selectedEvent?.link}
-                            style={{ textDecoration: "none" }}
+                    )}
+                    {selectedEvent?.type === "Online" && (
+                      <Stack direction="row" spacing={6}>
+                        <Stack spacing={1}>
+                          <Typography
+                            variant="h6"
+                            fontWeight={700}
+                            color={"#000"}
                           >
-                            {" "}
+                            Event platform
+                          </Typography>
+                          <Stack direction={"row"} spacing={1}>
+                            <RecordIcon />
                             <Typography variant="h7" color={"textTertiary"}>
                               {selectedEvent?.platform}
                             </Typography>
-                          </Link>
+                          </Stack>
+                        </Stack>
+                        <Stack spacing={1}>
+                          <Typography
+                            variant="h6"
+                            fontWeight={700}
+                            color={"#000"}
+                          >
+                            Link
+                          </Typography>
+                          <Stack direction={"row"} spacing={1}>
+                            <InsertLinkIcon />
+                            <Link
+                              to={selectedEvent?.link}
+                              style={{ textDecoration: "none" }}
+                            >
+                              <Typography variant="h7" color={"textTertiary"}>
+                                {selectedEvent?.platform}
+                              </Typography>
+                            </Link>
+                          </Stack>
                         </Stack>
                       </Stack>
+                    )}
+                    <Stack spacing={1}>
+                      <Typography variant="h6" fontWeight={700} color={"#000"}>
+                        Description
+                      </Typography>
+                      <Typography variant="h7" color={"textTertiary"}>
+                        {selectedEvent?.description}
+                      </Typography>
                     </Stack>
-                  )}
-                  <Stack spacing={1}>
-                    <Typography variant="h6" fontWeight={700} color={"#000"}>
-                      Description
-                    </Typography>
-                    <Typography variant="h7" color={"textTertiary"}>
-                      {selectedEvent?.description}
-                    </Typography>
                   </Stack>
                 </Stack>
-              </Stack>
-              <Stack direction={"row"}>
-                <Stack width={"50%"}>
-                  {" "}
-                  <Typography>Speakers</Typography>
-                  {selectedEvent?.speakers?.map((speaker, index) => (
-                    <li
-                      key={index}
-                      style={{
-                        display: "flex",
-                        alignItems: "center",
-                        margin: "8px 0",
-                      }}
-                    >
-                      {" "}
-                      <Typography
-                        variant="h7"
-                        color="textSecondary"
-                        style={{ marginRight: "8px" }}
-                      >
-                        {index + 1}.
-                      </Typography>
-                      <img
-                        src={speaker?.image}
-                        alt={speaker?.name}
+
+                <Stack
+                  direction={{ xs: "column", md: "row" }}
+                  spacing={2}
+                  mt={2}
+                >
+                  <Stack width={{ xs: "100%", md: "50%" }}>
+                    <Typography variant="h6" fontWeight={700} color={"#000"}>
+                      Speakers
+                    </Typography>
+                    {selectedEvent?.speakers?.map((speaker, index) => (
+                      <li
+                        key={index}
                         style={{
-                          width: "24px",
-                          height: "24px",
-                          borderRadius: "50%",
-                          objectFit: "cover",
-                          marginRight: "8px",
+                          display: "flex",
+                          alignItems: "center",
+                          margin: "8px 0",
                         }}
-                      />
-                      <Typography variant="h7" color="textSecondary">
-                        {speaker?.name} ({speaker?.designation})
-                      </Typography>
-                    </li>
-                  ))}
-                </Stack>
-                <Stack width={"50%"}>
-                  {" "}
-                  <Typography>Coordinators</Typography>
-                  {selectedEvent?.coordinator?.map((speaker, index) => (
-                    <li
-                      key={index}
-                      style={{
-                        display: "flex",
-                        alignItems: "center",
-                        margin: "8px 0",
-                      }}
-                    >
-                      {" "}
-                      <Typography
-                        variant="h7"
-                        color="textSecondary"
-                        style={{ marginRight: "8px" }}
                       >
-                        {index + 1}.
-                      </Typography>
-                      <img
-                        src={speaker?.image}
-                        alt={speaker?.name}
+                        <Typography
+                          variant="h7"
+                          color="textSecondary"
+                          style={{ marginRight: "8px" }}
+                        >
+                          {index + 1}.
+                        </Typography>
+                        <img
+                          src={speaker?.image}
+                          alt={speaker?.name}
+                          style={{
+                            width: "24px",
+                            height: "24px",
+                            borderRadius: "50%",
+                            objectFit: "cover",
+                            marginRight: "8px",
+                          }}
+                        />
+                        <Typography variant="h7" color="textSecondary">
+                          {speaker?.name} ({speaker?.designation})
+                        </Typography>
+                      </li>
+                    ))}
+                  </Stack>
+                  <Stack width={{ xs: "100%", md: "50%" }}>
+                    <Typography variant="h6" fontWeight={700} color={"#000"}>
+                      Coordinators
+                    </Typography>
+                    {selectedEvent?.coordinator?.map((coordinator, index) => (
+                      <li
+                        key={index}
                         style={{
-                          width: "24px",
-                          height: "24px",
-                          borderRadius: "50%",
-                          objectFit: "cover",
-                          marginRight: "8px",
+                          display: "flex",
+                          alignItems: "center",
+                          margin: "8px 0",
                         }}
-                      />
-                      <Typography variant="h7" color="textSecondary">
-                        {speaker?.name}
-                      </Typography>
-                    </li>
-                  ))}
+                      >
+                        <Typography
+                          variant="h7"
+                          color="textSecondary"
+                          style={{ marginRight: "8px" }}
+                        >
+                          {index + 1}.
+                        </Typography>
+                        <img
+                          src={coordinator?.image}
+                          alt={coordinator?.name}
+                          style={{
+                            width: "24px",
+                            height: "24px",
+                            borderRadius: "50%",
+                            objectFit: "cover",
+                            marginRight: "8px",
+                          }}
+                        />
+                        <Typography variant="h7" color="textSecondary">
+                          {coordinator?.name}
+                        </Typography>
+                      </li>
+                    ))}
+                  </Stack>
                 </Stack>
-              </Stack>
-            </Box>
+              </Box>
+            </DialogContent>
+
             <DialogActions>
               <StyledButton
                 type="button"
@@ -385,7 +406,6 @@ const EventView = () => {
                 variant={"secondary"}
                 name={"Cancel"}
               />
-
               <StyledButton
                 name={"Edit Event"}
                 onClick={() => handleEdit(selectedEvent?._id)}
