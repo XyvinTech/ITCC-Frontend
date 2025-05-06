@@ -105,6 +105,25 @@ const BulkAdd = () => {
       if (file) {
         parseFile(file, async (parsedData) => {
           if (parsedData && parsedData.length > 0) {
+            // Check for duplicate phone numbers
+            const phoneSet = new Set();
+            const duplicates = [];
+  
+            parsedData.forEach((entry) => {
+              if (phoneSet.has(entry.phone)) {
+                duplicates.push(entry.phone);
+              } else {
+                phoneSet.add(entry.phone);
+              }
+            });
+  
+            if (duplicates.length > 0) {
+              toast.error(
+                `Duplicate phone numbers found: ${duplicates.join(", ")}`
+              );
+              return;
+            }
+  
             try {
               setLoading(true);
               await addMembersBulk(parsedData);
@@ -126,6 +145,7 @@ const BulkAdd = () => {
       toast("No file uploaded yet!");
     }
   };
+  
   const handleDownloadReport = (base64Data) => {
     const byteCharacters = atob(base64Data);
     const byteNumbers = new Array(byteCharacters.length)
@@ -173,6 +193,7 @@ const BulkAdd = () => {
             variant="secondary"
             style={{ width: "auto" }}
             onClick={handleCancel}
+            disabled={loading}
           >
             Cancel
           </StyledButton>
@@ -180,6 +201,7 @@ const BulkAdd = () => {
             name={loading ? "Saving..." : "Save"}
             variant="primary"
             style={{ width: "auto" }}
+            disabled={loading}
             onClick={handleSave}
           >
             Save
