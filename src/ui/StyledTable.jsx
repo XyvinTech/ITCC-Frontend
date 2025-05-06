@@ -213,6 +213,10 @@ const StyledTable = ({
         return "#EB5757"; // Soft red
       case "active":
         return "#27AE60"; // Green tone
+      case "inactive":
+        return "#828282"; // Grey (you can customize this)
+      case "expired":
+        return "#A9A9A9"; // Dark grey (or choose a custom tone)
       case "deleted":
         return "#B00020"; // Deep red
       case "cancelled":
@@ -240,6 +244,7 @@ const StyledTable = ({
       default:
         return "#BDBDBD"; // Neutral grey
     }
+    
   };
 
   const formatIndianDate = (date) => {

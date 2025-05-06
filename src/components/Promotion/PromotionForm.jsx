@@ -145,10 +145,16 @@ export default function Promotionform({ isUpdate }) {
           return;
         }
       }
+      const currentDate = moment().startOf("day");
+      const endDate = moment(data?.endDate).startOf("day");
+      const isStatusTrue = endDate.isAfter(currentDate);
+
       const formData = {
         startDate: data?.startDate,
         endDate: data?.endDate,
+        status: isStatusTrue ? "active" : "inactive",
       };
+
       if (type === "banner") {
         formData.type = "banner";
         formData.media = imageUrl;

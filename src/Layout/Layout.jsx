@@ -59,7 +59,7 @@ const subNavigation = [
   //   to: "/subscriptions",
   //   icon: <AccountBalanceWalletIcon />,
   // },
-  // { name: "Groups", to: "/groups", icon: <GroupsOutlined /> },
+  { name: "Groups", to: "/groups", icon: <GroupsOutlined /> },
 
   {
     name: "Events",
