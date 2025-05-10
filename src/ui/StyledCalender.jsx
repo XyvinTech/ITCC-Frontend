@@ -3,7 +3,7 @@ import { styled, ThemeProvider, createTheme } from "@mui/material/styles";
 import TextField from "@mui/material/TextField";
 import moment from "moment";
 import { DatePicker, LocalizationProvider } from "@mui/x-date-pickers";
-import { AdapterMoment } from "@mui/x-date-pickers/AdapterMoment"; 
+import { AdapterMoment } from "@mui/x-date-pickers/AdapterMoment";
 
 const theme = createTheme({
   components: {
@@ -12,10 +12,10 @@ const theme = createTheme({
         root: {
           backgroundColor: "#ffffff",
           "&:hover .MuiOutlinedInput-notchedOutline": {
-            borderColor: "rgba(0, 0, 0, 0.2)",
+            borderColor: "rgba(87, 85, 85, 0.12)",
           },
           "&.Mui-focused .MuiOutlinedInput-notchedOutline": {
-            borderColor: "rgba(0, 0, 0, 0.2)",
+            borderColor: "rgba(87, 85, 85, 0.12)",
             borderWidth: "1px",
           },
         },
@@ -24,9 +24,9 @@ const theme = createTheme({
     MuiInputLabel: {
       styleOverrides: {
         root: {
-          color: "rgba(0, 0, 0, 0.2)",
+          color: "rgba(87, 85, 85, 0.12)",
           "&.Mui-focused": {
-            color: "rgba(0, 0, 0, 0.2)",
+            color: "rgba(87, 85, 85, 0.12)",
           },
         },
       },
@@ -36,7 +36,7 @@ const theme = createTheme({
         root: {
           width: "100%",
           "& .MuiInputBase-input::placeholder": {
-            color: "rgba(0, 0, 0, 0.2)",
+            color: "rgba(87, 85, 85, 0.12)",
             opacity: 1,
           },
         },
@@ -50,7 +50,7 @@ const CustomTextField = styled(TextField)({
   "& .MuiOutlinedInput-root": {
     backgroundColor: "#ffffff",
     "& fieldset": {
-      borderColor: "rgba(0, 0, 0, 0.2)",
+      borderColor: "rgba(87, 85, 85, 0.12)",
     },
   },
 });
@@ -69,7 +69,7 @@ export const StyledCalender = ({ label, onChange, placeholder, value }) => {
   const handleDateChange = (date) => {
     if (date) {
       // Change the format to 'YYYY-MM-DD'
-      const formattedDate = moment(date).format('YYYY-MM-DD'); 
+      const formattedDate = moment(date).format("YYYY-MM-DD");
       setSelectedDate(moment(date));
       if (onChange) {
         onChange(formattedDate); // Pass the formatted date

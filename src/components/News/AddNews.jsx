@@ -186,7 +186,7 @@ export default function AddNews({ isUpdate, setSelectedTab }) {
               render={({ field }) => (
                 <>
                   <StyledSelectField
-                    placeholder="Latest"
+                    placeholder="Select category"
                     options={option}
                     {...field}
                   />

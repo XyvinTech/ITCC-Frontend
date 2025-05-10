@@ -23,14 +23,14 @@ const StyledSearchInputField = ({
       ...provided,
       height: "auto",
       padding: "8px",
-      border: "1px solid rgba(0, 0, 0, 0.2)",
+      border: "1px solid rgba(87, 85, 85, 0.12)",
       borderRadius: "4px",
       backgroundColor: "#ffffff",
       color: "#000000",
       boxShadow: state.isFocused ? "0 0 0 2px #fff" : "none",
       cursor: "pointer",
       "&:hover": {
-        borderColor: "rgba(0, 0, 0, 0.2)",
+        borderColor: "rgba(87, 85, 85, 0.12)",
       },
     }),
     indicatorSeparator: (provided) => ({

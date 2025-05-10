@@ -7,20 +7,20 @@ const CustomTextField = styled(TextField)(({ theme }) => ({
   backgroundColor: "white",
   "& .MuiOutlinedInput-root": {
     "& fieldset": {
-      borderColor: "rgba(0, 0, 0, 0.2)",
+      borderColor: "rgba(87, 85, 85, 0.12)",
     },
     "&:hover fieldset": {
-      borderColor: "rgba(0, 0, 0, 0.2)",
+      borderColor: "rgba(87, 85, 85, 0.12)",
     },
     "&.Mui-focused fieldset": {
-      borderColor: "rgba(0, 0, 0, 0.2)",
+      borderColor: "rgba(87, 85, 85, 0.12)",
     },
   },
   "& .MuiInputLabel-root": {
-    color: "rgba(0, 0, 0, 0.2)",
+    color: "rgba(87, 85, 85, 0.12)",
   },
   "& .MuiInputLabel-root.Mui-focused": {
-    color: "rgba(0, 0, 0, 0.2)",
+    color: "rgba(87, 85, 85, 0.12)",
   },
   "& .MuiInputBase-input::placeholder": {
     color: "#79747E",
@@ -34,7 +34,7 @@ export const StyledMultilineTextField = ({
   rows = 4,
   onChange,
   value,
-  maxLength,  // Add a maxLength prop
+  maxLength, // Add a maxLength prop
   errorMessage, // Add an optional error message prop
 }) => {
   const [error, setError] = React.useState(false);
@@ -60,7 +60,11 @@ export const StyledMultilineTextField = ({
         variant="outlined"
         fullWidth
         error={error}
-        helperText={error ? errorMessage || `Limit of ${maxLength} characters exceeded` : ""}
+        helperText={
+          error
+            ? errorMessage || `Limit of ${maxLength} characters exceeded`
+            : ""
+        }
       />
     </div>
   );

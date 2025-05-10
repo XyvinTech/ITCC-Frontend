@@ -15,23 +15,23 @@ import { PictureAsPdfOutlined } from "@mui/icons-material";
 const CustomTextField = styled(TextField)(({ theme }) => ({
   "& .MuiOutlinedInput-root": {
     "& fieldset": {
-      borderColor: "rgba(0, 0, 0, 0.2)",
+      borderColor: "rgba(87, 85, 85, 0.12)",
     },
     "&:hover fieldset": {
-      borderColor: "rgba(0, 0, 0, 0.2)",
+      borderColor: "rgba(87, 85, 85, 0.12)",
     },
     "&.Mui-focused fieldset": {
-      borderColor: "rgba(0, 0, 0, 0.2)",
+      borderColor: "rgba(87, 85, 85, 0.12)",
     },
   },
   "& .MuiInputLabel-root": {
-    color: "rgba(0, 0, 0, 0.2)",
+    color: "rgba(87, 85, 85, 0.12)",
   },
   "& .MuiInputLabel-root.Mui-focused": {
-    color: "rgba(0, 0, 0, 0.2)",
+    color: "rgba(87, 85, 85, 0.12)",
   },
   "& .MuiInputBase-input::placeholder": {
-    color: "rgba(0, 0, 0, 0.2)",
+    color: "rgba(87, 85, 85, 0.12)",
     opacity: 1,
   },
 }));
@@ -66,7 +66,7 @@ const ImagePreview = styled("img")({
   height: "100px",
   marginTop: "10px",
   objectFit: "contain",
-  border: "1px solid rgba(0, 0, 0, 0.2)",
+  border: "1px solid rgba(87, 85, 85, 0.12)",
   borderRadius: "4px",
 });
 
@@ -77,7 +77,7 @@ const PdfPreview = styled("div")({
   display: "flex",
   alignItems: "center",
   justifyContent: "center",
-  border: "1px solid rgba(0, 0, 0, 0.2)",
+  border: "1px solid rgba(87, 85, 85, 0.12)",
   borderRadius: "4px",
   backgroundColor: "#f0f0f0",
   fontSize: "12px",

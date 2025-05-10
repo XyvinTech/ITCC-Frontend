@@ -20,7 +20,6 @@ import LoginPage from "../pages/LoginPage";
 import EditNews from "../pages/News/EditNews";
 import EditPromotion from "../pages/Promotions/EditPromotion";
 import PaymentPage from "../pages/payments/PaymentPage";
-import QRPage from "../pages/QRPage";
 import { PrivateRoute } from "./PrivateRouter";
 import ReportPage from "../pages/Reports/ReportPage";
 import CreateNews from "../pages/News/CreateNews";

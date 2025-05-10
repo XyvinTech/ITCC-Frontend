@@ -5,10 +5,10 @@ const SwitchContainer = styled.label`
   display: inline-block;
   position: relative;
   width: 45px;
-  height: 20px; 
+  height: 20px;
   border-radius: 23px;
-  background: ${(props) => (props.checked ? "#FF9800" : "#b3b3b3")}; 
-  padding: 2px; 
+  background: ${(props) => (props.checked ? "#FF9800" : "#b3b3b3")};
+  padding: 2px;
   transition: background 300ms ease;
   cursor: ${(props) => (props.disabled ? "not-allowed" : "pointer")};
   opacity: ${(props) => (props.disabled ? 0.5 : 1)};
@@ -16,14 +16,14 @@ const SwitchContainer = styled.label`
 
 const SwitchHandle = styled.div`
   position: absolute;
-  width: 16px; 
-  height: 16px; 
+  width: 16px;
+  height: 16px;
   border-radius: 50%;
   top: 50%;
-  left: ${(props) => (props.checked ? "calc(100% - 18px)" : "2px")}; 
+  left: ${(props) => (props.checked ? "calc(100% - 18px)" : "2px")};
   background: white;
   transform: translateY(-50%);
-  box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.2); 
+  box-shadow: 0px 2px 4px rgba(87, 85, 85, 0.12);
   transition: left 300ms ease;
 `;
 

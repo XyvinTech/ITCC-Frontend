@@ -576,13 +576,13 @@ export default function AddEvent({ isUpdate }) {
                   />
                 </Grid>
               )}
-   <Grid item xs={6}>
+              <Grid item xs={6}>
                 <Typography
                   sx={{ marginBottom: 1 }}
                   variant="h6"
                   color="textSecondary"
                 >
-                 Event Start Date
+                  Event Start Date
                 </Typography>
                 <Controller
                   name="startDate"
@@ -670,7 +670,6 @@ export default function AddEvent({ isUpdate }) {
                   )}
                 />
               </Grid>
-           
 
               <Grid item xs={12}>
                 <Typography

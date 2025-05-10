@@ -11,6 +11,7 @@ const StyledInput = ({
   endIcon,
   disabled,
   type,
+  preview,
   onChange,
   value,
 }) => {
@@ -57,16 +58,16 @@ const StyledInput = ({
           sx={{
             width: "100%",
             padding: "3px",
-            backgroundColor: "#ffffff",
+            backgroundColor: preview ? "#F5F7FF" : "#ffffff",
             borderRadius: "5px",
             "& .MuiOutlinedInput-notchedOutline": {
-              borderColor: "rgba(0, 0, 0, 0.2)",
+              borderColor: "rgba(87, 85, 85, 0.12)",
             },
             "&:hover .MuiOutlinedInput-notchedOutline": {
-              borderColor: "rgba(0, 0, 0, 0.2)",
+              borderColor: "rgba(87, 85, 85, 0.12)",
             },
             "&.Mui-focused .MuiOutlinedInput-notchedOutline": {
-              borderColor: "rgba(0, 0, 0, 0.2)",
+              borderColor: "rgba(87, 85, 85, 0.12)",
             },
             "& .MuiInputBase-input": {
               padding: "14px",
