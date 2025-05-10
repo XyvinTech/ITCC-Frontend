@@ -53,6 +53,7 @@ const StyledPosterTable = () => {
     { title: "Start Date", field: "startDate", padding: "none" },
     { title: "End Date", field: "endDate", padding: "none" },
     { title: "Media", field: "media" },
+    { title: "Priority", field: "priority" },
     { title: "Status", field: "status" },
   ];
   return (

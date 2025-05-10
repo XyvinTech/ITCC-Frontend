@@ -93,6 +93,7 @@ export default function Promotionform({ isUpdate }) {
       setValue("type", selectedType || "");
       setValue("startDate", promotion.startDate);
       setValue("endDate", promotion.endDate);
+      setValue("priority", promotion.priority);
 
       if (promotion.type === "notice") {
         setValue("title", promotion.title || "");
@@ -153,6 +154,7 @@ export default function Promotionform({ isUpdate }) {
         startDate: data?.startDate,
         endDate: data?.endDate,
         status: isStatusTrue ? "active" : "inactive",
+        priority: data?.priority,
       };
 
       if (type === "banner") {
@@ -358,6 +360,28 @@ export default function Promotionform({ isUpdate }) {
               />
             </Grid>
           )}
+          <Grid item xs={12}>
+            <Typography
+              sx={{ marginBottom: 1 }}
+              variant="h6"
+              color="textSecondary"
+            >
+              Priority
+            </Typography>
+            <Controller
+              name="priority"
+              control={control}
+              defaultValue=""
+              render={({ field }) => (
+                <>
+                  <StyledInput placeholder="Priority" {...field} />
+                  <FormHelperText style={{ color: "#888" }}>
+                    Priority 1 will show first
+                  </FormHelperText>
+                </>
+              )}
+            />
+          </Grid>
           <Grid item xs={6}>
             <Typography
               sx={{ marginBottom: 1 }}

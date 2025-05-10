@@ -53,6 +53,7 @@ const StyledVideoTable = () => {
     { title: "Start Date", field: "startDate", padding: "none" },
     { title: "End Date", field: "endDate", padding: "none" },
     { title: "Title", field: "title" },
+    { title: "Priority", field: "priority" },
     { title: "Status", field: "status" },
   ];
   return (
