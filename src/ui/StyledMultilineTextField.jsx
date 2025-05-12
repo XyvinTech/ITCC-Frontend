@@ -2,31 +2,34 @@ import React from "react";
 import { styled } from "@mui/material/styles";
 import TextField from "@mui/material/TextField";
 
-const CustomTextField = styled(TextField)(({ theme }) => ({
-  width: "100%",
-  backgroundColor: "white",
-  "& .MuiOutlinedInput-root": {
-    "& fieldset": {
-      borderColor: "rgba(87, 85, 85, 0.12)",
+const CustomTextField = styled(({ preview, ...rest }) => <TextField {...rest} />)(
+  ({ theme, preview }) => ({
+    width: "100%",
+    backgroundColor: preview ? "#F5F7FF" : "white",
+    "& .MuiOutlinedInput-root": {
+      "& fieldset": {
+        borderColor: "rgba(87, 85, 85, 0.12)",
+      },
+      "&:hover fieldset": {
+        borderColor: "rgba(87, 85, 85, 0.12)",
+      },
+      "&.Mui-focused fieldset": {
+        borderColor: "rgba(87, 85, 85, 0.12)",
+      },
     },
-    "&:hover fieldset": {
-      borderColor: "rgba(87, 85, 85, 0.12)",
+    "& .MuiInputLabel-root": {
+      color: "rgba(87, 85, 85, 0.12)",
     },
-    "&.Mui-focused fieldset": {
-      borderColor: "rgba(87, 85, 85, 0.12)",
+    "& .MuiInputLabel-root.Mui-focused": {
+      color: "rgba(87, 85, 85, 0.12)",
     },
-  },
-  "& .MuiInputLabel-root": {
-    color: "rgba(87, 85, 85, 0.12)",
-  },
-  "& .MuiInputLabel-root.Mui-focused": {
-    color: "rgba(87, 85, 85, 0.12)",
-  },
-  "& .MuiInputBase-input::placeholder": {
-    color: "#79747E",
-    opacity: 1,
-  },
-}));
+    "& .MuiInputBase-input::placeholder": {
+      color: "#79747E",
+      opacity: 1,
+    },
+  })
+);
+
 
 export const StyledMultilineTextField = ({
   label,
@@ -34,6 +37,7 @@ export const StyledMultilineTextField = ({
   rows = 4,
   onChange,
   value,
+  preview,
   maxLength, // Add a maxLength prop
   errorMessage, // Add an optional error message prop
 }) => {
@@ -60,6 +64,7 @@ export const StyledMultilineTextField = ({
         variant="outlined"
         fullWidth
         error={error}
+        preview={preview}
         helperText={
           error
             ? errorMessage || `Limit of ${maxLength} characters exceeded`

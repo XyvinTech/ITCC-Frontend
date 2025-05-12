@@ -7,7 +7,7 @@ const SwitchContainer = styled.label`
   width: 45px;
   height: 20px;
   border-radius: 23px;
-  background: ${(props) => (props.checked ? "#FF9800" : "#b3b3b3")};
+  background: ${(props) => (props.checked ? "#2d9cdb" : "#b3b3b3")};
   padding: 2px;
   transition: background 300ms ease;
   cursor: ${(props) => (props.disabled ? "not-allowed" : "pointer")};
