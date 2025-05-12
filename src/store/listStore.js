@@ -13,6 +13,7 @@ import { getActivities } from "../api/activityapi";
 import { getParentSub, getPayment } from "../api/paymentapi";
 import { getNotification } from "../api/notificationapi";
 import { getGroup } from "../api/groupapi";
+import { getFolder } from "../api/folderApi";
 
 const useListStore = create((set, get) => ({
   lists: [],
@@ -94,6 +95,13 @@ const useListStore = create((set, get) => ({
   fetchApproval: async (filter) => {
     set({ loading: true });
     const allData = await getApproval(filter);
+    set({ lists: allData?.data || [] });
+    set({ totalCount: allData?.totalCount || 0 });
+    set({ loading: false });
+  },
+  fetchFolder: async (id,filter) => {
+    set({ loading: true });
+    const allData = await getFolder(id,filter);
     set({ lists: allData?.data || [] });
     set({ totalCount: allData?.totalCount || 0 });
     set({ loading: false });

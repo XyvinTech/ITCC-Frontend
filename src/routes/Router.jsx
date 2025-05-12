@@ -32,6 +32,7 @@ import AddActivityPage from "../pages/Activity/AddActivityPage";
 import GroupPage from "../pages/Group/GroupPage";
 import AddGroupPage from "../pages/Group/AddGroupPage";
 import HtmlPage from "../pages/HtmlPage";
+import MediaPage from "../pages/Events/MediaPage";
 const router = createBrowserRouter([
   {
     path: "/",
@@ -137,6 +138,16 @@ const router = createBrowserRouter([
       <PrivateRoute>
         <Layout>
           <EventSinglePage />
+        </Layout>
+      </PrivateRoute>
+    ),
+  },
+  {
+    path: "/event/media/:id",
+    element: (
+      <PrivateRoute>
+        <Layout>
+          <MediaPage />
         </Layout>
       </PrivateRoute>
     ),

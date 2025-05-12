@@ -136,3 +136,12 @@ export const memberApproval = async (id, data) => {
     throw error.response.data;
   }
 };
+export const addEnquiry = async (data) => {
+  try {
+    const response = await axiosInstance.post("/user/enquiry", data);
+    toast.success(response.data.message);
+    return response.data;
+  } catch (error) {
+    throw error.response.data;
+  }
+};

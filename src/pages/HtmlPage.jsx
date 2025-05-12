@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { getSingleUser } from "../api/memberapi";
+import { addEnquiry, getSingleUser } from "../api/memberapi";
 import { useParams } from "react-router-dom";
 import {
   Box,
@@ -13,6 +13,7 @@ import {
   Grid,
   Tabs,
   Tab,
+  Stack,
 } from "@mui/material";
 import image from "../assets/images/squares.png";
 import userimage from "../assets/images/image.png";
@@ -37,13 +38,18 @@ import ProductCard from "../ui/ProductCard";
 import Video from "../components/Member/Video";
 import ReviewCard from "../ui/ReviewCard";
 import { StyledButton } from "../ui/StyledButton";
+import StyledInput from "../ui/StyledInput";
+import { Controller, useForm } from "react-hook-form";
+import { StyledMultilineTextField } from "../ui/StyledMultilineTextField";
 const MemberProfileCard = () => {
   const [userData, setUserData] = useState(null);
   const [loading, setLoading] = useState(true);
   const [selectedTab, setSelectedTab] = useState(0);
   const { id } = useParams();
-  const formattedId = id?.endsWith("/") ? id.slice(0, -1) : id;
+  const [submitting, setSubmitting] = useState(false);
 
+  const formattedId = id?.endsWith("/") ? id.slice(0, -1) : id;
+  const { control, handleSubmit, reset } = useForm();
   useEffect(() => {
     const fetchData = async () => {
       try {
@@ -58,7 +64,21 @@ const MemberProfileCard = () => {
 
     fetchData();
   }, [formattedId]);
-
+  const onSubmit = async (data) => {
+    setSubmitting(true);
+    const formData = {
+      ...data,
+      user: formattedId,
+    };
+    try {
+      await addEnquiry(formData);
+      reset();
+    } catch (error) {
+      console.log(error);
+    } finally {
+      setSubmitting(false);
+    }
+  };
   if (loading) {
     return (
       <Box
@@ -86,7 +106,7 @@ const MemberProfileCard = () => {
   }
   const handleSaveContact = async () => {
     try {
-      if (!userData || !userData.name || !userData.phone || !userData.email ) {
+      if (!userData || !userData.name || !userData.phone || !userData.email) {
         throw new Error(
           "Incomplete user data. Please provide name, phone, and email."
         );
@@ -772,6 +792,133 @@ const MemberProfileCard = () => {
             name={"SAVE CONTACT"}
             onClick={handleSaveContact}
           />
+        </Box>
+      </Grid>
+      <Grid item xs={12} lg={5} mt={4} mb={6}>
+        {" "}
+        <Box
+          sx={{
+            width: "100%",
+            display: "flex",
+            flexDirection: "column",
+            gap: 3,
+            borderRadius: "15px",
+            border: {
+              sm: "1px solid #ccc",
+              xs: "none",
+            },
+            p: 4,
+          }}
+        >
+          <Typography color="#0C1E8A" variant="h1" textAlign={"center"}>
+            Let's Talk
+          </Typography>
+          <form onSubmit={handleSubmit(onSubmit)}>
+            <Grid container spacing={4}>
+              <Grid item xs={12}>
+                <Typography
+                  sx={{ marginBottom: 1 }}
+                  variant="h6"
+                  color="textSecondary"
+                >
+                  Name
+                </Typography>
+                <Controller
+                  name="name"
+                  control={control}
+                  defaultValue=""
+                  render={({ field }) => (
+                    <>
+                      <StyledInput
+                        placeholder="Enter your name"
+                        {...field}
+                        preview
+                      />
+                    </>
+                  )}
+                />
+              </Grid>{" "}
+              <Grid item xs={12}>
+                <Typography
+                  sx={{ marginBottom: 1 }}
+                  variant="h6"
+                  color="textSecondary"
+                >
+                  Phone Number
+                </Typography>
+                <Controller
+                  name="phone"
+                  control={control}
+                  defaultValue=""
+                  render={({ field }) => (
+                    <>
+                      <StyledInput
+                        placeholder="Enter your phone number"
+                        {...field}
+                        preview
+                      />
+                    </>
+                  )}
+                />
+              </Grid>
+              <Grid item xs={12}>
+                <Typography
+                  sx={{ marginBottom: 1 }}
+                  variant="h6"
+                  color="textSecondary"
+                >
+                  Email
+                </Typography>
+                <Controller
+                  name="email"
+                  control={control}
+                  defaultValue=""
+                  render={({ field }) => (
+                    <>
+                      <StyledInput
+                        placeholder="Enter your email"
+                        {...field}
+                        preview
+                      />
+                    </>
+                  )}
+                />
+              </Grid>
+              <Grid item xs={12}>
+                <Typography
+                  sx={{ marginBottom: 1 }}
+                  variant="h6"
+                  color="textSecondary"
+                >
+                  Description
+                </Typography>
+                <Controller
+                  name="description"
+                  control={control}
+                  defaultValue=""
+                  render={({ field }) => (
+                    <>
+                      <StyledMultilineTextField
+                        placeholder="Enter description"
+                        {...field}
+                        preview
+                      />
+                    </>
+                  )}
+                />
+              </Grid>
+              <Grid item xs={12}>
+                <Stack width={"100%"}>
+                  <StyledButton
+                    variant={"preview"}
+                    name={submitting ? "Sending..." : "Send"}
+                    type="submit"
+                    disabled={submitting}
+                  />
+                </Stack>
+              </Grid>
+            </Grid>
+          </form>
         </Box>
       </Grid>
     </Grid>

@@ -2,7 +2,6 @@ import { Box, Stack } from "@mui/material";
 import EventTable from "../../ui/EventTable";
 import { useState } from "react";
 import { useEventStore } from "../../store/eventStore";
-import { se } from "date-fns/locale";
 import { toast } from "react-toastify";
 const RsvpTable = ({ data, event }) => {
   const [selectedRows, setSelectedRows] = useState([]);
