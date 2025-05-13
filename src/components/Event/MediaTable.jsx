@@ -17,8 +17,9 @@ const MediaTable = ({ data }) => {
   const { fetchFolder } = useListStore();
   const [search, setSearch] = useState("");
   const { deleteFolders } = useFolderStore();
-  const[open, setOpen] = useState(false);
-  const {id} = useParams();
+  const [open, setOpen] = useState(false);
+  const [folderId, setFolderId] = useState(null);
+  const { id } = useParams();
   const navigate = useNavigate();
   useEffect(() => {
     let filter = {};
@@ -53,6 +54,10 @@ const MediaTable = ({ data }) => {
       }
     }
   };
+  const handleEdit = async (id) => {
+    setFolderId(id);
+    setOpen(true);
+  };
   return (
     <>
       <Stack
@@ -69,7 +74,11 @@ const MediaTable = ({ data }) => {
               setPageNo(1);
             }}
           />
-          <StyledButton name={"Add New Folder"} variant="primary" onClick={() => setOpen(true)}/>
+          <StyledButton
+            name={"Add New Folder"}
+            variant="primary"
+            onClick={() => setOpen(true)}
+          />
         </Stack>
       </Stack>
       <Box
@@ -80,7 +89,7 @@ const MediaTable = ({ data }) => {
       >
         <StyledTable
           columns={userColumns}
-          menu
+          onModify={handleEdit}
           onSelectionChange={handleSelectionChange}
           onDelete={handleDelete}
           pageNo={pageNo}
@@ -94,6 +103,7 @@ const MediaTable = ({ data }) => {
         open={open}
         onClose={() => setOpen(false)}
         id={id}
+        folderId={folderId}
         setIsChange={() => setIsChange((prev) => !prev)}
       />
     </>

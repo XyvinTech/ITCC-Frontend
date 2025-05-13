@@ -8,24 +8,42 @@ import {
 } from "@mui/material";
 import { Controller, useForm } from "react-hook-form";
 import { ReactComponent as CloseIcon } from "../../assets/icons/CloseIcon.svg";
-
 import { StyledButton } from "../../ui/StyledButton";
-import { StyledMultilineTextField } from "../../ui/StyledMultilineTextField";
-import { useProductStore } from "../../store/productStore";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import StyledInput from "../../ui/StyledInput";
 import { useFolderStore } from "../../store/folderStore";
 import { toast } from "react-toastify";
 
-const AddFolder = ({ open, onClose, id, setIsChange }) => {
+const AddFolder = ({ open, onClose, id, setIsChange, folderId }) => {
   const {
     control,
     handleSubmit,
     formState: { errors },
     getValues,
+    setValue,
+    reset,
   } = useForm();
-  const { addFolder } = useFolderStore();
+  const { addFolder, folder, getFolder, updateFolders } = useFolderStore();
   const [loading, setLoading] = useState(false);
+
+  useEffect(() => {
+    if (folderId) {
+      getFolder(folderId);
+    }
+  }, [folderId, getFolder]);
+
+  useEffect(() => {
+    if (folder && folderId) {
+      reset({
+        name: folder.name,
+      });
+    } else {
+      reset({
+        name: "",
+      });
+    }
+  }, [folder, folderId, reset]);
+
   const onSubmit = async (formData) => {
     setLoading(true);
     try {
@@ -33,19 +51,23 @@ const AddFolder = ({ open, onClose, id, setIsChange }) => {
         name: formData?.name,
         event: id,
       };
-
-      await addFolder(newData);
-
+      if (folderId) {
+        await updateFolders(folderId, newData);
+      } else {
+        await addFolder(newData);
+      }
       setIsChange((prev) => !prev);
+      onClose();
     } catch (error) {
-      toast.error(error.message);
+      toast.error(error.message || "Failed to save folder");
     } finally {
       setLoading(false);
-      onClose();
     }
   };
+
   const handleClear = (event) => {
     event.preventDefault();
+    reset();
     onClose();
   };
 
@@ -66,7 +88,7 @@ const AddFolder = ({ open, onClose, id, setIsChange }) => {
               alignItems="center"
             >
               <Typography variant="h3" color={"textTertiary"}>
-                Add Folder
+                {folderId ? "Edit Folder" : "Add Folder"}
               </Typography>
               <Typography
                 onClick={onClose}
@@ -87,9 +109,16 @@ const AddFolder = ({ open, onClose, id, setIsChange }) => {
               <Controller
                 name="name"
                 control={control}
+                defaultValue=""
+                rules={{ required: "Folder name is required" }}
                 render={({ field }) => (
                   <>
-                    <StyledInput placeholder={"Enter Folder Name"} {...field} />
+                    <StyledInput
+                      placeholder={"Enter Folder Name"}
+                      {...field}
+                      error={!!errors.name}
+                      helperText={errors.name?.message}
+                    />
                   </>
                 )}
               />
@@ -104,7 +133,7 @@ const AddFolder = ({ open, onClose, id, setIsChange }) => {
             <StyledButton
               variant="secondary"
               name="Cancel"
-              onClick={(event) => handleClear(event)}
+              onClick={handleClear}
               disabled={loading}
               type={"button"}
             />

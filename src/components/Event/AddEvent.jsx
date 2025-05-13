@@ -22,6 +22,7 @@ import { StyledMultilineTextField } from "../../ui/StyledMultilineTextField.jsx"
 import StyledCropImage from "../../ui/StyledCropImage.jsx";
 import { useDropDownStore } from "../../store/dropDownStore.js";
 import moment from "moment";
+import imageCompression from "browser-image-compression";
 import { upload } from "../../api/adminapi.js";
 
 export default function AddEvent({ isUpdate }) {
@@ -149,9 +150,13 @@ export default function AddEvent({ isUpdate }) {
       let imageUrl = data?.image || "";
       if (imageFile) {
         try {
+          const compressedFile = await imageCompression(imageFile, {
+            maxSizeMB: 1,
+            useWebWorker: true,
+          });
           imageUrl = await new Promise(async (resolve, reject) => {
             try {
-              const response = await upload(imageFile);
+              const response = await upload(compressedFile);
               resolve(response?.data || "");
             } catch (error) {
               reject(error);

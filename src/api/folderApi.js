@@ -56,3 +56,12 @@ export const deleteFile = async (id, data) => {
     throw error.response.data;
   }
 };
+export const updateFolder = async (id, data) => {
+  try {
+    const response = await axiosInstance.put(`/folder/single/${id}`, data);
+    toast.success(response.data.message);
+    return response.data;
+  } catch (error) {
+    throw error.response.data;
+  }
+};

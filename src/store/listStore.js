@@ -6,7 +6,11 @@ import { getApproval, getFeedByUser } from "../api/productapi";
 import { fetchRole } from "../api/roleManagementapi";
 import { getAdmin, getAdminActivity } from "../api/adminapi";
 import { getNews } from "../api/newsapi";
-import { getMember, getMembershipApprovals } from "../api/memberapi";
+import {
+  getEnquiry,
+  getMember,
+  getMembershipApprovals,
+} from "../api/memberapi";
 import { getReport } from "../api/reportapi";
 import { getAllLevel } from "../api/hierarchyapi";
 import { getActivities } from "../api/activityapi";
@@ -99,9 +103,9 @@ const useListStore = create((set, get) => ({
     set({ totalCount: allData?.totalCount || 0 });
     set({ loading: false });
   },
-  fetchFolder: async (id,filter) => {
+  fetchFolder: async (id, filter) => {
     set({ loading: true });
-    const allData = await getFolder(id,filter);
+    const allData = await getFolder(id, filter);
     set({ lists: allData?.data || [] });
     set({ totalCount: allData?.totalCount || 0 });
     set({ loading: false });
@@ -174,6 +178,13 @@ const useListStore = create((set, get) => ({
   fetchGroup: async (filter) => {
     set({ loading: true });
     const allData = await getGroup(filter);
+    set({ lists: allData?.data || [] });
+    set({ totalCount: allData?.totalCount || 0 });
+    set({ loading: false });
+  },
+  fetchEnquiry: async (id) => {
+    set({ loading: true });
+    const allData = await getEnquiry(id);
     set({ lists: allData?.data || [] });
     set({ totalCount: allData?.totalCount || 0 });
     set({ loading: false });

@@ -16,6 +16,7 @@ import { useFeedStore } from "../../store/feedStore";
 import Subscription from "./Subscription";
 import MemberProducts from "../../components/Member/MemberProducts";
 import MemberActivity from "../../components/Member/MemberActivity";
+import MemberEnquiry from "./MemberEnquiry";
 
 const MemberView = () => {
   const storedTab = localStorage.getItem("memberViewTab");
@@ -84,7 +85,7 @@ const MemberView = () => {
         {/* <Tab label="Subscriptions" /> */}
         <Tab label="Business Posts" />
         <Tab label="Activity" />
-        {/* <Tab label="Analytics" /> */}
+        <Tab label="Enquiries" />
       </Tabs>
       <Box padding="15px" marginBottom={4}>
         {selectedTab === 0 && (
@@ -109,9 +110,9 @@ const MemberView = () => {
         )}
 
         {selectedTab === 3 && (
-          <Grid container item xs={12}>
+          <Grid >
             {" "}
-            <MemberAnalytics />
+            <MemberEnquiry />
           </Grid>
         )}
       </Box>

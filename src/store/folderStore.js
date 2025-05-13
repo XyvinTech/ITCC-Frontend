@@ -5,6 +5,7 @@ import {
   deleteFile,
   deleteFolder,
   getFolderById,
+  updateFolder,
 } from "../api/folderApi";
 
 const useFolderStore = create((set) => ({
@@ -15,6 +16,9 @@ const useFolderStore = create((set) => ({
   },
   addFolder: async (data) => {
     await createFolder(data);
+  },
+    updateFolders: async (id, data) => {
+    await updateFolder(id, data);
   },
   addFile: async (id, data) => {
     await createFile(id, data);

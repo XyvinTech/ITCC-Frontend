@@ -222,7 +222,7 @@ const MemberList = () => {
                     filters.chapter ||
                     (filters.installed !== undefined &&
                       filters.installed !== "")
-                      ? "0 0 8px rgba(245, 130, 32, 0.6)"
+                      ? "0 0 8px rgba(45, 156, 219, 0.6)"
                       : "none",
                   borderColor:
                     filters.name ||

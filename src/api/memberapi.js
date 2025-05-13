@@ -145,3 +145,11 @@ export const addEnquiry = async (data) => {
     throw error.response.data;
   }
 };
+export const getEnquiry = async (id) => {
+  try {
+    const response = await axiosInstance.get(`/user/enquiry/${id}`);
+    return response.data;
+  } catch (error) {
+    throw error;
+  }
+};
