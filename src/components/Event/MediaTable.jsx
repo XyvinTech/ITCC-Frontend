@@ -35,6 +35,8 @@ const MediaTable = ({ data }) => {
   };
   const userColumns = [
     { title: "Name", field: "name", padding: "none" },
+    { title: "Images", field: "imageCount" },
+    { title: "Videos", field: "videoCount" },
     { title: "Created At", field: "createdAt" },
   ];
   const handleView = async (id) => {
@@ -57,6 +59,15 @@ const MediaTable = ({ data }) => {
   const handleEdit = async (id) => {
     setFolderId(id);
     setOpen(true);
+  };
+  const handleRowDelete = async (id) => {
+    try {
+      await deleteFolders(id);
+      toast.success("Deleted successfully");
+      setIsChange(!isChange);
+    } catch (error) {
+      toast.error(error.message);
+    }
   };
   return (
     <>
@@ -92,6 +103,7 @@ const MediaTable = ({ data }) => {
           onModify={handleEdit}
           onSelectionChange={handleSelectionChange}
           onDelete={handleDelete}
+          onDeleteRow={handleRowDelete}
           pageNo={pageNo}
           setPageNo={setPageNo}
           onView={handleView}
