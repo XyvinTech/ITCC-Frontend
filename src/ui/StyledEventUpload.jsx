@@ -3,6 +3,7 @@ import TextField from "@mui/material/TextField";
 import { styled } from "@mui/material/styles";
 import InputAdornment from "@mui/material/InputAdornment";
 import BackupOutlinedIcon from "@mui/icons-material/BackupOutlined";
+import CloseIcon from "@mui/icons-material/Close";
 import IconButton from "@mui/material/IconButton";
 import Box from "@mui/material/Box";
 
@@ -30,18 +31,23 @@ const CustomTextField = styled(TextField)(({ theme }) => ({
   },
 }));
 
+const PreviewContainer = styled(Box)({
+  position: "relative",
+  display: "inline-block",
+  marginTop: "10px",
+});
+
 const ImagePreview = styled("img")({
   width: "100px",
   height: "100px",
-  marginTop: "10px",
   objectFit: "contain",
   border: "1px solid rgba(87, 85, 85, 0.12)",
   borderRadius: "4px",
 });
+
 const PdfPreview = styled("div")({
   width: "100px",
   height: "100px",
-  marginTop: "10px",
   display: "flex",
   alignItems: "center",
   justifyContent: "center",
@@ -52,10 +58,23 @@ const PdfPreview = styled("div")({
   fontWeight: "bold",
   color: "rgba(0, 0, 0, 0.5)",
 });
+
+const CloseButton = styled(IconButton)({
+  position: "absolute",
+  top: -8,
+  right: -8,
+  padding: "4px",
+  backgroundColor: "rgba(255, 255, 255, 0.8)",
+  "&:hover": {
+    backgroundColor: "rgba(255, 255, 255, 1)",
+  },
+});
+
 export const StyledEventUpload = ({ label, value, onChange }) => {
   const fileInputRef = useRef(null);
-  const [selectedImage, setSelectedImage] = useState(value || null); // Initialize with the passed value
+  const [selectedImage, setSelectedImage] = useState(value || null);
   const [isPdf, setIsPdf] = useState(false);
+
   const handleIconClick = () => {
     fileInputRef.current.click();
   };
@@ -75,12 +94,31 @@ export const StyledEventUpload = ({ label, value, onChange }) => {
       onChange(file); // Update form value with the selected file
     }
   };
+
+  const handleRemove = () => {
+    setSelectedImage(null);
+    onChange(null); // Clear the form value
+    // Revoke object URL if it exists to prevent memory leaks
+    if (selectedImage && !isPdf) {
+      URL.revokeObjectURL(selectedImage);
+    }
+  };
+
   useEffect(() => {
     if (value && typeof value === "string") {
       setSelectedImage(value);
       setIsPdf(value.endsWith(".pdf"));
     }
   }, [value]);
+
+  // Clean up object URLs when component unmounts
+  useEffect(() => {
+    return () => {
+      if (selectedImage && !isPdf && typeof selectedImage === "string" && selectedImage.startsWith("blob:")) {
+        URL.revokeObjectURL(selectedImage);
+      }
+    };
+  }, [selectedImage, isPdf]);
 
   return (
     <>
@@ -97,6 +135,7 @@ export const StyledEventUpload = ({ label, value, onChange }) => {
           ),
           readOnly: true,
         }}
+        value={selectedImage ? (isPdf ? selectedImage : "Image selected") : ""}
       />
       <input
         type="file"
@@ -105,12 +144,18 @@ export const StyledEventUpload = ({ label, value, onChange }) => {
         style={{ display: "none" }}
         accept="image/*,application/pdf"
       />
-      {selectedImage &&
-        (isPdf ? (
-          <PdfPreview>PDF Preview: {selectedImage}</PdfPreview>
-        ) : (
-          <ImagePreview src={selectedImage} alt="Preview" />
-        ))}
+      {selectedImage && (
+        <PreviewContainer>
+          {isPdf ? (
+            <PdfPreview>PDF Preview: {selectedImage}</PdfPreview>
+          ) : (
+            <ImagePreview src={selectedImage} alt="Preview" />
+          )}
+          <CloseButton size="small" onClick={handleRemove}>
+            <CloseIcon fontSize="small" />
+          </CloseButton>
+        </PreviewContainer>
+      )}
     </>
   );
 };
