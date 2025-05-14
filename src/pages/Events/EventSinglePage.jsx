@@ -10,6 +10,7 @@ import EventCard from "../../ui/EventCard";
 import { useEventStore } from "../../store/eventStore";
 import OrganinserCard from "../../components/Event/OrganinserCard";
 import MediaTable from "../../components/Event/MediaTable";
+import { useAdminStore } from "../../store/adminStore";
 
 const EventSinglePage = () => {
   const [selectedTab, setSelectedTab] = useState(0);
@@ -18,8 +19,8 @@ const EventSinglePage = () => {
   const [isChange, setIsChange] = useState(false);
   const { loading } = useEventStore();
   const { id } = useParams();
-
-  const { fetchEventById, event,refresh } = useEventStore();
+  const { singleAdmin } = useAdminStore();
+  const { fetchEventById, event, refresh } = useEventStore();
   const handleChange = (event, newValue) => {
     setSelectedTab(newValue);
   };
@@ -41,7 +42,7 @@ const EventSinglePage = () => {
   };
   useEffect(() => {
     fetchEventById(id);
-  }, [id, isChange,refresh]);
+  }, [id, isChange, refresh]);
   return (
     <>
       {" "}
@@ -58,26 +59,30 @@ const EventSinglePage = () => {
               Events / {event?.eventName}
             </Typography>
           </Grid>
-          <Grid item xs={6} container justifyContent="flex-end" spacing={2}>
-            {event?.status === "pending" && (
-              <>
-                <Grid item>
-                  <StyledButton
-                    name="Cancel"
-                    variant="secondary"
-                    onClick={handleCancel}
-                  />
-                </Grid>
-                <Grid item>
-                  <StyledButton
-                    name="Postpone"
-                    variant="primary"
-                    onClick={handlePostpone}
-                  />
-                </Grid>
-              </>
-            )}
-          </Grid>
+          {singleAdmin?.role?.permissions?.includes(
+            "eventManagement_modify"
+          ) && (
+            <Grid item xs={6} container justifyContent="flex-end" spacing={2}>
+              {event?.status === "pending" && (
+                <>
+                  <Grid item>
+                    <StyledButton
+                      name="Cancel"
+                      variant="secondary"
+                      onClick={handleCancel}
+                    />
+                  </Grid>
+                  <Grid item>
+                    <StyledButton
+                      name="Postpone"
+                      variant="primary"
+                      onClick={handlePostpone}
+                    />
+                  </Grid>
+                </>
+              )}
+            </Grid>
+          )}
         </Grid>
       </Box>{" "}
       <Box padding="30px" marginBottom={4}>

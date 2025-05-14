@@ -5,6 +5,7 @@ import { useNavigate } from "react-router-dom";
 import { usePromotionStore } from "../../store/promotionstore";
 import { toast } from "react-toastify";
 import { useListStore } from "../../store/listStore";
+import { useAdminStore } from "../../store/adminStore";
 
 const StyledVideoTable = () => {
   const navigate = useNavigate();
@@ -13,6 +14,7 @@ const StyledVideoTable = () => {
   const { deletePromotions } = usePromotionStore();
   const { fetchPromotion } = useListStore();
   const [pageNo, setPageNo] = useState(1);
+  const { singleAdmin } = useAdminStore();
   const [row, setRow] = useState(10);
   useEffect(() => {
     let filter = { type: "video" };
@@ -70,17 +72,33 @@ const StyledVideoTable = () => {
         p={1}
         border={"1px solid rgba(0, 0, 0, 0.12)"}
       >
-        <StyledTable
-          columns={userColumns}
-          onSelectionChange={handleSelectionChange}
-          onDelete={handleDelete}
-          onDeleteRow={handleRowDelete}
-          onModify={handleEdit}
-          pageNo={pageNo}
-          setPageNo={setPageNo}
-          rowPerSize={row}
-          setRowPerSize={setRow}
-        />{" "}
+        {singleAdmin?.role?.permissions?.includes(
+          "promotionManagement_modify"
+        ) ? (
+          <StyledTable
+            columns={userColumns}
+            onSelectionChange={handleSelectionChange}
+            onDelete={handleDelete}
+            onDeleteRow={handleRowDelete}
+            onModify={handleEdit}
+            pageNo={pageNo}
+            setPageNo={setPageNo}
+            rowPerSize={row}
+            setRowPerSize={setRow}
+          />
+        ) : (
+          <StyledTable
+            columns={userColumns}
+            menu
+            onSelectionChange={handleSelectionChange}
+            onDeleteRow={handleRowDelete}
+            onModify={handleEdit}
+            pageNo={pageNo}
+            setPageNo={setPageNo}
+            rowPerSize={row}
+            setRowPerSize={setRow}
+          />
+        )}
       </Box>
     </>
   );

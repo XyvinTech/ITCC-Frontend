@@ -12,10 +12,12 @@ import { ReactComponent as CloseIcon } from "../../assets/icons/CloseIcon.svg";
 import { StyledButton } from "../../ui/StyledButton";
 import { useNewsStore } from "../../store/newsStore";
 import { useState } from "react";
+import { useAdminStore } from "../../store/adminStore";
 
 const NewsPreview = ({ open, onClose, onChange, data, onEdit }) => {
   const { handleSubmit } = useForm();
   const { updateNews } = useNewsStore();
+  const { singleAdmin } = useAdminStore();
   const [loading, setLoading] = useState(false);
 
   const onSubmit = async () => {
@@ -58,7 +60,7 @@ const NewsPreview = ({ open, onClose, onChange, data, onEdit }) => {
       onClose={onClose}
       maxWidth="md"
       PaperProps={{
-        sx: { 
+        sx: {
           borderRadius: "12px",
           maxHeight: "90vh", // Limit height to 90% of viewport height
         },
@@ -78,25 +80,25 @@ const NewsPreview = ({ open, onClose, onChange, data, onEdit }) => {
           </Box>
         </DialogTitle>
         <Divider />
-        <DialogContent 
-          sx={{ 
-            height: "auto", 
+        <DialogContent
+          sx={{
+            height: "auto",
             padding: 0,
             overflowY: "auto", // Enable vertical scrolling
-            maxHeight: "calc(90vh - 150px)" // Adjust height to leave space for header and buttons
+            maxHeight: "calc(90vh - 150px)", // Adjust height to leave space for header and buttons
           }}
         >
           <Stack spacing={2} padding={2} justifyContent={"center"}>
             <Box display="flex" justifyContent="center">
-              <img 
-                src={data?.media} 
-                style={{ 
-                  maxWidth: "100%", 
-                  maxHeight: "262px", 
-                  width: "auto", 
-                  height: "auto", 
-                  objectFit: "contain" 
-                }} 
+              <img
+                src={data?.media}
+                style={{
+                  maxWidth: "100%",
+                  maxHeight: "262px",
+                  width: "auto",
+                  height: "auto",
+                  objectFit: "contain",
+                }}
                 alt="News media"
               />
             </Box>
@@ -113,29 +115,31 @@ const NewsPreview = ({ open, onClose, onChange, data, onEdit }) => {
           </Stack>{" "}
         </DialogContent>
         <Divider />
-        <Stack 
-          direction={"row"} 
-          spacing={2} 
-          padding={2} 
-          justifyContent={"end"}
-          sx={{ 
-            backgroundColor: "background.paper" // Ensures button area has background
-          }}
-        >
-          <StyledButton
-            variant="secondary"
-            name="Edit"
-            onClick={(event) => handleEdit(event)}
-            disabled={loading}
-            type={"button"}
-          />
-          <StyledButton
-            variant="primary"
-            name={data?.status === "published" ? "Unpublish" : "Publish"}
-            type="submit"
-            disabled={loading}
-          />
-        </Stack>
+        {singleAdmin?.role?.permissions?.includes("newsManagement_modify") && (
+          <Stack
+            direction={"row"}
+            spacing={2}
+            padding={2}
+            justifyContent={"end"}
+            sx={{
+              backgroundColor: "background.paper", // Ensures button area has background
+            }}
+          >
+            <StyledButton
+              variant="secondary"
+              name="Edit"
+              onClick={(event) => handleEdit(event)}
+              disabled={loading}
+              type={"button"}
+            />
+            <StyledButton
+              variant="primary"
+              name={data?.status === "published" ? "Unpublish" : "Publish"}
+              type="submit"
+              disabled={loading}
+            />
+          </Stack>
+        )}
       </form>
     </Dialog>
   );

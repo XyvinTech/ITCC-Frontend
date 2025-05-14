@@ -26,6 +26,7 @@ import MoreVertIcon from "@mui/icons-material/MoreVert";
 import { StyledButton } from "./StyledButton";
 import moment from "moment";
 import { useListStore } from "../store/listStore";
+import { useAdminStore } from "../store/adminStore";
 
 const StyledTableCell = styled(TableCell)`
   &.${tableCellClasses.head} {
@@ -97,45 +98,37 @@ const StyledTable = ({
   const [anchorEl, setAnchorEl] = useState(null);
   const [rowId, setRowId] = useState(null);
   const { lists, totalCount, rowChange, loading } = useListStore();
-
+  const { singleAdmin } = useAdminStore();
   const [selectedItemsData, setSelectedItemsData] = useState({});
-
-  // This effect updates the selectedItemsData when an item is selected
   useEffect(() => {
     if (!lists.length) return;
-    
-    // For each new selected ID, store its name if we find it in the lists
-    const newSelectedData = {...selectedItemsData};
-    
-    selectedIds.forEach(id => {
-      // Only look up and store new names for IDs we haven't seen before
+    const newSelectedData = { ...selectedItemsData };
+
+    selectedIds.forEach((id) => {
       if (!newSelectedData[id]) {
-        const item = lists.find(row => row._id === id);
+        const item = lists.find((row) => row._id === id);
         if (item) {
           newSelectedData[id] = item.name;
         }
       }
     });
-    
+
     setSelectedItemsData(newSelectedData);
   }, [selectedIds, lists]);
-  
+
   const getSelectedItemsInfo = () => {
     if (!selectedIds.length) return [];
-    
-    return selectedIds.map(id => {
-      // First check our stored data
+
+    return selectedIds.map((id) => {
       if (selectedItemsData[id]) {
         return { id, name: selectedItemsData[id] };
       }
-      
-      // If not in stored data, try to find in current lists
-      const item = lists.find(row => row._id === id);
+
+      const item = lists.find((row) => row._id === id);
       if (item) {
         return { id, name: item.name };
       }
-      
-      // Fallback for items that can't be found
+
       return { id, name: "Unknown" };
     });
   };
@@ -244,7 +237,6 @@ const StyledTable = ({
       default:
         return "#BDBDBD"; // Neutral grey
     }
-    
   };
 
   const formatIndianDate = (date) => {
@@ -632,33 +624,36 @@ const StyledTable = ({
         <Stack
           component="div"
           direction={"row"}
-          justifyContent={selectedIds.length > 0 ? "space-between" : "flex-end"}
+          justifyContent={selectedIds.length > 0 ?( singleAdmin?.role?.permissions?.some((perm) => perm.endsWith("_modify"))?"space-between" : "flex-end"):"flex-end"} 
           alignItems="center"
           padding={2}
         >
-          {selectedIds.length > 0 && (
-            <Stack direction="row" alignItems="center"spacing={2}>
-              <Typography paddingRight={3}>
-                {`${selectedIds.length} item${
-                  selectedIds.length > 1 ? "s" : ""
-                } selected`}
-              </Typography>
-              <StyledButton
-                variant="third"
-                name="Delete"
-                onClick={() => handleDelete(selectedIds)}
-              />
-              {user && (
-                <>
-                  <StyledButton
-                    variant="primary"
-                    name="verify"
-                    onClick={() => handleVerify(selectedIds)}
-                  />
-                </>
-              )}
-            </Stack>
-          )}
+          {selectedIds.length > 0 &&
+            singleAdmin?.role?.permissions?.some((perm) =>
+              perm.endsWith("_modify")
+            ) && (
+              <Stack direction="row" alignItems="center" spacing={2}>
+                <Typography paddingRight={3}>
+                  {`${selectedIds.length} item${
+                    selectedIds.length > 1 ? "s" : ""
+                  } selected`}
+                </Typography>
+                <StyledButton
+                  variant="third"
+                  name="Delete"
+                  onClick={() => handleDelete(selectedIds)}
+                />
+                {user && (
+                  <>
+                    <StyledButton
+                      variant="primary"
+                      name="verify"
+                      onClick={() => handleVerify(selectedIds)}
+                    />
+                  </>
+                )}
+              </Stack>
+            )}
           <Stack
             direction="row"
             alignItems="center"

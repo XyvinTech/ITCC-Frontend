@@ -5,6 +5,7 @@ import { useNavigate } from "react-router-dom";
 import { usePromotionStore } from "../../store/promotionstore";
 import { toast } from "react-toastify";
 import { useListStore } from "../../store/listStore";
+import { useAdminStore } from "../../store/adminStore";
 
 const StyledPosterTable = () => {
   const navigate = useNavigate();
@@ -12,6 +13,7 @@ const StyledPosterTable = () => {
   const [selectedRows, setSelectedRows] = useState([]);
   const { deletePromotions } = usePromotionStore();
   const { fetchPromotion } = useListStore();
+  const { singleAdmin } = useAdminStore();
   const [pageNo, setPageNo] = useState(1);
   const [row, setRow] = useState(10);
   useEffect(() => {
@@ -70,17 +72,33 @@ const StyledPosterTable = () => {
         p={1}
         border={"1px solid rgba(0, 0, 0, 0.12)"}
       >
-        <StyledTable
-          columns={userColumns}
-          onSelectionChange={handleSelectionChange}
-          onDelete={handleDelete}
-          onDeleteRow={handleRowDelete}
-          onModify={handleEdit}
-          pageNo={pageNo}
-          setPageNo={setPageNo}
-          rowPerSize={row}
-          setRowPerSize={setRow}
-        />{" "}
+        {singleAdmin?.role?.permissions?.includes(
+          "promotionManagement_view"
+        ) ? (
+          <StyledTable
+            columns={userColumns}
+            onSelectionChange={handleSelectionChange}
+            onDelete={handleDelete}
+            onDeleteRow={handleRowDelete}
+            onModify={handleEdit}
+            pageNo={pageNo}
+            setPageNo={setPageNo}
+            rowPerSize={row}
+            setRowPerSize={setRow}
+          />
+        ) : (
+          <StyledTable
+            columns={userColumns}
+            onSelectionChange={handleSelectionChange}
+            menu
+            onDeleteRow={handleRowDelete}
+            onModify={handleEdit}
+            pageNo={pageNo}
+            setPageNo={setPageNo}
+            rowPerSize={row}
+            setRowPerSize={setRow}
+          />
+        )}{" "}
       </Box>
     </>
   );

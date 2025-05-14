@@ -5,6 +5,7 @@ import { useNavigate } from "react-router-dom";
 import { usePromotionStore } from "../../store/promotionstore";
 import { toast } from "react-toastify";
 import { useListStore } from "../../store/listStore";
+import { useAdminStore } from "../../store/adminStore";
 
 const StyledBannerTable = () => {
   const navigate = useNavigate();
@@ -14,13 +15,13 @@ const StyledBannerTable = () => {
   const { deletePromotions } = usePromotionStore();
   const { fetchPromotion } = useListStore();
   const [pageNo, setPageNo] = useState(1);
+  const { singleAdmin } = useAdminStore();
   useEffect(() => {
     let filter = { type: "banner" };
     filter.pageNo = pageNo;
     filter.limit = row;
     fetchPromotion(filter);
-  }, [isChange, pageNo,row]);
-
+  }, [isChange, pageNo, row]);
 
   const handleSelectionChange = (newSelectedIds) => {
     setSelectedRows(newSelectedIds);
@@ -46,7 +47,7 @@ const StyledBannerTable = () => {
       toast.success("Deleted successfully");
       setIsChange(!isChange);
     } catch (error) {
-     toast.error(error.message);
+      toast.error(error.message);
     }
   };
 
@@ -64,9 +65,7 @@ const StyledBannerTable = () => {
         justifyContent={"end"}
         paddingBottom={"15px"}
         alignItems={"center"}
-      >
-       
-      </Stack>{" "}
+      ></Stack>{" "}
       <Box
         borderRadius={"16px"}
         paddingTop={"15px"}
@@ -74,17 +73,33 @@ const StyledBannerTable = () => {
         p={1}
         border={"1px solid rgba(0, 0, 0, 0.12)"}
       >
-        <StyledTable
-          columns={userColumns}
-          onSelectionChange={handleSelectionChange}
-          onDelete={handleDelete}
-          onDeleteRow={handleRowDelete}
-          onModify={handleEdit}
-          pageNo={pageNo}
-          setPageNo={setPageNo}
-          rowPerSize={row}
-          setRowPerSize={setRow}
-        />{" "}
+        {singleAdmin?.role?.permissions?.includes(
+          "promotionManagement_modify"
+        ) ? (
+          <StyledTable
+            columns={userColumns}
+            onSelectionChange={handleSelectionChange}
+            onDelete={handleDelete}
+            onDeleteRow={handleRowDelete}
+            onModify={handleEdit}
+            pageNo={pageNo}
+            setPageNo={setPageNo}
+            rowPerSize={row}
+            setRowPerSize={setRow}
+          />
+        ) : (
+          <StyledTable
+            columns={userColumns}
+            onSelectionChange={handleSelectionChange}
+            menu
+            onDeleteRow={handleRowDelete}
+            onModify={handleEdit}
+            pageNo={pageNo}
+            setPageNo={setPageNo}
+            rowPerSize={row}
+            setRowPerSize={setRow}
+          />
+        )}{" "}
       </Box>
     </>
   );

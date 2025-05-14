@@ -91,6 +91,7 @@ export default function AdminActivity() {
               setPageNo={setPageNo}
               rowPerSize={row}
               setRowPerSize={setRow}
+              menu
               onView={async (id) => {
                 await fetchAdminActivity(id);
                 setPreview(true);

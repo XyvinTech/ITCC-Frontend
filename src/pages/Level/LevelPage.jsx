@@ -20,6 +20,7 @@ import useHierarchyStore from "../../store/hierarchyStore";
 import { toast } from "react-toastify";
 import { getchapterList } from "../../api/hierarchyapi";
 import { generateExcel } from "../../utils/generateExcel";
+import { useAdminStore } from "../../store/adminStore";
 const tabMapping = {
   state: 0,
   zone: 1,
@@ -37,6 +38,7 @@ const LevelPage = () => {
   const { deleteLevels } = useHierarchyStore();
   const navigate = useNavigate();
   const location = useLocation();
+  const { singleAdmin } = useAdminStore();
   const { type } = location?.state || {};
   const [selectedTab, setSelectedTab] = useState(
     storedTab !== null ? Number(storedTab) : tabMapping[type] ?? 0
@@ -160,16 +162,20 @@ const LevelPage = () => {
         >
           <Typography variant="h4" color={"textSecondary"}>
             Level
-          </Typography>{" "}
-          <StyledButton
-            name={
-              <>
-                <AddIcon /> Add Level
-              </>
-            }
-            variant="primary"
-            onClick={() => navigate("/levels/level")}
-          />
+          </Typography>
+          {singleAdmin?.role?.permissions?.includes(
+            "hierarchyManagement_modify"
+          ) && (
+            <StyledButton
+              name={
+                <>
+                  <AddIcon /> Add Level
+                </>
+              }
+              variant="primary"
+              onClick={() => navigate("/levels/level")}
+            />
+          )}
         </Stack>
       </Box>
       <Tabs
@@ -236,17 +242,31 @@ const LevelPage = () => {
           p={1}
           border={"1px solid rgba(0, 0, 0, 0.12)"}
         >
-          <StyledTable
-            columns={levelColumns}
-            onSelectionChange={handleSelectionChange}
-            onDelete={handleDelete}
-            onDeleteRow={handleRowDelete}
-            pageNo={pageNo}
-            setPageNo={setPageNo}
-            rowPerSize={row}
-            setRowPerSize={setRow}
-            onModify={handleEdit}
-          />
+          {singleAdmin?.role?.permissions?.includes(
+            "hierarchyManagement_modify"
+          ) ? (
+            <StyledTable
+              columns={levelColumns}
+              onSelectionChange={handleSelectionChange}
+              onDelete={handleDelete}
+              onDeleteRow={handleRowDelete}
+              pageNo={pageNo}
+              setPageNo={setPageNo}
+              rowPerSize={row}
+              setRowPerSize={setRow}
+              onModify={handleEdit}
+            />
+          ) : (
+            <StyledTable
+              columns={levelColumns}
+              onSelectionChange={handleSelectionChange}
+              menu
+              pageNo={pageNo}
+              setPageNo={setPageNo}
+              rowPerSize={row}
+              setRowPerSize={setRow}
+            />
+          )}
         </Box>
       </Box>
     </>

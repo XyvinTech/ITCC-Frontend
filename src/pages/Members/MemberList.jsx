@@ -22,6 +22,7 @@ import { getDwld } from "../../api/adminapi";
 import { generateExcel } from "../../utils/generateExcel";
 import { toast } from "react-toastify";
 import { useMemberStore } from "../../store/Memberstore";
+import { useAdminStore } from "../../store/adminStore";
 const MemberList = () => {
   const navigate = useNavigate();
   const { fetchMember } = useListStore();
@@ -32,6 +33,7 @@ const MemberList = () => {
   const [filterOpen, setFilterOpen] = useState(false);
   const [memberId, setMemberId] = useState(null);
   const [pageNo, setPageNo] = useState(1);
+  const { singleAdmin } = useAdminStore();
   const [selectedRows, setSelectedRows] = useState([]);
   const { deleteMembers, bulkUpdate } = useMemberStore();
   const [confirmDeleteOpen, setConfirmDeleteOpen] = useState(false);
@@ -249,28 +251,55 @@ const MemberList = () => {
           p={1}
           border={"1px solid rgba(0, 0, 0, 0.12)"}
         >
-          <StyledTable
-            columns={memberColumns}
-            member
-            onDeleteRow={handleRowDelete}
-            onView={(id) => {
-              navigate(`/members/${id}`);
-            }}
-            pageNo={pageNo}
-            setPageNo={setPageNo}
-            onModify={(id) => {
-              navigate(`/members/member`, {
-                state: { memberId: id, isUpdate: true },
-              });
-            }}
-            onDelete={handleDelete}
-            onSelectionChange={handleSelectionChange}
-            onAction={handleSuspend}
-            rowPerSize={row}
-            user
-            onVerify={handleVerify}
-            setRowPerSize={setRow}
-          />
+          {singleAdmin?.role?.permissions?.includes(
+            "memberManagement_modify"
+          ) ? (
+            <StyledTable
+              columns={memberColumns}
+              member
+              onDeleteRow={handleRowDelete}
+              onView={(id) => {
+                navigate(`/members/${id}`);
+              }}
+              pageNo={pageNo}
+              setPageNo={setPageNo}
+              onModify={(id) => {
+                navigate(`/members/member`, {
+                  state: { memberId: id, isUpdate: true },
+                });
+              }}
+              onDelete={handleDelete}
+              onSelectionChange={handleSelectionChange}
+              onAction={handleSuspend}
+              rowPerSize={row}
+              user
+              onVerify={handleVerify}
+              setRowPerSize={setRow}
+            />
+          ) : (
+            <StyledTable
+              columns={memberColumns}
+              member
+              onDeleteRow={handleRowDelete}
+              onView={(id) => {
+                navigate(`/members/${id}`);
+              }}
+              pageNo={pageNo}
+              setPageNo={setPageNo}
+              onModify={(id) => {
+                navigate(`/members/member`, {
+                  state: { memberId: id, isUpdate: true },
+                });
+              }}
+              menu
+              onDelete={handleDelete}
+              onSelectionChange={handleSelectionChange}
+              onAction={handleSuspend}
+              rowPerSize={row}
+              setRowPerSize={setRow}
+            />
+          )}
+
           <DeleteProfile
             open={deleteOpen}
             onClose={handleCloseDelete}

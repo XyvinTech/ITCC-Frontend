@@ -7,6 +7,7 @@ import { useNavigate } from "react-router-dom";
 import { useEventStore } from "../../store/eventStore";
 import { toast } from "react-toastify";
 import { useListStore } from "../../store/listStore";
+import { useAdminStore } from "../../store/adminStore";
 
 const EventList = () => {
   const navigate = useNavigate();
@@ -16,6 +17,7 @@ const EventList = () => {
   const [row, setRow] = useState(10);
   const { deleteEvent } = useEventStore();
   const { fetchEvent } = useListStore();
+  const { singleAdmin } = useAdminStore();
   const [pageNo, setPageNo] = useState(1);
   useEffect(() => {
     let filter = {};
@@ -74,22 +76,41 @@ const EventList = () => {
         p={1}
         border={"1px solid rgba(0, 0, 0, 0.12)"}
       >
-        <StyledTable
-          columns={eventList}
-          onSelectionChange={handleSelectionChange}
-          onView={(id) => {
-            navigate(`/events/${id}`);
-          }}
-          pageNo={pageNo}
-          setPageNo={setPageNo}
-          onDelete={handleDelete}
-          onDeleteRow={handleRowDelete}
-          rowPerSize={row}
-          setRowPerSize={setRow}
-          onModify={(id) => {
-            navigate(`/events/edit/${id}`);
-          }}
-        />
+        {singleAdmin?.role?.permissions?.includes("eventManagement_modify") ? (
+          <StyledTable
+            columns={eventList}
+            onSelectionChange={handleSelectionChange}
+            onView={(id) => {
+              navigate(`/events/${id}`);
+            }}
+            pageNo={pageNo}
+            setPageNo={setPageNo}
+            onDelete={handleDelete}
+            onDeleteRow={handleRowDelete}
+            rowPerSize={row}
+            setRowPerSize={setRow}
+            onModify={(id) => {
+              navigate(`/events/edit/${id}`);
+            }}
+          />
+        ) : (
+          <StyledTable
+            columns={eventList}
+            onSelectionChange={handleSelectionChange}
+            onView={(id) => {
+              navigate(`/events/${id}`);
+            }}
+            menu
+            pageNo={pageNo}
+            setPageNo={setPageNo}
+            onDeleteRow={handleRowDelete}
+            rowPerSize={row}
+            setRowPerSize={setRow}
+            onModify={(id) => {
+              navigate(`/events/edit/${id}`);
+            }}
+          />
+        )}
       </Box>
     </Box>
   );

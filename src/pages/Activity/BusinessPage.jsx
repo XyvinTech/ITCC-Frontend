@@ -24,6 +24,7 @@ import useActivityStore from "../../store/activityStore";
 import ActivityFilter from "../../components/Activity/ActivityFilter";
 import { generateExcel } from "../../utils/generateExcel";
 import { getBusinessDwld } from "../../api/activityapi";
+import { useAdminStore } from "../../store/adminStore";
 
 const BusinessPage = () => {
   const navigate = useNavigate();
@@ -31,6 +32,7 @@ const BusinessPage = () => {
   const [selectedTab, setSelectedTab] = useState(
     storedTab ? Number(storedTab) : 0
   );
+  const { singleAdmin } = useAdminStore();
   const [pageNo, setPageNo] = useState(1);
   const [filterOpen, setFilterOpen] = useState(false);
   const [selectedRows, setSelectedRows] = useState([]);
@@ -149,18 +151,22 @@ const BusinessPage = () => {
           </Typography>
         </Stack>
         <Stack direction={"row"} spacing={2} justifyContent={"flex-end"}>
-          <StyledButton
-            variant={"primary"}
-            name={
-              <>
-                <AddIcon />
-                Create Activity
-              </>
-            }
-            onClick={() => {
-              navigate("/activity/activity");
-            }}
-          />
+          {singleAdmin?.role?.permissions?.includes(
+            "activityManagement_modify"
+          ) && (
+            <StyledButton
+              variant={"primary"}
+              name={
+                <>
+                  <AddIcon />
+                  Create Activity
+                </>
+              }
+              onClick={() => {
+                navigate("/activity/activity");
+              }}
+            />
+          )}
         </Stack>
       </Stack>
       <Tabs

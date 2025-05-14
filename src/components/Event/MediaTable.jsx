@@ -8,6 +8,7 @@ import { useNavigate, useParams } from "react-router-dom";
 import StyledSearchbar from "../../ui/StyledSearchbar";
 import { StyledButton } from "../../ui/StyledButton";
 import AddFolder from "./AddFolder";
+import { useAdminStore } from "../../store/adminStore";
 
 const MediaTable = ({ data }) => {
   const [pageNo, setPageNo] = useState(1);
@@ -21,6 +22,7 @@ const MediaTable = ({ data }) => {
   const [folderId, setFolderId] = useState(null);
   const { id } = useParams();
   const navigate = useNavigate();
+  const { singleAdmin } = useAdminStore();
   useEffect(() => {
     let filter = {};
     filter.pageNo = pageNo;
@@ -85,11 +87,15 @@ const MediaTable = ({ data }) => {
               setPageNo(1);
             }}
           />
-          <StyledButton
-            name={"Add New Folder"}
-            variant="primary"
-            onClick={() => setOpen(true)}
-          />
+          {singleAdmin?.role?.permissions?.includes(
+            "eventManagement_modify"
+          ) && (
+            <StyledButton
+              name={"Add New Folder"}
+              variant="primary"
+              onClick={() => setOpen(true)}
+            />
+          )}
         </Stack>
       </Stack>
       <Box
@@ -98,18 +104,33 @@ const MediaTable = ({ data }) => {
         p={1}
         border={"1px solid rgba(0, 0, 0, 0.12)"}
       >
-        <StyledTable
-          columns={userColumns}
-          onModify={handleEdit}
-          onSelectionChange={handleSelectionChange}
-          onDelete={handleDelete}
-          onDeleteRow={handleRowDelete}
-          pageNo={pageNo}
-          setPageNo={setPageNo}
-          onView={handleView}
-          rowPerSize={row}
-          setRowPerSize={setRow}
-        />{" "}
+        {singleAdmin?.role?.permissions?.includes("eventManagement_modify") ? (
+          <StyledTable
+            columns={userColumns}
+            onModify={handleEdit}
+            onSelectionChange={handleSelectionChange}
+            onDelete={handleDelete}
+            onDeleteRow={handleRowDelete}
+            pageNo={pageNo}
+            setPageNo={setPageNo}
+            onView={handleView}
+            rowPerSize={row}
+            setRowPerSize={setRow}
+          />
+        ) : (
+          <StyledTable
+            columns={userColumns}
+            onModify={handleEdit}
+            menu
+            onSelectionChange={handleSelectionChange}
+            onDeleteRow={handleRowDelete}
+            pageNo={pageNo}
+            setPageNo={setPageNo}
+            onView={handleView}
+            rowPerSize={row}
+            setRowPerSize={setRow}
+          />
+        )}
       </Box>
       <AddFolder
         open={open}

@@ -18,8 +18,7 @@ export default function AdminManagement() {
   const [pageNo, setPageNo] = useState(1);
   const [row, setRow] = useState(10);
   const [search, setSearch] = useState("");
-  const { deleteAdmins } = useAdminStore();
-
+  const { deleteAdmins, singleAdmin } = useAdminStore();
   const handleSelectionChange = (newSelectedIds) => {
     setSelectedRows(newSelectedIds);
   };
@@ -83,17 +82,21 @@ export default function AdminManagement() {
               />
             </Grid>
             <Grid item></Grid>
-            <Grid item>
-              <StyledButton
-                name={
-                  <>
-                    <AddIcon /> Add Admin
-                  </>
-                }
-                variant="primary"
-                onClick={() => navigate("/settings/add-admin")}
-              />
-            </Grid>
+            {singleAdmin?.role?.permissions?.includes(
+              "adminManagement_modify"
+            ) && (
+              <Grid item>
+                <StyledButton
+                  name={
+                    <>
+                      <AddIcon /> Add Admin
+                    </>
+                  }
+                  variant="primary"
+                  onClick={() => navigate("/settings/add-admin")}
+                />
+              </Grid>
+            )}
           </Grid>
         </Grid>
 
@@ -104,17 +107,33 @@ export default function AdminManagement() {
             p={1}
             border={"1px solid rgba(0, 0, 0, 0.12)"}
           >
-            <StyledTable
-              columns={adminColumns}
-              onModify={handleEdit}
-              pageNo={pageNo}
-              setPageNo={setPageNo}
-              rowPerSize={row}
-              setRowPerSize={setRow}
-              onSelectionChange={handleSelectionChange}
-              onDelete={handleDelete}
-              onDeleteRow={handleRowDelete}
-            />{" "}
+            {singleAdmin?.role?.permissions?.includes(
+              "adminManagement_modify"
+            ) ? (
+              <StyledTable
+                columns={adminColumns}
+                onModify={handleEdit}
+                pageNo={pageNo}
+                setPageNo={setPageNo}
+                rowPerSize={row}
+                setRowPerSize={setRow}
+                onSelectionChange={handleSelectionChange}
+                onDelete={handleDelete}
+                onDeleteRow={handleRowDelete}
+              />
+            ) : (
+              <StyledTable
+                columns={adminColumns}
+                onModify={handleEdit}
+                pageNo={pageNo}
+                setPageNo={setPageNo}
+                rowPerSize={row}
+                setRowPerSize={setRow}
+                onSelectionChange={handleSelectionChange}
+                menu
+                onDeleteRow={handleRowDelete}
+              />
+            )}
           </Box>
         </Grid>
       </>
