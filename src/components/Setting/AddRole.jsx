@@ -32,7 +32,8 @@ const CircleButton = styled.span`
     transition: width 0.2s ease, height 0.2s ease;
   }
   &:hover {
-    background-color: rgba(255, 0, 0, 0.1);
+    background-color: rgba(45, 156, 219, 0.1);
+
   }
 `;
 

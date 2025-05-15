@@ -136,7 +136,6 @@ const BusinessPosts = () => {
             pageNo={pageNo}
             setPageNo={setPageNo}
             rowPerSize={row}
-            onDelete={handleDelete}
             setRowPerSize={setRow}
           />
         )}

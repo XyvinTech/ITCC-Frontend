@@ -292,7 +292,6 @@ const MemberList = () => {
                 });
               }}
               menu
-              onDelete={handleDelete}
               onSelectionChange={handleSelectionChange}
               onAction={handleSuspend}
               rowPerSize={row}

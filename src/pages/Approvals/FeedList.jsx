@@ -131,7 +131,6 @@ const FeedList = () => {
             approve
             menu
             onView={handleView}
-            onDelete={handleDelete}
             onModify={handleApprove}
             onAction={handleReject}
             rowPerSize={row}

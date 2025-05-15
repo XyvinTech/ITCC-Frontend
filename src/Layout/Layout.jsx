@@ -143,7 +143,6 @@ const SimpleDialog = ({ open, onClose }) => {
   useEffect(() => {
     fetchAdminById();
   }, []);
-  console.log("Single Admin", singleAdmin?.role?.permissions);
 
   return (
     <Dialog
@@ -232,11 +231,10 @@ const Layout = (props) => {
   };
   useEffect(() => {
     if (singleAdmin?.role?.permissions) {
-      const adminPermissions = singleAdmin.role.permissions;
+      const adminPermissions = singleAdmin?.role?.permissions;
 
       // Filter navigation items based on permissions
       const filteredNavItems = navigationItems?.filter((item) => {
-        // If no permissions required or admin has at least one of the required permissions
         return (
           item?.permissions?.length === 0 ||
           item?.permissions?.some((permission) =>

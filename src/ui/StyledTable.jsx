@@ -624,36 +624,39 @@ const StyledTable = ({
         <Stack
           component="div"
           direction={"row"}
-          justifyContent={selectedIds.length > 0 ?( singleAdmin?.role?.permissions?.some((perm) => perm.endsWith("_modify"))?"space-between" : "flex-end"):"flex-end"} 
+          justifyContent={
+            selectedIds.length > 0
+              ? onDelete
+                ? "space-between"
+                : "flex-end"
+              : "flex-end"
+          }
           alignItems="center"
           padding={2}
         >
-          {selectedIds.length > 0 &&
-            singleAdmin?.role?.permissions?.some((perm) =>
-              perm.endsWith("_modify")
-            ) && (
-              <Stack direction="row" alignItems="center" spacing={2}>
-                <Typography paddingRight={3}>
-                  {`${selectedIds.length} item${
-                    selectedIds.length > 1 ? "s" : ""
-                  } selected`}
-                </Typography>
-                <StyledButton
-                  variant="third"
-                  name="Delete"
-                  onClick={() => handleDelete(selectedIds)}
-                />
-                {user && (
-                  <>
-                    <StyledButton
-                      variant="primary"
-                      name="verify"
-                      onClick={() => handleVerify(selectedIds)}
-                    />
-                  </>
-                )}
-              </Stack>
-            )}
+          {selectedIds.length > 0 && onDelete && (
+            <Stack direction="row" alignItems="center" spacing={2}>
+              <Typography paddingRight={3}>
+                {`${selectedIds.length} item${
+                  selectedIds.length > 1 ? "s" : ""
+                } selected`}
+              </Typography>
+              <StyledButton
+                variant="third"
+                name="Delete"
+                onClick={() => handleDelete(selectedIds)}
+              />
+              {user && (
+                <>
+                  <StyledButton
+                    variant="primary"
+                    name="verify"
+                    onClick={() => handleVerify(selectedIds)}
+                  />
+                </>
+              )}
+            </Stack>
+          )}
           <Stack
             direction="row"
             alignItems="center"
