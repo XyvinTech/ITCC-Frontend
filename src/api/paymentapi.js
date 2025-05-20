@@ -75,6 +75,15 @@ export const addParentSub = async (data) => {
     throw error.response.data;
   }
 };
+export const deleteParentSub = async (id) => {
+  try {
+    const response = await axiosInstance.delete(`/payment/parent-subscription/${id}`);
+
+    return response.data;
+  } catch (error) {
+    throw error.response.data;
+  }
+};
 export const getParentSub = async () => {
   try {
     const response = await axiosInstance.get(`/payment/parent-subscription`);

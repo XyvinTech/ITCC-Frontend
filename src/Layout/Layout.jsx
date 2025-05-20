@@ -44,7 +44,7 @@ import {
 import { useAdminStore } from "../store/adminStore";
 const drawerWidth = 250;
 const navigationItems = [
-  { name: "Dashboard", to: "/dashboard", icon: <GridView />, permissions: [] },
+  { name: "Dashboard", to: "/dashboard", icon: <GridView />, permissions: ["dashboardManagement_view"] },
   {
     name: "Levels",
     to: "/levels",
@@ -70,11 +70,12 @@ const navigationItems = [
     icon: <ApprovalIcon />,
     permissions: ["businessManagement_view", "businessManagement_modify"],
   },
-  // {
-  //   name: "Subscriptions",
-  //   to: "/subscriptions",
-  //   icon: <AccountBalanceWalletIcon />,
-  // },
+  {
+    name: "Subscriptions",
+    to: "/subscriptions",
+    icon: <AccountBalanceWalletIcon />,
+    permissions: ["subscriptionManagement_view", "subscriptionManagement_modify"],
+  },
   {
     name: "Groups",
     to: "/groups",

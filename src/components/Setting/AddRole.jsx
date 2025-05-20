@@ -38,10 +38,12 @@ const CircleButton = styled.span`
 `;
 
 const permissionsList = [
+  { id: "dashboardManagement", name: "Dashboard Management" },
   { id: "hierarchyManagement", name: "Level Management" },
   { id: "memberManagement", name: "User Management" },
   { id: "activityManagement", name: " Activity Management" },
   { id: "businessManagement", name: "Business Management" },
+  { id: "subscriptionManagement", name: "Subscription Management" },
   { id: "eventManagement", name: "Event Management" },
   { id: "newsManagement", name: "News Management" },
   { id: "promotionManagement", name: "Advertisement Management" },

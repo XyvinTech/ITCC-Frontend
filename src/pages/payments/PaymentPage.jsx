@@ -125,7 +125,7 @@ const MemberPage = () => {
           </Typography>
         </Stack>
         <Stack direction={"row"} spacing={2}>
-          {selectedTab === 3 && (
+          {selectedTab === 1 && (
             <StyledButton name="Add" variant="primary" onClick={handleParent} />
           )}
         </Stack>
@@ -158,12 +158,10 @@ const MemberPage = () => {
         }}
       >
         <Tab label="All Payments" />
-        <Tab label="Active Payments" />
-        <Tab label="Pending Payments" />
-        <Tab label="Parent Subscription" />
+        <Tab label="Subscriptions" />
       </Tabs>
       <Divider />
-      {(selectedTab === 0 || selectedTab === 1 || selectedTab === 2) && (
+      {selectedTab === 0 && (
         <Box padding={"15px"}>
           <Box
             borderRadius={"16px"}
@@ -187,7 +185,7 @@ const MemberPage = () => {
           </Box>
         </Box>
       )}
-      {selectedTab === 3 && (
+      {selectedTab === 1 && (
         <Box padding="15px" marginBottom={4}>
           <ParentSubscription />
         </Box>

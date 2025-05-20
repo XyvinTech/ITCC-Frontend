@@ -4,21 +4,50 @@ import StyledTable from "../../ui/StyledTable";
 import { usePaymentStore } from "../../store/paymentStore";
 import ParentSub from "./ParentSub";
 import { useListStore } from "../../store/listStore";
+import { toast } from "react-toastify";
 
 const ParentSubscription = () => {
   const [pageNo, setPageNo] = useState(1);
   const [row, setRow] = useState(10);
   const [open, setOpen] = useState(false);
+  const [selectedRows, setSelectedRows] = useState([]);
+  const [isChange, setIsChange] = useState(false);
   const [update, setUpdate] = useState(false);
-  const { fetchParentSubByiD, sub, refreshMember } = usePaymentStore();
+  const { fetchParentSubByiD, sub, refreshMember, deleteParentSubs } =
+    usePaymentStore();
   const { fetchParentSub } = useListStore();
-
+  const handleSelectionChange = (newSelectedIds) => {
+    setSelectedRows(newSelectedIds);
+  };
+  const handleDelete = async () => {
+    if (selectedRows.length > 0) {
+      try {
+        await Promise.all(selectedRows?.map((id) => deleteParentSubs(id)));
+        toast.success("Subscription deleted successfully");
+        setIsChange(!isChange);
+        setSelectedRows([]);
+      } catch {
+        toast.error(error.message);
+      }
+    }
+  };
+  const handleRowDelete = async (id) => {
+    try {
+      await deleteParentSubs(id);
+      toast.success("Deleted successfully");
+      setIsChange(!isChange);
+    } catch (error) {
+      toast.error(error.message);
+    }
+  };
   useEffect(() => {
     fetchParentSub();
-  }, [pageNo, row, refreshMember]);
+  }, [pageNo, row, refreshMember, isChange]);
   const parentSubColums = [
-    { title: "Year", field: "academicYear" },
-    { title: "Expiry Date", field: "expiryDate" },
+    { title: "Name", field: "name" },
+    { title: "Description", field: "description" },
+    { title: "Days", field: "days" },
+    { title: "Amount", field: "price" },
   ];
   const handleEdit = async (id) => {
     await fetchParentSubByiD(id);
@@ -40,10 +69,12 @@ const ParentSubscription = () => {
       <StyledTable
         columns={parentSubColums}
         pageNo={pageNo}
-        menu
+        onSelectionChange={handleSelectionChange}
+        onDelete={handleDelete}
         onModify={handleEdit}
         setPageNo={setPageNo}
         rowPerSize={row}
+        onDeleteRow={handleRowDelete}
         setRowPerSize={setRow}
       />{" "}
       <ParentSub

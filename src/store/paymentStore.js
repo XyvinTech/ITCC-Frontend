@@ -1,5 +1,5 @@
 import { create } from "zustand";
-import { addParentSub, addPayment, deletePayment, editPayment, editPaymentSub, getParentSub, getPaymentById, getSinglePayment, getSubById, patchPayment } from "../api/paymentapi";
+import { addParentSub, addPayment, deleteParentSub, deletePayment, editPayment, editPaymentSub, getParentSub, getPaymentById, getSinglePayment, getSubById, patchPayment } from "../api/paymentapi";
 
 const usePaymentStore = create((set) => ({
   refreshMember: false,
@@ -21,6 +21,9 @@ const usePaymentStore = create((set) => ({
   },
   editParentSub: async (id, data) => {
     await editPaymentSub(id, data);
+  },
+  deleteParentSubs: async (id) => {
+    await deleteParentSub(id);
   },
   fetchParentSub: async () => {
     const allData = await getParentSub();

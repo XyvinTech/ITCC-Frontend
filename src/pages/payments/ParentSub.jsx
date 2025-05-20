@@ -8,12 +8,12 @@ import {
 } from "@mui/material";
 import { Controller, useForm, useWatch } from "react-hook-form";
 import { StyledButton } from "../../ui/StyledButton";
-import StyledSelectField from "../../ui/StyledSelectField";
 import { ReactComponent as CloseIcon } from "../../assets/icons/CloseIcon.svg";
-import { StyledCalender } from "../../ui/StyledCalender";
-import { useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { usePaymentStore } from "../../store/paymentStore";
+import StyledInput from "../../ui/StyledInput";
+import { StyledMultilineTextField } from "../../ui/StyledMultilineTextField";
+import { toast } from "react-toastify";
 
 const ParentSub = ({ open, onClose, sub, isUpdate }) => {
   const { handleSubmit, control, setValue, reset } = useForm();
@@ -22,34 +22,30 @@ const ParentSub = ({ open, onClose, sub, isUpdate }) => {
   const [loading, setLoading] = useState(false);
   useEffect(() => {
     if (sub && isUpdate) {
-      setValue("from", {
-        value: sub?.academicYear?.split("-")[0],
-        label: sub?.academicYear?.split("-")[0],
-      });
-      setValue("to", {
-        value: sub?.academicYear?.split("-")[1],
-        label: sub?.academicYear?.split("-")[1],
-      });
-      setValue("expiryDate", sub?.expiryDate);
+      setValue("name", sub?.name);
+      setValue("description", sub?.description);
+      setValue("days", sub?.days);
+      setValue("price", sub?.price);
     }
   }, [sub, isUpdate, setValue]);
   const onSubmit = async (data) => {
     setLoading(true);
     try {
-      const formData = {
-        academicYear: `${data?.from.value}-${data?.to.value}`,
-        expiryDate: data?.expiryDate,
-      };
       if (isUpdate) {
-        await editParentSub(sub?._id, formData);
+        await editParentSub(sub?._id, data);
       } else {
-        await addParentSubscription(formData);
+        await addParentSubscription(data);
       }
       setRefreshMember();
-      reset();
+      reset({
+        name: "",
+        description: "",
+        days: "",
+        price: "",
+      });
       onClose();
     } catch (error) {
-      console.log(error);
+      toast.error(error.message);
     } finally {
       setLoading(false);
     }
@@ -60,26 +56,7 @@ const ParentSub = ({ open, onClose, sub, isUpdate }) => {
     reset();
     onClose();
   };
-  const fromOptions = Array.from({ length: 2033 - 2023 + 1 }, (_, i) => ({
-    value: `${2023 + i}`,
-    label: `${2023 + i}`,
-  }));
 
-  const fromValue = useWatch({ control, name: "from" });
-  const toValue = useWatch({ control, name: "to" });
-
-  const toOptions = fromValue
-    ? Array.from({ length: 1 }, (_, i) => ({
-        value: `${parseInt(fromValue.value) + i + 1}`,
-        label: `${parseInt(fromValue.value) + i + 1}`,
-      }))
-    : [];
-  useEffect(() => {
-    if (toValue) {
-      const expiryDate = `${toValue.value}-03-31T00:00:00.000Z`;
-      setValue("expiryDate", expiryDate);
-    }
-  }, [toValue, setValue]);
   return (
     <Dialog
       open={open}
@@ -96,7 +73,7 @@ const ParentSub = ({ open, onClose, sub, isUpdate }) => {
             alignItems="center"
           >
             <Typography variant="h3" color={"#4F4F4F"}>
-              Date
+              Subscription
             </Typography>
             <Typography
               onClick={(event) => handleClear(event)}
@@ -111,48 +88,57 @@ const ParentSub = ({ open, onClose, sub, isUpdate }) => {
           sx={{ height: "400px", width: "430px", backgroundColor: "#FFF" }}
         >
           <Stack spacing={2} paddingTop={2}>
-            <Stack direction={"row"} spacing={2}>
-              <Stack width={"50%"}>
-                <Typography variant="h6" color={"#333333"}>
-                  From Year
-                </Typography>
-                <Controller
-                  name="from"
-                  control={control}
-                  defaultValue=""
-                  render={({ field }) => (
-                    <>
-                      <StyledSelectField options={fromOptions} {...field} />
-                    </>
-                  )}
-                />{" "}
-              </Stack>
-              <Stack width={"50%"}>
-                <Typography variant="h6" color={"#333333"}>
-                  To Year
-                </Typography>
-                <Controller
-                  name="to"
-                  control={control}
-                  defaultValue=""
-                  render={({ field }) => (
-                    <>
-                      <StyledSelectField options={toOptions} {...field} />
-                    </>
-                  )}
-                />
-              </Stack>
-            </Stack>
             <Typography variant="h6" color={"#333333"}>
-              Month
+              Name
             </Typography>
             <Controller
-              name="expiryDate"
+              name="name"
+              control={control}
+              defaultValue=""
+              render={({ field }) => (
+                <>
+                  <StyledInput {...field} placeholder={"Enter Name"} />
+                </>
+              )}
+            />
+            <Typography variant="h6" color={"#333333"}>
+              Description
+            </Typography>
+            <Controller
+              name="description"
               control={control}
               defaultValue={""}
-              rules={{ required: "Date is required" }}
               render={({ field }) => (
-                <StyledCalender placeholder={"Select Date"} {...field} />
+                <StyledMultilineTextField
+                  {...field}
+                  placeholder={"Enter Description"}
+                />
+              )}
+            />
+            <Typography variant="h6" color={"#333333"}>
+              Days
+            </Typography>
+            <Controller
+              name="days"
+              control={control}
+              defaultValue=""
+              render={({ field }) => (
+                <>
+                  <StyledInput {...field} placeholder={"Enter Days"} />
+                </>
+              )}
+            />
+            <Typography variant="h6" color={"#333333"}>
+              Price
+            </Typography>
+            <Controller
+              name="price"
+              control={control}
+              defaultValue=""
+              render={({ field }) => (
+                <>
+                  <StyledInput {...field} placeholder={"Enter Price"} />
+                </>
               )}
             />
           </Stack>
