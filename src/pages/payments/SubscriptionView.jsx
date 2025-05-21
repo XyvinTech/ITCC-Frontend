@@ -18,8 +18,7 @@ import { StyledButton } from "../../ui/StyledButton";
 const SubscriptionView = ({ open, onClose, data }) => {
   if (!data) return null;
 
-  const { name, description, days, price, benefits } = data;
-
+  const { name, description, days, price, benefits, color } = data;
 
   return (
     <Dialog
@@ -60,7 +59,25 @@ const SubscriptionView = ({ open, onClose, data }) => {
               ₹{price}
             </Typography>
             <Typography variant="subtitle1" color="#666" sx={{ ml: 0.5 }}>
-            / {days} days
+              / {days} days
+            </Typography>
+          </Box>
+
+          <Box sx={{ display: "flex", alignItems: "center", gap: 1, mb: 2 }}>
+            <Typography variant="body1" color="#666">
+              Color:
+            </Typography>
+            <Box
+              sx={{
+                width: 24,
+                height: 24,
+                borderRadius: "4px",
+                backgroundColor: color,
+                border: "1px solid #ccc",
+              }}
+            />
+            <Typography variant="body2" color="#666">
+              {color}
             </Typography>
           </Box>
 
@@ -85,8 +102,6 @@ const SubscriptionView = ({ open, onClose, data }) => {
                 <ListItemText primary="No benefits listed" />
               </ListItem>
             )}
-
-            {/* Adding the benefits shown in the image */}
             <ListItem disablePadding sx={{ py: 0.5 }}>
               <ListItemIcon sx={{ minWidth: 30 }}>
                 <CheckCircleIcon color="primary" fontSize="small" />

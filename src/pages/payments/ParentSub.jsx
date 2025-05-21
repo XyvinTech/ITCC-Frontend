@@ -18,8 +18,9 @@ import { usePaymentStore } from "../../store/paymentStore";
 import StyledInput from "../../ui/StyledInput";
 import { StyledMultilineTextField } from "../../ui/StyledMultilineTextField";
 import { toast } from "react-toastify";
-import DeleteIcon from '@mui/icons-material/Delete';
-import AddIcon from '@mui/icons-material/Add';
+import DeleteIcon from "@mui/icons-material/Delete";
+import AddIcon from "@mui/icons-material/Add";
+import { set } from "date-fns";
 
 const ParentSub = ({ open, onClose, sub, isUpdate }) => {
   const { handleSubmit, control, setValue, reset, watch } = useForm({
@@ -28,18 +29,18 @@ const ParentSub = ({ open, onClose, sub, isUpdate }) => {
       description: "",
       days: "",
       price: "",
-      benefits: []
-    }
+      benefits: [],
+    },
   });
-  
+
   const { fields, append, remove } = useFieldArray({
     control,
-    name: "benefits"
+    name: "benefits",
   });
 
   const [newBenefit, setNewBenefit] = useState("");
   const [loading, setLoading] = useState(false);
-  
+
   const { addParentSubscription, editParentSub, setRefreshMember } =
     usePaymentStore();
 
@@ -49,9 +50,12 @@ const ParentSub = ({ open, onClose, sub, isUpdate }) => {
       setValue("description", sub?.description);
       setValue("days", sub?.days);
       setValue("price", sub?.price);
-      // Set benefits if they exist in sub
+      setValue("color", sub?.color);
       if (sub?.benefits && Array.isArray(sub.benefits)) {
-        setValue("benefits", sub.benefits.map(benefit => ({ value: benefit })));
+        setValue(
+          "benefits",
+          sub.benefits.map((benefit) => ({ value: benefit }))
+        );
       }
     }
   }, [sub, isUpdate, setValue]);
@@ -59,12 +63,11 @@ const ParentSub = ({ open, onClose, sub, isUpdate }) => {
   const onSubmit = async (data) => {
     setLoading(true);
     try {
-      // Convert benefits from array of objects to array of strings
       const formattedData = {
         ...data,
-        benefits: data.benefits.map(benefit => benefit.value)
+        benefits: data.benefits.map((benefit) => benefit.value),
       };
-      
+
       if (isUpdate) {
         await editParentSub(sub?._id, formattedData);
       } else {
@@ -76,7 +79,8 @@ const ParentSub = ({ open, onClose, sub, isUpdate }) => {
         description: "",
         days: "",
         price: "",
-        benefits: []
+        benefits: [],
+        color: "",
       });
       onClose();
     } catch (error) {
@@ -184,28 +188,51 @@ const ParentSub = ({ open, onClose, sub, isUpdate }) => {
               )}
             />
             <Typography variant="h6" color={"#333333"}>
+              Color
+            </Typography>
+            <Controller
+              name="color"
+              control={control}
+              defaultValue="#1976d2"
+              render={({ field }) => (
+                <Stack direction="row" alignItems="center" spacing={2}>
+                  <StyledInput
+                    {...field}
+                    type="color"
+                    sx={{
+                      width: "56px",
+                      height: "30px",
+                      padding: "0",
+                      border: "none",
+                    }}
+                  />
+                  <Typography variant="body2">{field.value}</Typography>
+                </Stack>
+              )}
+            />
+            <Typography variant="h6" color={"#333333"}>
               Benefits
             </Typography>
-            
+
             {/* Benefits Input */}
             <Box display="flex" alignItems="center" gap={1}>
-              <StyledInput 
+              <StyledInput
                 value={newBenefit}
                 onChange={(e) => setNewBenefit(e.target.value)}
                 placeholder="Add a benefit"
                 fullWidth
               />
-              <IconButton 
+              <IconButton
                 onClick={handleAddBenefit}
-                color="primary" 
-                sx={{ bgcolor: '#f0f0f0', borderRadius: '4px' }}
+                color="primary"
+                sx={{ bgcolor: "#f0f0f0", borderRadius: "4px" }}
               >
                 <AddIcon />
               </IconButton>
             </Box>
-            
+
             {/* Benefits List */}
-            <List sx={{ width: '100%', bgcolor: 'background.paper', py: 0 }}>
+            <List sx={{ width: "100%", bgcolor: "background.paper", py: 0 }}>
               {fields.map((field, index) => (
                 <Controller
                   key={field.id}
@@ -214,7 +241,11 @@ const ParentSub = ({ open, onClose, sub, isUpdate }) => {
                   render={({ field: controllerField }) => (
                     <ListItem
                       secondaryAction={
-                        <IconButton edge="end" aria-label="delete" onClick={() => remove(index)}>
+                        <IconButton
+                          edge="end"
+                          aria-label="delete"
+                          onClick={() => remove(index)}
+                        >
                           <DeleteIcon />
                         </IconButton>
                       }
@@ -249,4 +280,4 @@ const ParentSub = ({ open, onClose, sub, isUpdate }) => {
   );
 };
 
-export default ParentSub
+export default ParentSub;
