@@ -5,11 +5,13 @@ import { usePaymentStore } from "../../store/paymentStore";
 import ParentSub from "./ParentSub";
 import { useListStore } from "../../store/listStore";
 import { toast } from "react-toastify";
+import SubscriptionView from "./SubscriptionView";
 
 const ParentSubscription = () => {
   const [pageNo, setPageNo] = useState(1);
   const [row, setRow] = useState(10);
   const [open, setOpen] = useState(false);
+  const [view, setView] = useState(false);
   const [selectedRows, setSelectedRows] = useState([]);
   const [isChange, setIsChange] = useState(false);
   const [update, setUpdate] = useState(false);
@@ -58,7 +60,10 @@ const ParentSubscription = () => {
     setOpen(false);
     setUpdate(false);
   };
-
+  const handleView = async (id) => {
+    await fetchParentSubByiD(id);
+    setView(true);
+  };
   return (
     <Box
       borderRadius={"16px"}
@@ -73,10 +78,12 @@ const ParentSubscription = () => {
         onDelete={handleDelete}
         onModify={handleEdit}
         setPageNo={setPageNo}
+        onView={handleView}
         rowPerSize={row}
         onDeleteRow={handleRowDelete}
         setRowPerSize={setRow}
       />{" "}
+      <SubscriptionView open={view} onClose={() => setView(false)} data={sub} />
       <ParentSub
         open={open}
         onClose={(e) => handleClose(e)}

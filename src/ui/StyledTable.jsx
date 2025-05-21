@@ -207,9 +207,9 @@ const StyledTable = ({
       case "active":
         return "#27AE60"; // Green tone
       case "inactive":
-        return "#828282"; // Grey (you can customize this)
+        return "#828282"; // Grey
       case "expired":
-        return "#A9A9A9"; // Dark grey (or choose a custom tone)
+        return "#A9A9A9"; // Dark grey
       case "deleted":
         return "#B00020"; // Deep red
       case "cancelled":
@@ -234,6 +234,8 @@ const StyledTable = ({
         return "#00BCD4"; // Cyan
       case "completed":
         return "#BB6BD9"; // Violet
+      case "awaiting_payment":
+        return "#F4A261"; // Soft orange (you can change this to fit your theme)
       default:
         return "#BDBDBD"; // Neutral grey
     }
