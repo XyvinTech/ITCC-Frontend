@@ -35,7 +35,8 @@ const MemberList = () => {
   const [pageNo, setPageNo] = useState(1);
   const { singleAdmin } = useAdminStore();
   const [selectedRows, setSelectedRows] = useState([]);
-  const { deleteMembers, bulkUpdate } = useMemberStore();
+  const { deleteMembers, bulkUpdate, memberStatus, memberInstalled } =
+    useMemberStore();
   const [confirmDeleteOpen, setConfirmDeleteOpen] = useState(false);
   const [row, setRow] = useState(10);
   const [loading, setLoading] = useState(false);
@@ -89,6 +90,12 @@ const MemberList = () => {
     if (typeof filters.installed === "boolean") {
       filter.installed = filters.installed;
     }
+    if (memberInstalled) {
+      filter.installed = memberInstalled;
+    }
+    if (memberStatus) {
+      filter.status = memberStatus;
+    }
     fetchMember(filter);
   }, [isChange, pageNo, search, row, filters]);
   const handleDownload = async () => {
@@ -103,6 +110,12 @@ const MemberList = () => {
       if (filters.chapter) filter.chapter = filters.chapter;
       if (typeof filters.installed === "boolean") {
         filter.installed = filters.installed;
+      }
+      if (memberInstalled) {
+        filter.installed = memberInstalled;
+      }
+      if (memberStatus) {
+        filter.status = memberStatus;
       }
       const data = await getDwld(filter);
       const csvData = data.data;
