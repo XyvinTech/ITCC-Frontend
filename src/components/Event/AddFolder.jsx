@@ -23,14 +23,13 @@ const AddFolder = ({ open, onClose, id, setIsChange, folderId }) => {
     control,
     handleSubmit,
     formState: { errors },
-    getValues,
-    setValue,
     reset,
     watch,
   } = useForm();
   const { addFolder, folder, getFolder, updateFolders } = useFolderStore();
   const [loading, setLoading] = useState(false);
   const [imageFile, setImageFile] = useState(null);
+  const [speakerImageFile, setSpeakerImageFile] = useState(null);
 
   const learningCornerValue = watch("learningCorner", false);
 
@@ -49,6 +48,8 @@ const AddFolder = ({ open, onClose, id, setIsChange, folderId }) => {
         speaker: folder.speaker,
         designation: folder.designation,
         thumbnail: folder.thumbnail,
+        speakerImage: folder.speakerImage,
+        setSpeakerImageFile: folder.speakerImage,
         setImageFile: folder.thumbnail,
       });
     } else {
@@ -59,6 +60,7 @@ const AddFolder = ({ open, onClose, id, setIsChange, folderId }) => {
         speaker: "",
         designation: "",
         thumbnail: "",
+        speakerImage: "",
       });
     }
   }, [folder, folderId, reset]);
@@ -67,11 +69,27 @@ const AddFolder = ({ open, onClose, id, setIsChange, folderId }) => {
     setLoading(true);
     try {
       let imageUrl = formData?.thumbnail || "";
+      let speakerImageUrl = formData?.speakerImage || "";
       if (imageFile) {
         try {
           imageUrl = await new Promise(async (resolve, reject) => {
             try {
               const response = await upload(imageFile);
+              resolve(response?.data || "");
+            } catch (error) {
+              reject(error);
+            }
+          });
+        } catch (error) {
+          console.error("Failed to upload image:", error);
+          return;
+        }
+      }
+      if (speakerImageFile) {
+        try {
+          speakerImageUrl = await new Promise(async (resolve, reject) => {
+            try {
+              const response = await upload(speakerImageFile);
               resolve(response?.data || "");
             } catch (error) {
               reject(error);
@@ -91,6 +109,7 @@ const AddFolder = ({ open, onClose, id, setIsChange, folderId }) => {
           speaker: formData?.speaker,
           designation: formData?.designation,
           thumbnail: imageUrl,
+          speakerImage: speakerImageUrl,
         }),
       };
       if (folderId) {
@@ -119,7 +138,7 @@ const AddFolder = ({ open, onClose, id, setIsChange, folderId }) => {
         open={open}
         onClose={onClose}
         PaperProps={{
-          sx: { borderRadius: "12px" ,overflow:"auto"},
+          sx: { borderRadius: "12px", overflow: "auto" },
         }}
       >
         <form onSubmit={handleSubmit(onSubmit)}>
@@ -213,6 +232,26 @@ const AddFolder = ({ open, onClose, id, setIsChange, folderId }) => {
                     )}
                   />
                   <Typography variant="h7" color={"textTertiary"}>
+                    Speaker Image
+                  </Typography>
+                  <Controller
+                    name="speakerImage"
+                    control={control}
+                    defaultValue=""
+                    render={({ field: { onChange, value } }) => (
+                      <>
+                        <StyledEventUpload
+                          label="Upload Photo here"
+                          onChange={(file) => {
+                            setSpeakerImageFile(file);
+                            onChange(file);
+                          }}
+                          value={value}
+                        />
+                      </>
+                    )}
+                  />
+                  <Typography variant="h7" color={"textTertiary"}>
                     Thumbnail
                   </Typography>
                   <Controller
@@ -232,6 +271,7 @@ const AddFolder = ({ open, onClose, id, setIsChange, folderId }) => {
                       </>
                     )}
                   />
+
                   <Typography variant="h7" color={"textTertiary"}>
                     Description
                   </Typography>

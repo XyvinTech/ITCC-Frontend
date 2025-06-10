@@ -124,6 +124,7 @@ export const StyledEventUpload = ({ label, value, onChange }) => {
     <>
       <CustomTextField
         fullWidth
+        sx={{bgcolor:"white"}}
         label={label}
         InputProps={{
           endAdornment: (

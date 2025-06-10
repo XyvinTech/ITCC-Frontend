@@ -23,6 +23,7 @@ const AddFile = ({ open, onClose, id, setIsChange, learning }) => {
     handleSubmit,
     formState: { errors },
     setValue,
+    reset,
   } = useForm();
   const { addFile } = useFolderStore();
   const [imageFile, setImageFile] = useState(null);
@@ -65,7 +66,7 @@ const AddFile = ({ open, onClose, id, setIsChange, learning }) => {
         newData.url = formData?.url;
       }
       await addFile(id, { files: [newData] });
-
+      reset();
       setIsChange((prev) => !prev);
     } catch (error) {
       toast.error(error.message);
