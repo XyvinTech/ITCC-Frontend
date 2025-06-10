@@ -33,13 +33,23 @@ const MediaPage = () => {
 
   useEffect(() => {
     let filter = {};
-    if (selectedTab === 0) {
-      filter.type = "image";
-    } else if (selectedTab === 1) {
+    if (folder?.learningCorner) {
       filter.type = "video";
+    } else {
+      if (selectedTab === 0) {
+        filter.type = "image";
+      } else if (selectedTab === 1) {
+        filter.type = "video";
+      }
     }
     getFolder(id, filter);
-  }, [id, selectedTab, isChange]);
+  }, [id, selectedTab, isChange, folder?.learningCorner]);
+
+  useEffect(() => {
+    if (folder?.learningCorner && selectedTab > 0) {
+      setSelectedTab(0);
+    }
+  }, [folder?.learningCorner]);
 
   const handleDelete = async (fileId) => {
     try {
@@ -50,9 +60,16 @@ const MediaPage = () => {
       toast.error(error.message);
     }
   };
-
+  const getEmbedUrl = (url) => {
+    const videoIdMatch = url.match(
+      /(?:youtu\.be\/|youtube\.com\/(?:embed\/|v\/|watch\?v=|watch\?.+&v=))([^?&]+)/
+    );
+    const videoId = videoIdMatch && videoIdMatch[1];
+    return videoId ? `https://www.youtube.com/embed/${videoId}` : url;
+  };
   const renderMediaGrid = () => {
     if (!folder || !folder.files || folder.files.length === 0) {
+      const isVideoTab = folder?.learningCorner || selectedTab === 1;
       return (
         <Box
           sx={{
@@ -67,17 +84,16 @@ const MediaPage = () => {
             minHeight: "300px",
           }}
         >
-          {selectedTab === 0 ? (
-            <ImageIcon sx={{ fontSize: 60, color: "#aaa", mb: 2 }} />
-          ) : (
+          {isVideoTab ? (
             <VideoLibraryIcon sx={{ fontSize: 60, color: "#aaa", mb: 2 }} />
+          ) : (
+            <ImageIcon sx={{ fontSize: 60, color: "#aaa", mb: 2 }} />
           )}
           <Typography variant="h6" color="#666">
-            No {selectedTab === 0 ? "images" : "videos"} found
+            No {isVideoTab ? "videos" : "images"} found
           </Typography>
           <Typography variant="body2" color="#888" mt={1}>
-            Upload some {selectedTab === 0 ? "images" : "videos"} to see them
-            here
+            Upload some {isVideoTab ? "videos" : "images"} to see them here
           </Typography>
         </Box>
       );
@@ -86,7 +102,7 @@ const MediaPage = () => {
     return (
       <Grid container spacing={3} mt={1} px={2}>
         {folder.files.map((file) => (
-          <Grid item xs={12} sm={6} md={4} lg={3} key={file._id}>
+          <Grid item xs={12} sm={6} md={4} lg={4} key={file._id}>
             <Box
               sx={{
                 position: "relative",
@@ -144,8 +160,8 @@ const MediaPage = () => {
                 >
                   <iframe
                     width="100%"
-                    height="315"
-                    src="https://www.youtube.com/embed/_SC8cbPb6iU"
+                    height="100%"
+                    src={getEmbedUrl(file.url)}
                     title="YouTube video player"
                     frameBorder="0"
                     allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
@@ -157,6 +173,78 @@ const MediaPage = () => {
           </Grid>
         ))}
       </Grid>
+    );
+  };
+
+  const renderTabs = () => {
+    if (folder?.learningCorner) {
+      return (
+        <Tabs
+          value={0}
+          aria-label="tabs"
+          TabIndicatorProps={{
+            style: {
+              backgroundColor: "#2D9CDB",
+              height: 4,
+              borderRadius: "4px",
+            },
+          }}
+          sx={{
+            marginTop: "20px",
+            bgcolor: "white",
+            paddingTop: "4px",
+            "& .MuiTabs-indicator": {
+              backgroundColor: "#2D9CDB",
+            },
+            "& .MuiTab-root": {
+              textTransform: "none",
+              fontSize: "16px",
+              fontWeight: 600,
+              color: "#686465",
+            },
+            "& .MuiTab-root.Mui-selected": {
+              color: "#2D9CDB",
+            },
+          }}
+        >
+          <Tab label="Videos" />
+        </Tabs>
+      );
+    }
+
+    return (
+      <Tabs
+        value={selectedTab}
+        onChange={handleChange}
+        aria-label="tabs"
+        TabIndicatorProps={{
+          style: {
+            backgroundColor: "#2D9CDB",
+            height: 4,
+            borderRadius: "4px",
+          },
+        }}
+        sx={{
+          marginTop: "20px",
+          bgcolor: "white",
+          paddingTop: "4px",
+          "& .MuiTabs-indicator": {
+            backgroundColor: "#2D9CDB",
+          },
+          "& .MuiTab-root": {
+            textTransform: "none",
+            fontSize: "16px",
+            fontWeight: 600,
+            color: "#686465",
+          },
+          "& .MuiTab-root.Mui-selected": {
+            color: "#2D9CDB",
+          },
+        }}
+      >
+        <Tab label="Images" />
+        <Tab label="Videos" />
+      </Tabs>
     );
   };
 
@@ -187,40 +275,8 @@ const MediaPage = () => {
               onClick={() => setOpen(true)}
             />
           </Stack>
-          <Tabs
-            value={selectedTab}
-            onChange={handleChange}
-            aria-label="tabs"
-            TabIndicatorProps={{
-              style: {
-                backgroundColor: "#2D9CDB",
-                height: 4,
-                borderRadius: "4px",
-              },
-            }}
-            sx={{
-              marginTop: "20px",
-              bgcolor: "white",
-              paddingTop: "4px",
-              "& .MuiTabs-indicator": {
-                backgroundColor: "#2D9CDB",
-              },
-              "& .MuiTab-root": {
-                textTransform: "none",
-                fontSize: "16px",
-                fontWeight: 600,
-                color: "#686465",
-              },
-              "& .MuiTab-root.Mui-selected": {
-                color: "#2D9CDB",
-              },
-            }}
-          >
-            <Tab label="Images" />
 
-            <Tab label="Videos" />
-          </Tabs>
-
+          {renderTabs()}
           {renderMediaGrid()}
         </>
       </Box>
@@ -228,6 +284,7 @@ const MediaPage = () => {
         open={open}
         onClose={() => setOpen(false)}
         id={id}
+        learning={folder?.learningCorner}
         setIsChange={() => setIsChange((prev) => !prev)}
       />
     </>

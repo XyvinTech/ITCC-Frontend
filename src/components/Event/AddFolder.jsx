@@ -13,6 +13,10 @@ import { useEffect, useState } from "react";
 import StyledInput from "../../ui/StyledInput";
 import { useFolderStore } from "../../store/folderStore";
 import { toast } from "react-toastify";
+import StyledSwitch from "../../ui/StyledSwitch";
+import { StyledMultilineTextField } from "../../ui/StyledMultilineTextField";
+import { upload } from "../../api/adminapi";
+import { StyledEventUpload } from "../../ui/StyledEventUpload";
 
 const AddFolder = ({ open, onClose, id, setIsChange, folderId }) => {
   const {
@@ -22,9 +26,13 @@ const AddFolder = ({ open, onClose, id, setIsChange, folderId }) => {
     getValues,
     setValue,
     reset,
+    watch,
   } = useForm();
   const { addFolder, folder, getFolder, updateFolders } = useFolderStore();
   const [loading, setLoading] = useState(false);
+  const [imageFile, setImageFile] = useState(null);
+
+  const learningCornerValue = watch("learningCorner", false);
 
   useEffect(() => {
     if (folderId) {
@@ -36,10 +44,21 @@ const AddFolder = ({ open, onClose, id, setIsChange, folderId }) => {
     if (folder && folderId) {
       reset({
         name: folder.name,
+        learningCorner: folder.learningCorner,
+        description: folder.description,
+        speaker: folder.speaker,
+        designation: folder.designation,
+        thumbnail: folder.thumbnail,
+        setImageFile: folder.thumbnail,
       });
     } else {
       reset({
         name: "",
+        learningCorner: false,
+        description: "",
+        speaker: "",
+        designation: "",
+        thumbnail: "",
       });
     }
   }, [folder, folderId, reset]);
@@ -47,9 +66,32 @@ const AddFolder = ({ open, onClose, id, setIsChange, folderId }) => {
   const onSubmit = async (formData) => {
     setLoading(true);
     try {
+      let imageUrl = formData?.thumbnail || "";
+      if (imageFile) {
+        try {
+          imageUrl = await new Promise(async (resolve, reject) => {
+            try {
+              const response = await upload(imageFile);
+              resolve(response?.data || "");
+            } catch (error) {
+              reject(error);
+            }
+          });
+        } catch (error) {
+          console.error("Failed to upload image:", error);
+          return;
+        }
+      }
       const newData = {
         name: formData?.name,
         event: id,
+        learningCorner: formData?.learningCorner,
+        ...(formData?.learningCorner && {
+          description: formData?.description,
+          speaker: formData?.speaker,
+          designation: formData?.designation,
+          thumbnail: imageUrl,
+        }),
       };
       if (folderId) {
         await updateFolders(folderId, newData);
@@ -77,7 +119,7 @@ const AddFolder = ({ open, onClose, id, setIsChange, folderId }) => {
         open={open}
         onClose={onClose}
         PaperProps={{
-          sx: { borderRadius: "12px" },
+          sx: { borderRadius: "12px" ,overflow:"auto"},
         }}
       >
         <form onSubmit={handleSubmit(onSubmit)}>
@@ -122,6 +164,92 @@ const AddFolder = ({ open, onClose, id, setIsChange, folderId }) => {
                   </>
                 )}
               />
+
+              <Controller
+                name="learningCorner"
+                control={control}
+                defaultValue={false}
+                render={({ field: { value, onChange } }) => (
+                  <StyledSwitch
+                    variant="primary"
+                    checked={value}
+                    onChange={(e) => onChange(e.target.checked)}
+                  />
+                )}
+              />
+
+              {learningCornerValue && (
+                <>
+                  <Typography variant="h7" color={"textTertiary"}>
+                    Speaker Name
+                  </Typography>
+                  <Controller
+                    name="speaker"
+                    control={control}
+                    defaultValue=""
+                    render={({ field }) => (
+                      <>
+                        <StyledInput
+                          placeholder={"Enter Speaker Name"}
+                          {...field}
+                        />
+                      </>
+                    )}
+                  />
+                  <Typography variant="h7" color={"textTertiary"}>
+                    Designation
+                  </Typography>
+                  <Controller
+                    name="designation"
+                    control={control}
+                    defaultValue=""
+                    render={({ field }) => (
+                      <>
+                        <StyledInput
+                          placeholder={"Enter Designation"}
+                          {...field}
+                        />
+                      </>
+                    )}
+                  />
+                  <Typography variant="h7" color={"textTertiary"}>
+                    Thumbnail
+                  </Typography>
+                  <Controller
+                    name="thumbnail"
+                    control={control}
+                    defaultValue=""
+                    render={({ field: { onChange, value } }) => (
+                      <>
+                        <StyledEventUpload
+                          label="Upload Photo here"
+                          onChange={(file) => {
+                            setImageFile(file);
+                            onChange(file);
+                          }}
+                          value={value}
+                        />
+                      </>
+                    )}
+                  />
+                  <Typography variant="h7" color={"textTertiary"}>
+                    Description
+                  </Typography>
+                  <Controller
+                    name="description"
+                    control={control}
+                    defaultValue=""
+                    render={({ field }) => (
+                      <>
+                        <StyledMultilineTextField
+                          placeholder={"Enter Description"}
+                          {...field}
+                        />
+                      </>
+                    )}
+                  />
+                </>
+              )}
             </Stack>
           </DialogContent>
           <Stack

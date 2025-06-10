@@ -9,7 +9,7 @@ import {
 import { Controller, useForm } from "react-hook-form";
 import { ReactComponent as CloseIcon } from "../../assets/icons/CloseIcon.svg";
 import { StyledButton } from "../../ui/StyledButton";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import StyledInput from "../../ui/StyledInput";
 import { useFolderStore } from "../../store/folderStore";
 import { toast } from "react-toastify";
@@ -17,17 +17,26 @@ import StyledSelectField from "../../ui/StyledSelectField";
 import { StyledEventUpload } from "../../ui/StyledEventUpload";
 import { upload } from "../../api/adminapi";
 
-const AddFile = ({ open, onClose, id, setIsChange }) => {
+const AddFile = ({ open, onClose, id, setIsChange, learning }) => {
   const {
     control,
     handleSubmit,
     formState: { errors },
-    getValues,
+    setValue,
   } = useForm();
   const { addFile } = useFolderStore();
   const [imageFile, setImageFile] = useState(null);
   const [type, setType] = useState(null);
   const [loading, setLoading] = useState(false);
+  useEffect(() => {
+    if (learning) {
+      setType("video");
+      setValue("type", { value: "video", label: "Video" });
+    } else {
+      setType(null);
+      setValue("type", null);
+    }
+  }, [learning, setValue]);
   const onSubmit = async (formData) => {
     setLoading(true);
     try {
@@ -99,32 +108,36 @@ const AddFile = ({ open, onClose, id, setIsChange }) => {
             </Box>
           </DialogTitle>
           <DialogContent
-            sx={{ height: "auto", width: "430px", backgroundColor: "#fff" }}
+            sx={{ minHeight: "300px", width: "430px", backgroundColor: "#fff" }}
           >
             <Stack spacing={2} paddingTop={2} mb={6}>
-              <Typography variant="h7" color={"textTertiary"}>
-                Type
-              </Typography>
-              <Controller
-                name="type"
-                control={control}
-                render={({ field }) => (
-                  <>
-                    <StyledSelectField
-                      placeholder="Enter Event Type"
-                      options={[
-                        { value: "image", label: "Image" },
-                        { value: "video", label: "Video" },
-                      ]}
-                      {...field}
-                      onChange={(e) => {
-                        setType(e?.value);
-                        field.onChange(e);
-                      }}
-                    />
-                  </>
-                )}
-              />
+              {!learning && (
+                <>
+                  <Typography variant="h7" color={"textTertiary"}>
+                    Type
+                  </Typography>
+                  <Controller
+                    name="type"
+                    control={control}
+                    render={({ field }) => (
+                      <>
+                        <StyledSelectField
+                          placeholder="Enter Event Type"
+                          options={[
+                            { value: "image", label: "Image" },
+                            { value: "video", label: "Video" },
+                          ]}
+                          {...field}
+                          onChange={(e) => {
+                            setType(e?.value);
+                            field.onChange(e);
+                          }}
+                        />
+                      </>
+                    )}
+                  />
+                </>
+              )}
               {type === "image" && (
                 <>
                   <Typography variant="h7" color={"textTertiary"}>
