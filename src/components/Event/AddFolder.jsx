@@ -183,19 +183,23 @@ const AddFolder = ({ open, onClose, id, setIsChange, folderId }) => {
                   </>
                 )}
               />
-
-              <Controller
-                name="learningCorner"
-                control={control}
-                defaultValue={false}
-                render={({ field: { value, onChange } }) => (
-                  <StyledSwitch
-                    variant="primary"
-                    checked={value}
-                    onChange={(e) => onChange(e.target.checked)}
-                  />
-                )}
-              />
+              <Stack direction={"row"} justifyContent={"space-between"}>
+                <Typography variant="h7" color={"textTertiary"}>
+                  Add to learning corner
+                </Typography>
+                <Controller
+                  name="learningCorner"
+                  control={control}
+                  defaultValue={false}
+                  render={({ field: { value, onChange } }) => (
+                    <StyledSwitch
+                      variant="primary"
+                      checked={value}
+                      onChange={(e) => onChange(e.target.checked)}
+                    />
+                  )}
+                />
+              </Stack>
 
               {learningCornerValue && (
                 <>
