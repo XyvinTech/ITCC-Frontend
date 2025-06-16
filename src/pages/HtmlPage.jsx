@@ -106,7 +106,7 @@ const MemberProfileCard = () => {
   }
   const handleSaveContact = async () => {
     try {
-      if (!userData || !userData.name || !userData.phone || !userData.email) {
+      if (!userData || !userData.name || !userData.phone ) {
         throw new Error(
           "Incomplete user data. Please provide name, phone, and email."
         );
@@ -117,7 +117,7 @@ const MemberProfileCard = () => {
         .reverse()
         .join(";")}\r\nFN:${userData.name}\r\nTEL;TYPE=CELL:${
         userData.phone
-      }\r\nEMAIL:${userData.email}\r\nEND:VCARD`;
+      }\r\nEMAIL:${userData?.email}\r\nEND:VCARD`;
 
       const blob = new Blob([vCardContent], {
         type: "text/vcard;charset=utf-8",
