@@ -65,7 +65,13 @@ const ProductView = ({ open, onClose, onChange, data, onEdit, view }) => {
           </Box>
         </DialogTitle>
         <Divider />
-        <DialogContent sx={{ height: "auto", padding: 0 }}>
+        <DialogContent
+          dividers
+          sx={{
+            maxHeight: "70vh",
+            overflowY: "auto",
+          }}
+        >
           <Stack spacing={2} padding={2} justifyContent={"center"}>
             <Box display="flex" justifyContent="center">
               <img src={data?.image} width={"461px"} height={"262px"} />
